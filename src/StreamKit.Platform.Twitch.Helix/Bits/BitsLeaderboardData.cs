@@ -20,20 +20,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-
 namespace StreamKit.Platform.Twitch.Helix
 {
-    public class BitsLeaderboardResponse : HelixDataResponse<BitsLeaderboardData>
+    public class BitsLeaderboardData
     {
         /// <summary>
-        ///     The start and end dates of the reporting window.
+        ///     A unique id that identifies the user on the leaderboard.
         /// </summary>
-        public ApiDateRange DateRange { get; set; }
-        
+        public string UserId { get; set; }
+
         /// <summary>
-        ///     The number of users present in the reported data.
+        ///     The unlocalized name of the user on the leaderboard.
         /// </summary>
-        public int Total { get; set; }
+        public string UserLogin { get; set; }
+
+        /// <summary>
+        ///     The potentially localized name of the user the leaderboard, or
+        ///     their login name with varying capitalization.
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
+        ///     The position the user is on the leaderboard.
+        /// </summary>
+        public int Rank { get; set; }
+
+        /// <summary>
+        ///     The number of bits the user has cheered thus far.
+        /// </summary>
+        public int Score { get; set; }
     }
 }
