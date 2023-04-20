@@ -20,15 +20,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+
 namespace StreamKit.Platform.Twitch.Helix.Analytics
 {
-    public class GameAnalyticsResponse : HelixDataResponse<GameAnalyticsData>
+    public class GameAnalyticsData
     {
         /// <summary>
-        ///     Contains the information used to page through the list of
-        ///     results. The cursor within the object is either null or empty
-        ///     when there are no more pages left to page through.
+        ///     The id that identifies the game that the report was generated
+        ///     for.
         /// </summary>
-        public HelixPagination Pagination { get; set; }
+        public string GameId { get; set; }
+
+        /// <summary>
+        ///     A unique url that can be used to download the report.
+        /// </summary>
+        /// <remarks>
+        ///     The url provided is temporary, and will expire after a certain
+        ///     amount of time has elapsed. For the exact window you may use the
+        ///     url you can refer to Twitch's official documentation at
+        ///     https://dev.twitch.tv/docs/api/reference/#get-game-analytics
+        /// </remarks>
+        public Uri Url { get; set; }
+        
+        /// <summary>
+        ///     The type of report being presented.
+        /// </summary>
+        public string Type { get; set; }
+        
+        /// <summary>
+        ///     The reporting window's start and end dates.
+        /// </summary>
+        public ApiDateRange DateRange { get; set; }
     }
 }
