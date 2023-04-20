@@ -22,13 +22,9 @@
 
 namespace StreamKit.Platform.Twitch.Helix.Analytics
 {
-    public class GameAnalyticsResponse : HelixDataResponse<GameAnalyticsData>
+    public class GameAnalyticsResponse : HelixDataResponse<GameAnalyticsData>, IPaginated
     {
-        /// <summary>
-        ///     Contains the information used to page through the list of
-        ///     results. The cursor within the object is either null or empty
-        ///     when there are no more pages left to page through.
-        /// </summary>
-        public HelixPagination Pagination { get; set; }
+        /// <inheritdoc cref="IPaginated.Pagination"/>
+        public IPaginationCursor Pagination { get; set; }
     }
 }

@@ -20,11 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.Helix.Analytics
+namespace StreamKit.Platform.Twitch.Helix
 {
-    public class ExtensionAnalyticsResponse : HelixDataResponse<ExtensionAnalyticsData>, IPaginated
+    public interface IPaginated
     {
-        /// <inheritdoc cref="IPaginated.Pagination"/>
+        /// <summary>
+        ///     Contains the information used to page through the list of
+        ///     results. The cursor within the object is either null or empty
+        ///     when there are no more pages left to page through.
+        /// </summary>
         public IPaginationCursor Pagination { get; set; }
     }
 }
