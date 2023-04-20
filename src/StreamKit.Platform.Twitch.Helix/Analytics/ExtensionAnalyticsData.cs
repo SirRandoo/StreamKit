@@ -27,7 +27,7 @@ namespace StreamKit.Platform.Twitch.Helix.Analytics
         public string Type { get; set; }
 
         /// <summary>
-        ///     The reporting window's start and end dates in RFC3339 format.
+        ///     The reporting window's start and end dates.
         /// </summary>
         public ApiDateRange DateRange { get; set; }
     }
