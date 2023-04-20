@@ -5,8 +5,8 @@ namespace StreamKit.Platform.Twitch.Helix.Analytics
     public class ExtensionAnalyticsData
     {
         /// <summary>
-        ///     The id that identifies the extension that the report was
-        ///     generated for.
+        ///     A unique id that identifies the extension the accompanying
+        ///     analytics data is for.
         /// </summary>
         public string ExtensionId { get; set; }
 

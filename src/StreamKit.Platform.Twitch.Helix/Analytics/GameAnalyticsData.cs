@@ -27,8 +27,8 @@ namespace StreamKit.Platform.Twitch.Helix.Analytics
     public class GameAnalyticsData
     {
         /// <summary>
-        ///     The id that identifies the game that the report was generated
-        ///     for.
+        ///     A unique id that identifies the game the accompanying analytics
+        ///     data is for.
         /// </summary>
         public string GameId { get; set; }
 
@@ -42,12 +42,12 @@ namespace StreamKit.Platform.Twitch.Helix.Analytics
         ///     https://dev.twitch.tv/docs/api/reference/#get-game-analytics
         /// </remarks>
         public Uri Url { get; set; }
-        
+
         /// <summary>
         ///     The type of report being presented.
         /// </summary>
         public string Type { get; set; }
-        
+
         /// <summary>
         ///     The reporting window's start and end dates.
         /// </summary>
