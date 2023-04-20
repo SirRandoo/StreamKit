@@ -1,0 +1,6 @@
+﻿<Project>
+    <PropertyGroup>
+        <Nullable>disable</Nullable>
+        <ImplicitUsings>false</ImplicitUsings>
+    </PropertyGroup>
+</Project>

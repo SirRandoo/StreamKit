@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta06" />
+      <PackageReference Include="WatsonWebsocket" Version="4.0.8" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Title>StreamKit.Platform.Abstractions</Title>
+        <Description>A library for providing an api for adding support for a given streaming platform for the RimWorld mod "StreamKit".</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\StreamKit.Api\StreamKit.Api.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta06"/>
+    </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Title>StreamKit.UX.Abstractions</Title>
+        <Description>A library of UX abstractions. This library does nothing on its own, and requires a specific UX implementation backing, like UIMGUI (Unity's IMGUI framework).</Description>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="System.Reactive" Version="5.0.0" />
+    </ItemGroup>
+</Project>

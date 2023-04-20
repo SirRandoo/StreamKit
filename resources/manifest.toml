@@ -1,0 +1,29 @@
+﻿[metadata]
+id = "sirrandoo.streamkit"
+name = "StreamKit"
+version = "1.0.0"
+workshop_id = -1
+description = """
+An interactivity mod based off my time working on Twitch Toolkit.
+"""
+
+[[metadata.authors]]
+name = "sirrandoo"
+
+[[supported_versions]]
+version = "[1.4]"
+status = "SUPPORTED"
+
+[[dependencies]]
+id = "brrainz.harmony"
+name = "Harmony"
+workshop_id = 2009463077
+download_url = "https://github.com/pardeike/HarmonyRimWorld/releases/latest"
+
+[[load_folders]]
+version = "*"
+
+paths = [
+    "Releases/Common/",
+    "Releases/Bootstrap/$(RimWorldMajor).$(RimWorldMinor)/"
+]

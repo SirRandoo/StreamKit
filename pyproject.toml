@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "streamkit"
+version = "0.1.0"
+description = ""
+authors = ["rando <8146689+SirRandoo@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pip = "^22.3.1"
+pydantic = "^1.10.2"
+rich-click = "^1.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Description>A library for accessing Twitch's Helix API.</Description>
+    </PropertyGroup>
+</Project>

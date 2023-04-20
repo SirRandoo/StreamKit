@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Description>A Twitch library written for "StreamKit", an interactivity mod for the game "RimWorld".</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\StreamKit.Api\StreamKit.Api.csproj" />
+        <ProjectReference Include="..\StreamKit.Data.Abstractions\StreamKit.Data.Abstractions.csproj" />
+        <ProjectReference Include="..\StreamKit.Platform.Abstractions\StreamKit.Platform.Abstractions.csproj" />
+        <ProjectReference Include="..\StreamKit.UX.Abstractions\StreamKit.UX.Abstractions.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="0SirRandoo.CommonLib" Version="1.12.1" />
+        <PackageReference Include="WatsonWebsocket" Version="4.0.8" />
+    </ItemGroup>
+</Project>

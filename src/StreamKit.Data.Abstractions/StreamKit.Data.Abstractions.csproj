@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    
+    <ItemGroup>
+        <ProjectReference Include="..\StreamKit.Api\StreamKit.Api.csproj" />
+        <ProjectReference Include="..\StreamKit.Platform.Abstractions\StreamKit.Platform.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>
