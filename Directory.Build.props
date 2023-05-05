@@ -39,8 +39,9 @@
     </PropertyGroup>
     
     <!-- Global Dependencies -->
-    <ItemGroup>
+    <ItemGroup Condition="'$(Standalone)' == ''">
         <PackageReference Include="Krafs.Rimworld.Ref" Version="$(RimWorldVersion).*" ExcludeAssets="runtime"/>
+        <PackageReference Include="RimWorld.MultiplayerAPI" Version="0.4.0"/>
     </ItemGroup>
     
     <!-- Global assembly data (auto-updated) -->
