@@ -4,7 +4,6 @@
         <Description>A library for housing UX implementations backed by Unity's IMGUI framework.</Description>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="System.Reactive" Version="5.0.0" />
         <PackageReference Include="0SirRandoo.CommonLib" Version="1.12.1" />
     </ItemGroup>
     <ItemGroup>

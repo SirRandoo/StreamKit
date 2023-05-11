@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Reactive.Subjects;
+using System.ComponentModel;
 
 namespace StreamKit.UX.Abstractions
 {
@@ -28,8 +28,8 @@ namespace StreamKit.UX.Abstractions
     ///     An interface for outlining a UI element that accepts user input.
     /// </summary>
     /// <typeparam name="T">The type of input this element accepts</typeparam>
-    public interface IInputWidget<T> : IWidget
+    public interface IInputWidget<T> : IWidget, INotifyPropertyChanged
     {
-        ISubject<T> Value { get; set; }
+        T Value { get; set; }
     }
 }
