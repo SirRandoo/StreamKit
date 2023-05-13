@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Mod", "src\StreamKit.Mod\StreamKit.Mod.csproj", "{9E54D4FA-BDFE-4853-90CD-268A269B2419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Wrappers.Async", "src\StreamKit.Wrappers.Async\StreamKit.Wrappers.Async.csproj", "{81B15AE8-CFF8-4CD3-B087-F9F9A6D6F486}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Async.Wrappers", "src\StreamKit.Async.Wrappers\StreamKit.Async.Wrappers.csproj", "{81B15AE8-CFF8-4CD3-B087-F9F9A6D6F486}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.UX.UImgui", "src\StreamKit.UX.UImgui\StreamKit.UX.UImgui.csproj", "{92F1317F-A265-4B8F-B8ED-7339DB31D178}"
 EndProject

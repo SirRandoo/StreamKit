@@ -26,7 +26,7 @@ using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 
-namespace StreamKit.Wrappers.Async
+namespace StreamKit.Async.Wrappers
 {
     /// <summary>
     ///     A set of wrappers around the synchronous, unsafe methods within

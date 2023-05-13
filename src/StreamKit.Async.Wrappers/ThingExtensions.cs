@@ -21,32 +21,42 @@
 // SOFTWARE.
 
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using RimWorld;
+using Verse;
 
-namespace StreamKit.Wrappers.Async
+namespace StreamKit.Async.Wrappers
 {
     /// <summary>
     ///     A set of wrappers around the synchronous, unsafe methods within
-    ///     the <see cref="IncidentWorker"/> class.
+    ///     the <see cref="Thing"/> class.
     /// </summary>
     /// <remarks>
     ///     Usage of the extensions provided by this class are to be used
     ///     with care as RimWorld was not designed with asynchronous code in
     ///     mind.
     /// </remarks>
-    public static class IncidentWorkerExtensions
+    public static class ThingExtensions
     {
-        /// <inheritdoc cref="IncidentWorker.FiredTooRecently"/>
-        public static async Task<bool> FiredTooRecentlyAsync([NotNull] this IncidentWorker worker, IIncidentTarget target) =>
-            await TaskExtensions.OnMainAsync(worker.FiredTooRecently, target);
+        /// <inheritdoc cref="ThingCompUtility.TryGetComp{T}"/>
+        public static async Task<T> GetCompAsync<T>(this Thing thing) where T : ThingComp
+        {
+            return await TaskExtensions.OnMainAsync(thing.TryGetComp<T>);
+        }
 
-        /// <inheritdoc cref="IncidentWorker.CanFireNow"/>
-        public static async Task<bool> CanFireNowAsync([NotNull] this IncidentWorker worker, IncidentParms @params) =>
-            await TaskExtensions.OnMainAsync(worker.CanFireNow, @params);
+        /// <inheritdoc cref="QualityUtility.TryGetQuality"/>
+        public static async Task<QualityCategory?> GetQualityAsync(this Thing thing)
+        {
+            QualityCategory? GetQuality(Thing t)
+            {
+                if (t.TryGetQuality(out QualityCategory category))
+                {
+                    return category;
+                }
 
-        /// <inheritdoc cref="IncidentWorker.TryExecute"/>
-        public static async Task<bool> TryExecuteAsync([NotNull] this IncidentWorker worker, IncidentParms @params) =>
-            await TaskExtensions.OnMainAsync(worker.TryExecute, @params);
+                return null; 
+            }
+
+            return await TaskExtensions.OnMainAsync(GetQuality, thing);
+        }
     }
 }

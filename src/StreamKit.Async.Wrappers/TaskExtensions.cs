@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Verse;
 
-namespace StreamKit.Wrappers.Async
+namespace StreamKit.Async.Wrappers
 {
     [StaticConstructorOnStartup]
     internal static class TaskExtensions
