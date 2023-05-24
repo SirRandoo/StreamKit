@@ -56,5 +56,10 @@ namespace StreamKit.Data.Abstractions
         ///     The morality of purchasing the product.
         /// </summary>
         Morality Morality { get; set; }
+
+        /// <summary>
+        ///     Whether the transaction was refunded to the viewer.
+        /// </summary>
+        bool Refunded { get; set; }
     }
 }
