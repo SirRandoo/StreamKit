@@ -24,22 +24,18 @@ using System.Threading.Tasks;
 
 namespace StreamKit.Platform.Abstractions
 {
-    /// <summary>
-    ///     An interface for outlining a connection to a
-    ///     <see cref="IPlatform"/>'s service.
-    /// </summary>
-    public interface IConnection : IPlatformSided
+    public interface IConnection<in T>
     {
-        /// <summary>
-        ///     The current state of the connection.
-        /// </summary>
-        ConnectionState State { get; }
-
         /// <summary>
         ///     Returns whether or not the underlying connection being
         ///     represented is connected to the platform's servers.
         /// </summary>
         bool Connected { get; }
+
+        /// <summary>
+        ///     The current state of the connection.
+        /// </summary>
+        ConnectionState State { get; }
 
         /// <summary>
         ///     Connects to the <see cref="IPlatform"/>'s service.
@@ -48,7 +44,7 @@ namespace StreamKit.Platform.Abstractions
         ///     Whether a connection could be established to the
         ///     <see cref="IPlatform"/>'s service.
         /// </returns>
-        Task<bool> Connect();
+        Task<bool> ConnectAsync();
 
         /// <summary>
         ///     Disconnects from the <see cref="IPlatform"/>'s service.
@@ -57,13 +53,13 @@ namespace StreamKit.Platform.Abstractions
         ///     Whether the connection to the <see cref="IPlatform"/>'s
         ///     service was successfully closed.
         /// </returns>
-        Task<bool> Disconnect();
+        Task<bool> DisconnectAsync();
 
         /// <summary>
-        ///     Sends a message to the platform.
+        ///     Sends a payload to the platform.
         /// </summary>
-        /// <param name="message">The message to send to the platform.</param>
-        /// <returns>Whether the message was successfully sent.</returns>
-        Task<bool> SendMessage(IResponse message);
+        /// <param name="payload">The payload to send to the platform.</param>
+        /// <returns>Whether the payload was successfully sent.</returns>
+        Task<bool> SendAsync(T payload);
     }
 }

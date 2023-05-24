@@ -31,7 +31,7 @@ using WatsonWebsocket;
 
 namespace StreamKit.Platform.Twitch
 {
-    public class TwitchConnection : IConnection
+    public class TwitchConnection : IConnection<IResponse>, IPlatformSided
     {
         private const string TwitchIrcServerUrl = "wss://irc-ws.chat.twitch.tv:443";
         private const string ConnectionId = "Platforms.Twitch.Connection";
@@ -62,7 +62,7 @@ namespace StreamKit.Platform.Twitch
         public bool Connected => _socket.Connected;
 
         /// <inheritdoc/>
-        public async Task<bool> Connect()
+        public async Task<bool> ConnectAsync()
         {
             if (string.IsNullOrEmpty(Platform.Settings.Channel))
             {
@@ -123,7 +123,7 @@ namespace StreamKit.Platform.Twitch
 
             while (triesLeft > 0)
             {
-                if (await Connect())
+                if (await ConnectAsync())
                 {
                     return true;
                 }
@@ -161,7 +161,7 @@ namespace StreamKit.Platform.Twitch
         }
 
         /// <inheritdoc/>
-        public async Task<bool> Disconnect()
+        public async Task<bool> DisconnectAsync()
         {
             try
             {
@@ -182,7 +182,7 @@ namespace StreamKit.Platform.Twitch
         }
 
         /// <inheritdoc/>
-        public async Task<bool> SendMessage([NotNull] IResponse message) => await _socket.SendAsync(message.ToString());
+        public async Task<bool> SendAsync([NotNull] IResponse message) => await _socket.SendAsync(message.ToString());
 
         public async Task<bool> SendRawMessage(string ircMessage) => await _socket.SendAsync(ircMessage);
 

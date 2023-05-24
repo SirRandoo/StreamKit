@@ -35,7 +35,7 @@ namespace StreamKit.Platform.Twitch
         public string Name { get; set; }
 
         /// <inheritdoc/>
-        public IConnection Connection { get; }
+        public IConnection<IResponse> Connection { get; }
 
         /// <inheritdoc/>
         public IPlatformSettings Settings { get; }

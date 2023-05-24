@@ -33,7 +33,7 @@ namespace StreamKit.Platform.Abstractions
         /// <summary>
         ///     The underlying connection to the platform.
         /// </summary>
-        IConnection Connection { get; }
+        IConnection<IResponse> Connection { get; }
 
         /// <summary>
         ///     The settings associated with the platform.
