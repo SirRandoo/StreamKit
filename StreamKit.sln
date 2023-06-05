@@ -17,10 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Mod", "src\Stream
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Async.Wrappers", "src\StreamKit.Async.Wrappers\StreamKit.Async.Wrappers.csproj", "{81B15AE8-CFF8-4CD3-B087-F9F9A6D6F486}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.UX.UImgui", "src\StreamKit.UX.UImgui\StreamKit.UX.UImgui.csproj", "{92F1317F-A265-4B8F-B8ED-7339DB31D178}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.UX.Abstractions", "src\StreamKit.UX.Abstractions\StreamKit.UX.Abstractions.csproj", "{F6D0EC80-A1F2-4DDA-B823-68157C588C3F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Data.Abstractions", "src\StreamKit.Data.Abstractions\StreamKit.Data.Abstractions.csproj", "{9C72D742-EF69-4464-A789-C02146CEA5F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Bootstrap", "src\StreamKit.Bootstrap\StreamKit.Bootstrap.csproj", "{17378363-0454-48EC-B5AE-72E9D542F7E8}"
@@ -59,14 +55,6 @@ Global
 		{81B15AE8-CFF8-4CD3-B087-F9F9A6D6F486}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81B15AE8-CFF8-4CD3-B087-F9F9A6D6F486}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81B15AE8-CFF8-4CD3-B087-F9F9A6D6F486}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92F1317F-A265-4B8F-B8ED-7339DB31D178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92F1317F-A265-4B8F-B8ED-7339DB31D178}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92F1317F-A265-4B8F-B8ED-7339DB31D178}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92F1317F-A265-4B8F-B8ED-7339DB31D178}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6D0EC80-A1F2-4DDA-B823-68157C588C3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6D0EC80-A1F2-4DDA-B823-68157C588C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6D0EC80-A1F2-4DDA-B823-68157C588C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6D0EC80-A1F2-4DDA-B823-68157C588C3F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C72D742-EF69-4464-A789-C02146CEA5F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C72D742-EF69-4464-A789-C02146CEA5F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C72D742-EF69-4464-A789-C02146CEA5F6}.Release|Any CPU.ActiveCfg = Release|Any CPU

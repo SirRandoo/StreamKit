@@ -6,7 +6,6 @@
         <ProjectReference Include="..\StreamKit.Api\StreamKit.Api.csproj" />
         <ProjectReference Include="..\StreamKit.Data.Abstractions\StreamKit.Data.Abstractions.csproj" />
         <ProjectReference Include="..\StreamKit.Platform.Abstractions\StreamKit.Platform.Abstractions.csproj" />
-        <ProjectReference Include="..\StreamKit.UX.Abstractions\StreamKit.UX.Abstractions.csproj" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="0SirRandoo.CommonLib" Version="1.12.1" />
