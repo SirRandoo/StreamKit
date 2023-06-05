@@ -1,17 +1,17 @@
 ﻿// MIT License
-// 
+//
 // Copyright (c) 2023 SirRandoo
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -31,7 +31,6 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using SirRandoo.CommonLib.Entities;
 using SirRandoo.CommonLib.Interfaces;
-using UnityEngine;
 using Verse;
 
 namespace StreamKit.Bootstrap
@@ -129,28 +128,6 @@ namespace StreamKit.Bootstrap
                 }
 
                 Logger.Error(stringBuilder.ToString());
-            }
-        }
-
-        /// <summary>
-        ///     Loads a native assembly.
-        /// </summary>
-        /// <param name="path">The file path of the assembly.</param>
-        /// <returns>A pointer to the assembly that was loaded.</returns>
-        public static IntPtr LoadNativeAssembly(string path)
-        {
-            switch (UnityData.platform)
-            {
-                case RuntimePlatform.WindowsPlayer:
-                    return PInvokesWindows.LoadLibrary(path);
-                case RuntimePlatform.OSXPlayer:
-                    return PInvokesOsx.dlopen(path, (int)PosixDlOpen.Lazy);
-                case RuntimePlatform.LinuxPlayer:
-                    return PInvokesLinux.dlopen(path, (int)PosixDlOpen.Lazy);
-                default:
-                    Logger.Error($"Attempted to load native assembly @ {path} on unsupported platform '{UnityData.platform.ToString()}'");
-
-                    return IntPtr.Zero;
             }
         }
 
