@@ -20,16 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Data.Abstractions
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     Represents a definition for ratelimiting a resource.
+/// </summary>
+public interface IRateLimited
 {
     /// <summary>
-    ///     Represents a definition for ratelimiting a resource.
+    ///     The underlying data for the ratelimited resource.
     /// </summary>
-    public interface IRateLimited
-    {
-        /// <summary>
-        ///     The underlying data for the ratelimited resource.
-        /// </summary>
-        IRateLimitData RateLimits { get; set; }
-    }
+    IRateLimitData RateLimits { get; set; }
 }

@@ -3,40 +3,35 @@ using SirRandoo.CommonLib.Helpers;
 using UnityEngine;
 using Verse;
 
-namespace StreamKit.Bootstrap
+namespace StreamKit.Bootstrap;
+
+[StaticConstructorOnStartup]
+[UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
+internal class BootstrapMod : Mod
 {
-    [StaticConstructorOnStartup]
-    [UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
-    internal class BootstrapMod : Mod
+    private bool _isKitLoaded;
+
+    /// <inheritdoc/>
+    public BootstrapMod(ModContentPack content) : base(content)
     {
-        private bool _isKitLoaded;
+    }
 
-        /// <inheritdoc/>
-        public BootstrapMod(ModContentPack content) : base(content)
+    /// <inheritdoc/>
+    public override string? SettingsCategory()
+    {
+        if (!_isKitLoaded && ModLister.GetActiveModWithIdentifier("sirrandoo.streamkit") is null)
         {
-            Instance = this;
+            return "StreamKit - Bootstrapper";
         }
 
-        internal static BootstrapMod Instance { get; private set; }
+        _isKitLoaded = true;
 
-        /// <inheritdoc/>
-        [CanBeNull]
-        public override string SettingsCategory()
-        {
-            if (!_isKitLoaded && ModLister.GetActiveModWithIdentifier("sirrandoo.streamkit") == null)
-            {
-                return "StreamKit - Bootstrapper";
-            }
+        return null;
+    }
 
-            _isKitLoaded = true;
-
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public override void DoSettingsWindowContents(Rect inRect)
-        {
-            UiHelper.Label(inRect, "StreamKit.Bootstrap.Info".TranslateSimple());
-        }
+    /// <inheritdoc/>
+    public override void DoSettingsWindowContents(Rect inRect)
+    {
+        UiHelper.Label(inRect, "StreamKit.Bootstrap.Info".TranslateSimple());
     }
 }

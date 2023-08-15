@@ -20,15 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+/// <summary>
+///     Represents a container object for messages that contain payloads.
+/// </summary>
+/// <typeparam name="T">The type of the object within the payload.</typeparam>
+public class EventSubPayload<T> : IEventSubPayload<T>
 {
-    /// <summary>
-    ///     Represents a container object for messages that contain payloads.
-    /// </summary>
-    /// <typeparam name="T">The type of the object within the payload.</typeparam>
-    public class EventSubPayload<T> : IEventSubPayload<T>
-    {
-        /// <inheritdoc/>
-        public T Payload { get; set; }
-    }
+    /// <inheritdoc/>
+    public T Payload { get; set; }
 }

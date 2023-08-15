@@ -23,43 +23,42 @@
 using System;
 using StreamKit.Api;
 
-namespace StreamKit.Data.Abstractions
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     Represents a transaction made by a viewer.
+///     <br/>
+///     <br/>
+///     Transactions serve as a historical record of a viewer's purchases
+///     for use in the reputation system. As the reputation system is
+///     large and complex, you should refer to the documentation for it
+///     for further information.
+/// </summary>
+public interface ITransaction : IIdentifiable
 {
     /// <summary>
-    ///     Represents a transaction made by a viewer.
-    ///     <br/>
-    ///     <br/>
-    ///     Transactions serve as a historical record of a viewer's purchases
-    ///     for use in the reputation system. As the reputation system is
-    ///     large and complex, you should refer to the documentation for it
-    ///     for further information.
+    ///     The date and time the product was purchased.
     /// </summary>
-    public interface ITransaction : IIdentifiable
-    {
-        /// <summary>
-        ///     The date and time the product was purchased.
-        /// </summary>
-        DateTime PurchasedAt { get; }
+    DateTime PurchasedAt { get; }
 
-        /// <summary>
-        ///     The type of the product.
-        /// </summary>
-        ProductType Type { get; set; }
+    /// <summary>
+    ///     The type of the product.
+    /// </summary>
+    ProductType Type { get; set; }
 
-        /// <summary>
-        ///     The amount of points a viewer has/had to pay in order to purchase
-        ///     this product.
-        /// </summary>
-        long Price { get; set; }
+    /// <summary>
+    ///     The amount of points a viewer has/had to pay in order to purchase
+    ///     this product.
+    /// </summary>
+    long Price { get; set; }
 
-        /// <summary>
-        ///     The morality of purchasing the product.
-        /// </summary>
-        Morality Morality { get; set; }
+    /// <summary>
+    ///     The morality of purchasing the product.
+    /// </summary>
+    Morality Morality { get; set; }
 
-        /// <summary>
-        ///     Whether the transaction was refunded to the viewer.
-        /// </summary>
-        bool Refunded { get; set; }
-    }
+    /// <summary>
+    ///     Whether the transaction was refunded to the viewer.
+    /// </summary>
+    bool Refunded { get; set; }
 }

@@ -3,18 +3,16 @@ using SirRandoo.CommonLib;
 using SirRandoo.CommonLib.Windows;
 using Verse;
 
-namespace StreamKit.Mod
-{
-    [UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
-    internal class ModKit : ModPlus
-    {
-        /// <inheritdoc/>
-        public ModKit(ModContentPack content) : base(content)
-        {
-        }
+namespace StreamKit.Mod;
 
-        /// <inheritdoc/>
-        [NotNull]
-        public override ProxySettingsWindow SettingsWindow => new SettingsWindow(this);
+[UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
+internal class ModKit : ModPlus
+{
+    /// <inheritdoc/>
+    public ModKit(ModContentPack content) : base(content)
+    {
     }
+
+    /// <inheritdoc/>
+    public override ProxySettingsWindow SettingsWindow => new SettingsWindow(this);
 }

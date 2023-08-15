@@ -20,13 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Parsers.Irc
+namespace StreamKit.Parsers.Irc;
+
+public interface IIrcMessage
 {
-    public interface IIrcMessage
-    {
-        MessageTag[] Tags { get; set; }
-        string Prefix { get; set; }
-        string Command { get; set; }
-        string Params { get; set; }
-    }
+    MessageTag[] Tags { get; init; }
+    string Prefix { get; init; }
+    string Command { get; init; }
+    string Params { get; init; }
 }

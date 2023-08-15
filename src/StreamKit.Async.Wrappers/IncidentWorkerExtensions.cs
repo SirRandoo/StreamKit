@@ -21,32 +21,28 @@
 // SOFTWARE.
 
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using RimWorld;
 
-namespace StreamKit.Async.Wrappers
+namespace StreamKit.Async.Wrappers;
+
+/// <summary>
+///     A set of wrappers around the synchronous, unsafe methods within
+///     the <see cref="IncidentWorker"/> class.
+/// </summary>
+/// <remarks>
+///     Usage of the extensions provided by this class are to be used
+///     with care as RimWorld was not designed with asynchronous code in
+///     mind.
+/// </remarks>
+public static class IncidentWorkerExtensions
 {
-    /// <summary>
-    ///     A set of wrappers around the synchronous, unsafe methods within
-    ///     the <see cref="IncidentWorker"/> class.
-    /// </summary>
-    /// <remarks>
-    ///     Usage of the extensions provided by this class are to be used
-    ///     with care as RimWorld was not designed with asynchronous code in
-    ///     mind.
-    /// </remarks>
-    public static class IncidentWorkerExtensions
-    {
-        /// <inheritdoc cref="IncidentWorker.FiredTooRecently"/>
-        public static async Task<bool> FiredTooRecentlyAsync([NotNull] this IncidentWorker worker, IIncidentTarget target) =>
-            await TaskExtensions.OnMainAsync(worker.FiredTooRecently, target);
+    /// <inheritdoc cref="IncidentWorker.FiredTooRecently"/>
+    public static async Task<bool> FiredTooRecentlyAsync(this IncidentWorker worker, IIncidentTarget target) =>
+        await TaskExtensions.OnMainAsync(worker.FiredTooRecently, target);
 
-        /// <inheritdoc cref="IncidentWorker.CanFireNow"/>
-        public static async Task<bool> CanFireNowAsync([NotNull] this IncidentWorker worker, IncidentParms @params) =>
-            await TaskExtensions.OnMainAsync(worker.CanFireNow, @params);
+    /// <inheritdoc cref="IncidentWorker.CanFireNow"/>
+    public static async Task<bool> CanFireNowAsync(this IncidentWorker worker, IncidentParms @params) => await TaskExtensions.OnMainAsync(worker.CanFireNow, @params);
 
-        /// <inheritdoc cref="IncidentWorker.TryExecute"/>
-        public static async Task<bool> TryExecuteAsync([NotNull] this IncidentWorker worker, IncidentParms @params) =>
-            await TaskExtensions.OnMainAsync(worker.TryExecute, @params);
-    }
+    /// <inheritdoc cref="IncidentWorker.TryExecute"/>
+    public static async Task<bool> TryExecuteAsync(this IncidentWorker worker, IncidentParms @params) => await TaskExtensions.OnMainAsync(worker.TryExecute, @params);
 }

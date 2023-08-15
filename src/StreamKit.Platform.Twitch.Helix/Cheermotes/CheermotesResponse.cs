@@ -20,9 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.Helix
+namespace StreamKit.Platform.Twitch.Helix;
+
+public class CheermotesResponse : HelixDataResponse<CheermotesData>
 {
-    public class CheermotesResponse : HelixDataResponse<CheermotesData>
-    {
-    }
 }

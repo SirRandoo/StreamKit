@@ -23,21 +23,20 @@
 using JetBrains.Annotations;
 using StreamKit.Platform.Abstractions;
 
-namespace StreamKit.Platform.Twitch
+namespace StreamKit.Platform.Twitch;
+
+public class TwitchPlatform : IPlatform
 {
-    public class TwitchPlatform : IPlatform
-    {
-        /// <inheritdoc/>
-        [NotNull]
-        public string Id => "Platforms.Twitch";
+    /// <inheritdoc/>
+    [NotNull]
+    public string Id => "Platforms.Twitch";
 
-        /// <inheritdoc/>
-        public string Name { get; set; }
+    /// <inheritdoc/>
+    public string Name { get; set; }
 
-        /// <inheritdoc/>
-        public IConnection<IResponse> Connection { get; }
+    /// <inheritdoc/>
+    public IConnection<IResponse> Connection { get; }
 
-        /// <inheritdoc/>
-        public IPlatformSettings Settings { get; }
-    }
+    /// <inheritdoc/>
+    public IPlatformSettings Settings { get; }
 }

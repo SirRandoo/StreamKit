@@ -22,14 +22,13 @@
 
 using System.Runtime.Serialization;
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+public enum EventMessageType
 {
-    public enum EventMessageType
-    {
-        [EnumMember(Value = "session_welcome")] Welcome,
-        [EnumMember(Value = "session_keepalive")] KeepAlive,
-        [EnumMember(Value = "notification")] Notification,
-        [EnumMember(Value = "session_reconnect")] Reconnect,
-        [EnumMember(Value = "revocation")] Revocation
-    }
+    [EnumMember(Value = "session_welcome")] Welcome,
+    [EnumMember(Value = "session_keepalive")] KeepAlive,
+    [EnumMember(Value = "notification")] Notification,
+    [EnumMember(Value = "session_reconnect")] Reconnect,
+    [EnumMember(Value = "revocation")] Revocation
 }

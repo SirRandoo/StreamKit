@@ -20,11 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.Helix.Analytics
+namespace StreamKit.Platform.Twitch.Helix.Analytics;
+
+public class GameAnalyticsResponse : HelixDataResponse<GameAnalyticsData>, IPaginated
 {
-    public class GameAnalyticsResponse : HelixDataResponse<GameAnalyticsData>, IPaginated
-    {
-        /// <inheritdoc cref="IPaginated.Pagination"/>
-        public IPaginationCursor Pagination { get; set; }
-    }
+    /// <inheritdoc cref="IPaginated.Pagination"/>
+    public IPaginationCursor Pagination { get; set; }
 }

@@ -20,34 +20,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.Helix
+namespace StreamKit.Platform.Twitch.Helix;
+
+public class BitsLeaderboardData
 {
-    public class BitsLeaderboardData
-    {
-        /// <summary>
-        ///     A unique id that identifies the user on the leaderboard.
-        /// </summary>
-        public string UserId { get; set; }
+    /// <summary>
+    ///     A unique id that identifies the user on the leaderboard.
+    /// </summary>
+    public string UserId { get; set; }
 
-        /// <summary>
-        ///     The unlocalized name of the user on the leaderboard.
-        /// </summary>
-        public string UserLogin { get; set; }
+    /// <summary>
+    ///     The unlocalized name of the user on the leaderboard.
+    /// </summary>
+    public string UserLogin { get; set; }
 
-        /// <summary>
-        ///     The potentially localized name of the user the leaderboard, or
-        ///     their login name with varying capitalization.
-        /// </summary>
-        public string UserName { get; set; }
+    /// <summary>
+    ///     The potentially localized name of the user the leaderboard, or
+    ///     their login name with varying capitalization.
+    /// </summary>
+    public string UserName { get; set; }
 
-        /// <summary>
-        ///     The position the user is on the leaderboard.
-        /// </summary>
-        public int Rank { get; set; }
+    /// <summary>
+    ///     The position the user is on the leaderboard.
+    /// </summary>
+    public int Rank { get; set; }
 
-        /// <summary>
-        ///     The number of bits the user has cheered thus far.
-        /// </summary>
-        public int Score { get; set; }
-    }
+    /// <summary>
+    ///     The number of bits the user has cheered thus far.
+    /// </summary>
+    public int Score { get; set; }
 }

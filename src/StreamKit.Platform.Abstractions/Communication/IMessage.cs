@@ -20,25 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     Represents a message on a given <see cref="IPlatform"/>.
+///     <br/>
+///     <br/>
+///     Messages are strings of text, in most cases, sent by
+///     <see cref="IUser"/>s.
+/// </summary>
+public interface IMessage : IPlatformSided
 {
     /// <summary>
-    ///     Represents a message on a given <see cref="IPlatform"/>.
-    ///     <br/>
-    ///     <br/>
-    ///     Messages are strings of text, in most cases, sent by
-    ///     <see cref="IUser"/>s.
+    ///     The <see cref="IUser"/> that sent the message.
     /// </summary>
-    public interface IMessage : IPlatformSided
-    {
-        /// <summary>
-        ///     The <see cref="IUser"/> that sent the message.
-        /// </summary>
-        IUser Author { get; set; }
+    IUser Author { get; set; }
 
-        /// <summary>
-        ///     The raw content of the message.
-        /// </summary>
-        string Content { get; set; }
-    }
+    /// <summary>
+    ///     The raw content of the message.
+    /// </summary>
+    string Content { get; set; }
 }

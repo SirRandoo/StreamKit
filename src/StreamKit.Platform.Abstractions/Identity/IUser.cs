@@ -20,31 +20,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     Represents a user on a given <see cref="IPlatform"/>.
+/// </summary>
+public interface IUser : IPlatformSided
 {
     /// <summary>
-    ///     Represents a user on a given <see cref="IPlatform"/>.
+    ///     The display name of the user.
+    ///     <br/>
+    ///     <br/>
+    ///     Display names are generally a variant of <see cref="Login"/> with
+    ///     different capitalization, but in some cases, like on Twitch,
+    ///     display names can be a completely different string altogether.
     /// </summary>
-    public interface IUser : IPlatformSided
-    {
-        /// <summary>
-        ///     The display name of the user.
-        ///     <br/>
-        ///     <br/>
-        ///     Display names are generally a variant of <see cref="Login"/> with
-        ///     different capitalization, but in some cases, like on Twitch,
-        ///     display names can be a completely different string altogether.
-        /// </summary>
-        string Name { get; }
+    string Name { get; }
 
-        /// <summary>
-        ///     The login name, or better known as the "username", of a user.
-        /// </summary>
-        string Login { get; }
+    /// <summary>
+    ///     The login name, or better known as the "username", of a user.
+    /// </summary>
+    string Login { get; }
 
-        /// <summary>
-        ///     The types of privileges the user has within the channel.
-        /// </summary>
-        UserPrivileges Privileges { get; }
-    }
+    /// <summary>
+    ///     The types of privileges the user has within the channel.
+    /// </summary>
+    UserPrivileges Privileges { get; }
 }

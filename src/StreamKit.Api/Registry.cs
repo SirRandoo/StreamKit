@@ -21,144 +21,141 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
-using JetBrains.Annotations;
 
-namespace StreamKit.Api
+namespace StreamKit.Api;
+
+/// <summary>
+///     A generic registry for housing a list of objects.
+/// </summary>
+/// <typeparam name="T">The class type being housed within the registry</typeparam>
+public class Registry<T> where T : class, IIdentifiable
 {
+    private const int LockTimeout = 300;
+    private readonly ReaderWriterLockSlim _lock = new();
+    private readonly List<T> _registrants = new();
+    private readonly Dictionary<string, T> _registrantsKeyed = new();
+
     /// <summary>
-    ///     A generic registry for housing a list of objects.
+    ///     Returns a list of to the objects within the registry.
     /// </summary>
-    /// <typeparam name="T">The class type being housed within the registry</typeparam>
-    public class Registry<T> where T : class, IIdentifiable
+    public List<T> AllRegistrants
     {
-        private const int LockTimeout = 300;
-        private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
-        private readonly List<T> _registrants = new List<T>();
-        private readonly Dictionary<string, T> _registrantsKeyed = new Dictionary<string, T>();
-
-        /// <summary>
-        ///     Returns a list of to the objects within the registry.
-        /// </summary>
-        [NotNull]
-        public List<T> AllRegistrants
-        {
-            get
-            {
-                if (!_lock.TryEnterReadLock(LockTimeout))
-                {
-                    return new List<T>(0);
-                }
-
-                var container = new List<T>(_registrants);
-
-                _lock.ExitReadLock();
-
-                return container;
-            }
-        }
-
-        /// <summary>
-        ///     Gets an object registered within the registry by its id.
-        /// </summary>
-        /// <param name="id">The id of the object</param>
-        /// <returns>
-        ///     The object if it exists, or <see langword="null"/> if it doesn't.
-        /// </returns>
-        [CanBeNull]
-        public T Get([NotNull] string id)
+        get
         {
             if (!_lock.TryEnterReadLock(LockTimeout))
             {
-                return default;
+                return new List<T>(0);
             }
 
-            if (!_registrantsKeyed.TryGetValue(id, out T value))
-            {
-                _lock.ExitReadLock();
-
-                return default;
-            }
+            var container = new List<T>(_registrants);
 
             _lock.ExitReadLock();
 
-            return value;
+            return container;
+        }
+    }
+
+    /// <summary>
+    ///     Gets an object registered within the registry by its id.
+    /// </summary>
+    /// <param name="id">The id of the object</param>
+    /// <returns>
+    ///     The object if it exists, or <see langword="null"/> if it doesn't.
+    /// </returns>
+    public T? Get(string id)
+    {
+        if (!_lock.TryEnterReadLock(LockTimeout))
+        {
+            return default;
         }
 
-        /// <summary>
-        ///     Registers an object to the registry.
-        /// </summary>
-        /// <param name="obj">The object to register</param>
-        public void Register([NotNull] T obj)
+        if (!_registrantsKeyed.TryGetValue(id, out T value))
         {
-            if (!_lock.TryEnterWriteLock(LockTimeout))
-            {
-                return;
-            }
+            _lock.ExitReadLock();
 
-            if (!_registrantsKeyed.TryAdd(obj.Id, obj))
-            {
-                _lock.ExitWriteLock();
-
-                return;
-            }
-
-            _registrants.Add(obj);
-
-            _lock.ExitWriteLock();
+            return default;
         }
 
-        /// <summary>
-        ///     Unregisters an object from the registry.
-        /// </summary>
-        /// <param name="obj">The object to unregister.</param>
-        /// <returns>Whether the object was unregistered.</returns>
-        public bool Unregister(T obj)
+        _lock.ExitReadLock();
+
+        return value;
+    }
+
+    /// <summary>
+    ///     Registers an object to the registry.
+    /// </summary>
+    /// <param name="obj">The object to register</param>
+    public void Register([NotNull] T obj)
+    {
+        if (!_lock.TryEnterWriteLock(LockTimeout))
         {
-            if (!_lock.TryEnterWriteLock(LockTimeout))
-            {
-                return false;
-            }
-
-            bool removed = _registrants.Remove(obj) && _registrantsKeyed.Remove(obj.Id);
-
-            _lock.ExitWriteLock();
-
-            return removed;
+            return;
         }
 
-        /// <summary>
-        ///     Unregisters an object from the registry.
-        /// </summary>
-        /// <param name="id">The id of the object to unregister.</param>
-        /// <returns>Whether the object was unregistered.</returns>
-        public bool Unregister(string id)
+        if (!_registrantsKeyed.TryAdd(obj.Id, obj))
         {
-            if (!_lock.TryEnterUpgradeableReadLock(LockTimeout))
-            {
-                return false;
-            }
-
-            if (!_registrantsKeyed.TryGetValue(id, out T value))
-            {
-                _lock.ExitUpgradeableReadLock();
-
-                return false;
-            }
-
-            if (_lock.TryEnterWriteLock(LockTimeout))
-            {
-                _lock.ExitUpgradeableReadLock();
-
-                return false;
-            }
-
-            bool removed = _registrants.Remove(value) && _registrantsKeyed.Remove(id);
-
             _lock.ExitWriteLock();
+
+            return;
+        }
+
+        _registrants.Add(obj);
+
+        _lock.ExitWriteLock();
+    }
+
+    /// <summary>
+    ///     Unregisters an object from the registry.
+    /// </summary>
+    /// <param name="obj">The object to unregister.</param>
+    /// <returns>Whether the object was unregistered.</returns>
+    public bool Unregister(T obj)
+    {
+        if (!_lock.TryEnterWriteLock(LockTimeout))
+        {
+            return false;
+        }
+
+        bool removed = _registrants.Remove(obj) && _registrantsKeyed.Remove(obj.Id);
+
+        _lock.ExitWriteLock();
+
+        return removed;
+    }
+
+    /// <summary>
+    ///     Unregisters an object from the registry.
+    /// </summary>
+    /// <param name="id">The id of the object to unregister.</param>
+    /// <returns>Whether the object was unregistered.</returns>
+    public bool Unregister(string id)
+    {
+        if (!_lock.TryEnterUpgradeableReadLock(LockTimeout))
+        {
+            return false;
+        }
+
+        if (!_registrantsKeyed.TryGetValue(id, out T value))
+        {
             _lock.ExitUpgradeableReadLock();
 
-            return removed;
+            return false;
         }
+
+        if (_lock.TryEnterWriteLock(LockTimeout))
+        {
+            _lock.ExitUpgradeableReadLock();
+
+            return false;
+        }
+
+        bool removed = _registrants.Remove(value) && _registrantsKeyed.Remove(id);
+
+        _lock.ExitWriteLock();
+        _lock.ExitUpgradeableReadLock();
+
+        return removed;
     }
 }

@@ -22,27 +22,26 @@
 
 using System;
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+/// <summary>
+///     Represents an object that provides meta information about a
+///     message received through the EventSub system.
+/// </summary>
+public class EventSubMetadata : IEventSubMetadata
 {
-    /// <summary>
-    ///     Represents an object that provides meta information about a
-    ///     message received through the EventSub system.
-    /// </summary>
-    public class EventSubMetadata : IEventSubMetadata
-    {
-        /// <inheritdoc/>
-        public string MessageId { get; set; }
+    /// <inheritdoc/>
+    public string MessageId { get; set; }
 
-        /// <inheritdoc/>
-        public DateTime MessageTimestamp { get; set; }
+    /// <inheritdoc/>
+    public DateTime MessageTimestamp { get; set; }
 
-        /// <inheritdoc/>
-        public string SubscriptionVersion { get; set; }
+    /// <inheritdoc/>
+    public string SubscriptionVersion { get; set; }
 
-        /// <inheritdoc/>
-        public EventMessageType MessageType { get; set; }
+    /// <inheritdoc/>
+    public EventMessageType MessageType { get; set; }
 
-        /// <inheritdoc/>
-        public EventSubscriptionType SubscriptionType { get; set; }
-    }
+    /// <inheritdoc/>
+    public EventSubscriptionType SubscriptionType { get; set; }
 }

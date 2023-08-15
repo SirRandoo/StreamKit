@@ -22,26 +22,25 @@
 
 using System;
 
-namespace StreamKit.Data.Abstractions
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     Represents a data object housing the ratelimit data for a
+///     product, command, or other unspecified ratelimited resource.
+/// </summary>
+public interface IRateLimitData
 {
     /// <summary>
-    ///     Represents a data object housing the ratelimit data for a
-    ///     product, command, or other unspecified ratelimited resource.
+    ///     Represents the amount of time a viewer has to wait before they'll
+    ///     be allowed to use the associated command, or purchase the
+    ///     associated product.
     /// </summary>
-    public interface IRateLimitData
-    {
-        /// <summary>
-        ///     Represents the amount of time a viewer has to wait before they'll
-        ///     be allowed to use the associated command, or purchase the
-        ///     associated product.
-        /// </summary>
-        TimeSpan? LocalCooldown { get; set; }
+    TimeSpan? LocalCooldown { get; set; }
 
-        /// <summary>
-        ///     Represents the amount of time all viewers has to wait before
-        ///     they'll be allowed to use the associated command, or purchase the
-        ///     associated product.
-        /// </summary>
-        TimeSpan? GlobalCooldown { get; set; }
-    }
+    /// <summary>
+    ///     Represents the amount of time all viewers has to wait before
+    ///     they'll be allowed to use the associated command, or purchase the
+    ///     associated product.
+    /// </summary>
+    TimeSpan? GlobalCooldown { get; set; }
 }

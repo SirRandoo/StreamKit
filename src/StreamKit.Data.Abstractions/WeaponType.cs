@@ -20,28 +20,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Data.Abstractions
+using NetEscapades.EnumGenerators;
+
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     An enum representing the various weapons that exist in RimWorld.
+/// </summary>
+[EnumExtensions]
+public enum WeaponType
 {
     /// <summary>
-    ///     An enum representing the various weapons that exist in RimWorld.
+    ///     Represents an item that wasn't a weapon, but was classified as a
+    ///     weapon by a different subsystem. You should generally report
+    ///     this.
     /// </summary>
-    public enum WeaponType
-    {
-        /// <summary>
-        ///     Represents an item that wasn't a weapon, but was classified as a
-        ///     weapon by a different subsystem. You should generally report
-        ///     this.
-        /// </summary>
-        None,
+    None,
 
-        /// <summary>
-        ///     Represents a melee weapon available for purchase.
-        /// </summary>
-        Melee,
+    /// <summary>
+    ///     Represents a melee weapon available for purchase.
+    /// </summary>
+    Melee,
 
-        /// <summary>
-        ///     Represents a ranged weapon available for purchase.
-        /// </summary>
-        Ranged
-    }
+    /// <summary>
+    ///     Represents a ranged weapon available for purchase.
+    /// </summary>
+    Ranged
 }

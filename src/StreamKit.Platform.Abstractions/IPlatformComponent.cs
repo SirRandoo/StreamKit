@@ -22,22 +22,21 @@
 
 using StreamKit.Api;
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     Identifies a modular piece of the mod that also provides a
+///     platform to the mod.
+/// </summary>
+public interface IPlatformComponent : IComponent
 {
     /// <summary>
-    ///     Identifies a modular piece of the mod that also provides a
-    ///     platform to the mod.
+    ///     The underlying connection to the platform.
     /// </summary>
-    public interface IPlatformComponent : IComponent
-    {
-        /// <summary>
-        ///     The underlying connection to the platform.
-        /// </summary>
-        IConnection<IResponse> Connection { get; }
+    IConnection<IResponse> Connection { get; }
 
-        /// <summary>
-        ///     The settings associated with the platform.
-        /// </summary>
-        IPlatformSettings PlatformSettings { get; }
-    }
+    /// <summary>
+    ///     The settings associated with the platform.
+    /// </summary>
+    IPlatformSettings PlatformSettings { get; }
 }

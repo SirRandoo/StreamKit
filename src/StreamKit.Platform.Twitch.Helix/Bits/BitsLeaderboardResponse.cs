@@ -20,20 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
+namespace StreamKit.Platform.Twitch.Helix;
 
-namespace StreamKit.Platform.Twitch.Helix
+public class BitsLeaderboardResponse : HelixDataResponse<BitsLeaderboardData>
 {
-    public class BitsLeaderboardResponse : HelixDataResponse<BitsLeaderboardData>
-    {
-        /// <summary>
-        ///     The start and end dates of the reporting window.
-        /// </summary>
-        public ApiDateRange DateRange { get; set; }
-        
-        /// <summary>
-        ///     The number of users present in the reported data.
-        /// </summary>
-        public int Total { get; set; }
-    }
+    /// <summary>
+    ///     The start and end dates of the reporting window.
+    /// </summary>
+    public ApiDateRange DateRange { get; set; }
+
+    /// <summary>
+    ///     The number of users present in the reported data.
+    /// </summary>
+    public int Total { get; set; }
 }

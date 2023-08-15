@@ -24,39 +24,35 @@ using System.Threading.Tasks;
 using RimWorld;
 using Verse;
 
-namespace StreamKit.Async.Wrappers
+namespace StreamKit.Async.Wrappers;
+
+/// <summary>
+///     A set of wrappers around the synchronous, unsafe methods within
+///     the <see cref="Thing"/> class.
+/// </summary>
+/// <remarks>
+///     Usage of the extensions provided by this class are to be used
+///     with care as RimWorld was not designed with asynchronous code in
+///     mind.
+/// </remarks>
+public static class ThingExtensions
 {
-    /// <summary>
-    ///     A set of wrappers around the synchronous, unsafe methods within
-    ///     the <see cref="Thing"/> class.
-    /// </summary>
-    /// <remarks>
-    ///     Usage of the extensions provided by this class are to be used
-    ///     with care as RimWorld was not designed with asynchronous code in
-    ///     mind.
-    /// </remarks>
-    public static class ThingExtensions
+    /// <inheritdoc cref="ThingCompUtility.TryGetComp{T}"/>
+    public static async Task<T> GetCompAsync<T>(this Thing thing) where T : ThingComp => await TaskExtensions.OnMainAsync(thing.TryGetComp<T>);
+
+    /// <inheritdoc cref="QualityUtility.TryGetQuality"/>
+    public static async Task<QualityCategory?> GetQualityAsync(this Thing thing)
     {
-        /// <inheritdoc cref="ThingCompUtility.TryGetComp{T}"/>
-        public static async Task<T> GetCompAsync<T>(this Thing thing) where T : ThingComp
+        QualityCategory? GetQuality(Thing t)
         {
-            return await TaskExtensions.OnMainAsync(thing.TryGetComp<T>);
-        }
-
-        /// <inheritdoc cref="QualityUtility.TryGetQuality"/>
-        public static async Task<QualityCategory?> GetQualityAsync(this Thing thing)
-        {
-            QualityCategory? GetQuality(Thing t)
+            if (t.TryGetQuality(out QualityCategory category))
             {
-                if (t.TryGetQuality(out QualityCategory category))
-                {
-                    return category;
-                }
-
-                return null; 
+                return category;
             }
 
-            return await TaskExtensions.OnMainAsync(GetQuality, thing);
+            return null;
         }
+
+        return await TaskExtensions.OnMainAsync(GetQuality, thing);
     }
 }

@@ -20,17 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Data.Abstractions
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     Represents the various properties an apparel can have.
+/// </summary>
+public interface IApparelProperties
 {
     /// <summary>
-    ///     Represents the various properties an apparel can have.
+    ///     Whether the viewer can purchase the associated item through the
+    ///     "wear" purchase system.
     /// </summary>
-    public interface IApparelProperties
-    {
-        /// <summary>
-        ///     Whether the viewer can purchase the associated item through the
-        ///     "wear" purchase system.
-        /// </summary>
-        bool CanWear { get; set; }
-    }
+    bool CanWear { get; set; }
 }

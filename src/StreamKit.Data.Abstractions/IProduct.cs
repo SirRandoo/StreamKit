@@ -22,27 +22,26 @@
 
 using StreamKit.Api;
 
-namespace StreamKit.Data.Abstractions
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     Represents a product purchasable by viewers in chat.
+/// </summary>
+public interface IProduct : IIdentifiable, IRateLimited
 {
     /// <summary>
-    ///     Represents a product purchasable by viewers in chat.
+    ///     The type of the product.
     /// </summary>
-    public interface IProduct : IIdentifiable, IRateLimited
-    {
-        /// <summary>
-        ///     The type of the product.
-        /// </summary>
-        ProductType Type { get; set; }
+    ProductType Type { get; set; }
 
-        /// <summary>
-        ///     The amount of points a viewer has to pay in order to purchase
-        ///     this product.
-        /// </summary>
-        int Price { get; set; }
+    /// <summary>
+    ///     The amount of points a viewer has to pay in order to purchase
+    ///     this product.
+    /// </summary>
+    int Price { get; set; }
 
-        /// <summary>
-        ///     The morality of purchasing the product.
-        /// </summary>
-        Morality Morality { get; set; }
-    }
+    /// <summary>
+    ///     The morality of purchasing the product.
+    /// </summary>
+    Morality Morality { get; set; }
 }

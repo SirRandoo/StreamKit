@@ -22,7 +22,6 @@
 
 using System.Runtime.Serialization;
 
-namespace StreamKit.Platform.Twitch.EventSub
-{
-    public enum EventConnectionStatus { [DataMember(Name = "connected")] Connected, [DataMember(Name = "reconnecting")] Reconnecting }
-}
+namespace StreamKit.Platform.Twitch.EventSub;
+
+public enum EventConnectionStatus { [DataMember(Name = "connected")] Connected, [DataMember(Name = "reconnecting")] Reconnecting }

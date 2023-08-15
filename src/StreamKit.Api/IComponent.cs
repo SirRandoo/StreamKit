@@ -20,23 +20,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Api
+namespace StreamKit.Api;
+
+/// <summary>
+///     Identifies a modular piece of the mod.
+/// </summary>
+public interface IComponent : IIdentifiable
 {
     /// <summary>
-    ///     Identifies a modular piece of the mod.
+    ///     A <see cref="ISettingsProvider"/> implementation responsible for
+    ///     managing settings for the component.
     /// </summary>
-    public interface IComponent : IIdentifiable
-    {
-        /// <summary>
-        ///     A <see cref="ISettingsProvider"/> implementation responsible for
-        ///     managing settings for the component.
-        /// </summary>
-        ISettingsProvider SettingsProvider { get; }
+    ISettingsProvider SettingsProvider { get; }
 
-        /// <summary>
-        ///     An <see cref="ISettingsDrawer"/> implementation responsible for
-        ///     drawing settings for the component.
-        /// </summary>
-        ISettingsDrawer SettingsDrawer { get; }
-    }
+    /// <summary>
+    ///     An <see cref="ISettingsDrawer"/> implementation responsible for
+    ///     drawing settings for the component.
+    /// </summary>
+    ISettingsDrawer SettingsDrawer { get; }
 }

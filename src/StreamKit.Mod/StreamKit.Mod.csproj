@@ -1,8 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="0sirrandoo.commonlib" Version="1.12.1"/>
+        <ProjectReference Include="..\StreamKit.Api\StreamKit.Api.csproj" />
+        <ProjectReference Include="..\StreamKit.Data.Abstractions\StreamKit.Data.Abstractions.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\StreamKit.Api\StreamKit.Api.csproj"/>
+      <Compile Update="Windows\SettingsWindow.Debug.cs">
+        <DependentUpon>SettingsWindow.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

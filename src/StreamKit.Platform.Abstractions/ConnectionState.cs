@@ -22,102 +22,101 @@
 
 using NetEscapades.EnumGenerators;
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     An enumeration used to indicate the current state of a
+///     <see cref="IPlatform"/>'s underlying <see cref="IConnection"/>.
+///     <br/>
+///     <br/>
+///     Connection states are used by the mod to display connection
+///     information to the user in the platform's relevant connection
+///     menu.
+/// </summary>
+[EnumExtensions]
+public enum ConnectionState
 {
     /// <summary>
-    ///     An enumeration used to indicate the current state of a
-    ///     <see cref="IPlatform"/>'s underlying <see cref="IConnection"/>.
-    ///     <br/>
-    ///     <br/>
-    ///     Connection states are used by the mod to display connection
-    ///     information to the user in the platform's relevant connection
-    ///     menu.
+    ///     Used to indicate that the <see cref="IConnection"/> could not
+    ///     properly determine its current state.
     /// </summary>
-    [EnumExtensions]
-    public enum ConnectionState
-    {
-        /// <summary>
-        ///     Used to indicate that the <see cref="IConnection"/> could not
-        ///     properly determine its current state.
-        /// </summary>
-        /// <remarks>
-        ///     This value should only be used when the <see cref="IConnection"/>
-        ///     experiences a problem it can't properly recover from -- leaving
-        ///     it in an unusable state.
-        /// </remarks>
-        Unknown,
+    /// <remarks>
+    ///     This value should only be used when the <see cref="IConnection"/>
+    ///     experiences a problem it can't properly recover from -- leaving
+    ///     it in an unusable state.
+    /// </remarks>
+    Unknown,
 
-        /// <summary>
-        ///     Used to indicate that the <see cref="IPlatform"/>'s
-        ///     <see cref="IConnection"/> isn't currently connected to the
-        ///     service.
-        /// </summary>
-        Disconnected,
+    /// <summary>
+    ///     Used to indicate that the <see cref="IPlatform"/>'s
+    ///     <see cref="IConnection"/> isn't currently connected to the
+    ///     service.
+    /// </summary>
+    Disconnected,
 
-        /// <summary>
-        ///     Used to indicate that the <see cref="IPlatform"/>'s
-        ///     <see cref="IConnection"/> is in the process of disconnecting from
-        ///     the service.
-        /// </summary>
-        Disconnecting,
+    /// <summary>
+    ///     Used to indicate that the <see cref="IPlatform"/>'s
+    ///     <see cref="IConnection"/> is in the process of disconnecting from
+    ///     the service.
+    /// </summary>
+    Disconnecting,
 
-        /// <summary>
-        ///     Used to indicate that the <see cref="IPlatform"/>'s
-        ///     <see cref="IConnection"/> is currently connected to the service,
-        ///     and may also indicate that it's ready for authentication.
-        /// </summary>
-        Connected,
+    /// <summary>
+    ///     Used to indicate that the <see cref="IPlatform"/>'s
+    ///     <see cref="IConnection"/> is currently connected to the service,
+    ///     and may also indicate that it's ready for authentication.
+    /// </summary>
+    Connected,
 
-        /// <summary>
-        ///     Used to indicate that the <see cref="IPlatform"/>'s
-        ///     <see cref="IConnection"/> is currently connecting to the service.
-        /// </summary>
-        Connecting,
+    /// <summary>
+    ///     Used to indicate that the <see cref="IPlatform"/>'s
+    ///     <see cref="IConnection"/> is currently connecting to the service.
+    /// </summary>
+    Connecting,
 
-        /// <summary>
-        ///     Used to indicate that the <see cref="IPlatform"/>'s
-        ///     <see cref="IConnection"/> is currently reconnecting to the
-        ///     service.
-        /// </summary>
-        /// <remarks>
-        ///     Generally this is only used when the <see cref="IConnection"/>
-        ///     receives a reconnect request from the service, or the connection
-        ///     itself encountered a problem it couldn't recover from. From
-        ///     there, this value is quickly replaced by <see cref="Connecting"/>
-        ///     or <see cref="Disconnected"/> as the connection goes through the
-        ///     normal flow.
-        /// </remarks>
-        Reconnecting,
+    /// <summary>
+    ///     Used to indicate that the <see cref="IPlatform"/>'s
+    ///     <see cref="IConnection"/> is currently reconnecting to the
+    ///     service.
+    /// </summary>
+    /// <remarks>
+    ///     Generally this is only used when the <see cref="IConnection"/>
+    ///     receives a reconnect request from the service, or the connection
+    ///     itself encountered a problem it couldn't recover from. From
+    ///     there, this value is quickly replaced by <see cref="Connecting"/>
+    ///     or <see cref="Disconnected"/> as the connection goes through the
+    ///     normal flow.
+    /// </remarks>
+    Reconnecting,
 
-        /// <summary>
-        ///     Used to indicate that the <see cref="IPlatform"/>'s
-        ///     <see cref="IConnection"/> is in the process of authenticating to
-        ///     the service with the credentials provided.
-        /// </summary>
-        Authenticating,
+    /// <summary>
+    ///     Used to indicate that the <see cref="IPlatform"/>'s
+    ///     <see cref="IConnection"/> is in the process of authenticating to
+    ///     the service with the credentials provided.
+    /// </summary>
+    Authenticating,
 
-        /// <summary>
-        ///     Used to indicate that the <see cref="IPlatform"/>'s
-        ///     <see cref="IConnection"/> successfully authenticated with the
-        ///     service with the provided credentials. This stage may
-        ///     additionally indicate that the connection is considered "ready
-        ///     for use."
-        /// </summary>
-        Authenticated,
+    /// <summary>
+    ///     Used to indicate that the <see cref="IPlatform"/>'s
+    ///     <see cref="IConnection"/> successfully authenticated with the
+    ///     service with the provided credentials. This stage may
+    ///     additionally indicate that the connection is considered "ready
+    ///     for use."
+    /// </summary>
+    Authenticated,
 
-        /// <summary>
-        ///     Used to indicate that the <see cref="IPlatform"/>'s
-        ///     <see cref="IConnection"/> successfully joined the channel
-        ///     specified. This stage will always indicate that the connection is
-        ///     considered "ready for use."
-        /// </summary>
-        Joined,
+    /// <summary>
+    ///     Used to indicate that the <see cref="IPlatform"/>'s
+    ///     <see cref="IConnection"/> successfully joined the channel
+    ///     specified. This stage will always indicate that the connection is
+    ///     considered "ready for use."
+    /// </summary>
+    Joined,
 
-        /// <summary>
-        ///     Used to indicate that the <see cref="IPlatform"/>'s
-        ///     <see cref="IConnection"/> is in the process of joining the
-        ///     channel specified by the user.
-        /// </summary>
-        Joining
-    }
+    /// <summary>
+    ///     Used to indicate that the <see cref="IPlatform"/>'s
+    ///     <see cref="IConnection"/> is in the process of joining the
+    ///     channel specified by the user.
+    /// </summary>
+    Joining
 }

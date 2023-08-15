@@ -20,21 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Parsers.Irc
+namespace StreamKit.Parsers.Irc;
+
+/// <summary>
+///     Represents a tag within an irc message.
+/// </summary>
+public interface IMessageTag
 {
     /// <summary>
-    ///     Represents a tag within an irc message.
+    ///     The name of the tag.
     /// </summary>
-    public interface IMessageTag
-    {
-        /// <summary>
-        ///     The name of the tag.
-        /// </summary>
-        string Name { get; set; }
-        
-        /// <summary>
-        ///     The unparsed value of the tag.
-        /// </summary>
-        string Value { get; set; }
-    }
+    string Name { get; init; }
+
+    /// <summary>
+    ///     The unparsed value of the tag.
+    /// </summary>
+    string Value { get; set; }
 }

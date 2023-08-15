@@ -23,35 +23,27 @@
 using System.Threading.Tasks;
 using RimWorld;
 
-namespace StreamKit.Async.Wrappers
+namespace StreamKit.Async.Wrappers;
+
+/// <summary>
+///     A set of wrappers around the synchronous, unsafe methods within
+///     the <see cref="StorytellerUtility"/> class.
+/// </summary>
+/// <remarks>
+///     Usage of the extensions provided by this class are to be used
+///     with care as RimWorld was not designed with asynchronous code in
+///     mind.
+/// </remarks>
+public static class StorytellerUtilityAsync
 {
-    /// <summary>
-    ///     A set of wrappers around the synchronous, unsafe methods within
-    ///     the <see cref="StorytellerUtility"/> class.
-    /// </summary>
-    /// <remarks>
-    ///     Usage of the extensions provided by this class are to be used
-    ///     with care as RimWorld was not designed with asynchronous code in
-    ///     mind.
-    /// </remarks>
-    public static class StorytellerUtilityAsync
-    {
-        /// <inheritdoc cref="StorytellerUtility.DefaultParmsNow"/>
-        public static async Task<IncidentParms> DefaultParmsNowAsync(IncidentCategoryDef category, IIncidentTarget target)
-        {
-            return await TaskExtensions.OnMainAsync(StorytellerUtility.DefaultParmsNow, category, target);
-        }
+    /// <inheritdoc cref="StorytellerUtility.DefaultParmsNow"/>
+    public static async Task<IncidentParms> DefaultParmsNowAsync(IncidentCategoryDef category, IIncidentTarget target) =>
+        await TaskExtensions.OnMainAsync(StorytellerUtility.DefaultParmsNow, category, target);
 
-        /// <inheritdoc cref="StorytellerUtility.DefaultThreatPointsNow"/>
-        public static async Task<float> DefaultThreatPointsNowAsync(IIncidentTarget target)
-        {
-            return await TaskExtensions.OnMainAsync(StorytellerUtility.DefaultThreatPointsNow, target);
-        }
+    /// <inheritdoc cref="StorytellerUtility.DefaultThreatPointsNow"/>
+    public static async Task<float> DefaultThreatPointsNowAsync(IIncidentTarget target) =>
+        await TaskExtensions.OnMainAsync(StorytellerUtility.DefaultThreatPointsNow, target);
 
-        /// <inheritdoc cref="StorytellerUtility.DefaultSiteThreatPointsNow"/>
-        public static async Task<float> DefaultSitePointsNowAsync()
-        {
-            return await TaskExtensions.OnMainAsync(StorytellerUtility.DefaultSiteThreatPointsNow);
-        }
-    }
+    /// <inheritdoc cref="StorytellerUtility.DefaultSiteThreatPointsNow"/>
+    public static async Task<float> DefaultSitePointsNowAsync() => await TaskExtensions.OnMainAsync(StorytellerUtility.DefaultSiteThreatPointsNow);
 }

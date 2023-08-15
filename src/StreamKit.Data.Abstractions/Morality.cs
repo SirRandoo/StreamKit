@@ -20,85 +20,87 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Data.Abstractions
+using NetEscapades.EnumGenerators;
+
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     An enum representing the various moral quandaries of purchasing
+///     certain products within the mod.
+/// </summary>
+[EnumExtensions]
+public enum Morality
 {
     /// <summary>
-    ///     An enum representing the various moral quandaries of purchasing
-    ///     certain products within the mod.
+    ///     Super bad purchases generally refer to products that may
+    ///     negatively impact the colony for quadrums -- a unit of time
+    ///     measured in a span of 15 in-game days. In essence, this moral
+    ///     generally refers to products that will linger around for extended
+    ///     periods of time that have the opportunity to break a colony.
     /// </summary>
-    public enum Morality
-    {
-        /// <summary>
-        ///     Super bad purchases generally refer to products that may
-        ///     negatively impact the colony for quadrums -- a unit of time
-        ///     measured in a span of 15 in-game days. In essence, this moral
-        ///     generally refers to products that will linger around for extended
-        ///     periods of time that have the opportunity to break a colony.
-        /// </summary>
-        SuperBad = -4,
+    SuperBad = -4,
 
-        /// <summary>
-        ///     Represents a really bad purchases which generally refer to
-        ///     products that may negatively impact the colony immediately, and
-        ///     have the potential to destroy a significant amount of the colony,
-        ///     like mechanoid raids.
-        /// </summary>
-        ReallyBad = -3,
+    /// <summary>
+    ///     Represents a really bad purchases which generally refer to
+    ///     products that may negatively impact the colony immediately, and
+    ///     have the potential to destroy a significant amount of the colony,
+    ///     like mechanoid raids.
+    /// </summary>
+    ReallyBad = -3,
 
-        /// <summary>
-        ///     Represents a very bad purchases which generally refer to products
-        ///     that may negatively impact the colony immediately or after a
-        ///     variable amount of time. These products may have a wide range of
-        ///     effects that may injure the colony, but are generally considered
-        ///     a non-issue.
-        /// </summary>
-        VeryBad = -2,
+    /// <summary>
+    ///     Represents a very bad purchases which generally refer to products
+    ///     that may negatively impact the colony immediately or after a
+    ///     variable amount of time. These products may have a wide range of
+    ///     effects that may injure the colony, but are generally considered
+    ///     a non-issue.
+    /// </summary>
+    VeryBad = -2,
 
-        /// <summary>
-        ///     Represents a bad purchase which generally refer to products that
-        ///     may negatively impact the colony in a mild enough way, but may be
-        ///     the catalyst for something larger, like the mood deficits from
-        ///     vomit rain.
-        /// </summary>
-        Bad = -1,
+    /// <summary>
+    ///     Represents a bad purchase which generally refer to products that
+    ///     may negatively impact the colony in a mild enough way, but may be
+    ///     the catalyst for something larger, like the mood deficits from
+    ///     vomit rain.
+    /// </summary>
+    Bad = -1,
 
-        /// <summary>
-        ///     Represents a neutral purchase which generally won't impact the
-        ///     colony in a significant way, like rain or fog purchases.
-        /// </summary>
-        Neutral = 0,
+    /// <summary>
+    ///     Represents a neutral purchase which generally won't impact the
+    ///     colony in a significant way, like rain or fog purchases.
+    /// </summary>
+    Neutral = 0,
 
-        /// <summary>
-        ///     Represents a good purchase which generally refers to products
-        ///     that may positively impact the colony in a mild enough way and
-        ///     have the potential to be the catalyst for a significant number of
-        ///     colony members, like a surgery inspiration.
-        /// </summary>
-        Good = 1,
+    /// <summary>
+    ///     Represents a good purchase which generally refers to products
+    ///     that may positively impact the colony in a mild enough way and
+    ///     have the potential to be the catalyst for a significant number of
+    ///     colony members, like a surgery inspiration.
+    /// </summary>
+    Good = 1,
 
-        /// <summary>
-        ///     Represents a very good purchase which generally refers to
-        ///     products that may positively impact the colony immediately or
-        ///     after a variable amount of time. Said products may range from
-        ///     mood bonuses to supplies.
-        /// </summary>
-        VeryGood = 2,
+    /// <summary>
+    ///     Represents a very good purchase which generally refers to
+    ///     products that may positively impact the colony immediately or
+    ///     after a variable amount of time. Said products may range from
+    ///     mood bonuses to supplies.
+    /// </summary>
+    VeryGood = 2,
 
-        /// <summary>
-        ///     Represents a really good purchase which generally refers to
-        ///     products that may positively impact the colony immediately, and
-        ///     have the potential to be a catalyst for a significant number of
-        ///     colony members, like a surgery inspiration.
-        /// </summary>
-        ReallyGood = 3,
+    /// <summary>
+    ///     Represents a really good purchase which generally refers to
+    ///     products that may positively impact the colony immediately, and
+    ///     have the potential to be a catalyst for a significant number of
+    ///     colony members, like a surgery inspiration.
+    /// </summary>
+    ReallyGood = 3,
 
-        /// <summary>
-        ///     Represents a super good purchase which generally refers to
-        ///     products that may positively impact the colony for quadrums -- a
-        ///     unit of measurement in time that spans 15 days. In essence, said
-        ///     purchase has the ability to save a colony from the brink of
-        ///     death.
-        /// </summary>
-        SuperGood = 4
-    }
+    /// <summary>
+    ///     Represents a super good purchase which generally refers to
+    ///     products that may positively impact the colony for quadrums -- a
+    ///     unit of measurement in time that spans 15 days. In essence, said
+    ///     purchase has the ability to save a colony from the brink of
+    ///     death.
+    /// </summary>
+    SuperGood = 4
 }

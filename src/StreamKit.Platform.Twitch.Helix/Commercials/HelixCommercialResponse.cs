@@ -20,19 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.Helix
+namespace StreamKit.Platform.Twitch.Helix;
+
+public class HelixCommercialResponse : HelixDataResponse<HelixCommercialData>
 {
-    public class HelixCommercialResponse : HelixDataResponse<HelixCommercialData>
-    {
-        /// <summary>
-        ///     Returns whether a commercial successfully ran without any errors.
-        /// </summary>
-        /// <remarks>
-        ///     This property merely checks if the response doesn't have a
-        ///     message. You should use this property in tandem with the api
-        ///     response's status code to fully ascertain whether a commercial
-        ///     was actually ran.
-        /// </remarks>
-        public bool WasSuccessful => string.IsNullOrEmpty(Data[0].Message);
-    }
+    /// <summary>
+    ///     Returns whether a commercial successfully ran without any errors.
+    /// </summary>
+    /// <remarks>
+    ///     This property merely checks if the response doesn't have a
+    ///     message. You should use this property in tandem with the api
+    ///     response's status code to fully ascertain whether a commercial
+    ///     was actually ran.
+    /// </remarks>
+    public bool WasSuccessful => string.IsNullOrEmpty(Data[0].Message);
 }

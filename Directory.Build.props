@@ -1,11 +1,12 @@
 ﻿<Project>
     <!-- Language Metadata -->
     <PropertyGroup>
-        <LangVersion>8</LangVersion>
+        <Nullable>enable</Nullable>
         <OutputType>Library</OutputType>
+        <LangVersion>preview</LangVersion>
         <TargetFramework>net48</TargetFramework>
     </PropertyGroup>
-    
+
     <!-- Assembly Metadata -->
     <PropertyGroup>
         <Authors>SirRandoo</Authors>
@@ -13,7 +14,7 @@
         <RepositoryUrl>https://github.com/sirrandoo/StreamKit</RepositoryUrl>
         <Copyright>MIT Copyright (c) $([System.DateTime]::Now.ToString("yyyy")) SirRandoo</Copyright>
     </PropertyGroup>
-    
+
     <!-- Build Metadata -->
     <PropertyGroup>
         <RimWorldVersion>1.4</RimWorldVersion>
@@ -22,36 +23,36 @@
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     </PropertyGroup>
-    
+
     <!-- NuGet Metadata -->
     <PropertyGroup>
         <Title>$(MSBuildProjectName)</Title>
         <Description>A component of "StreamKit", a mod for the game "RimWorld" that provides allows viewers to affect the game.</Description>
     </PropertyGroup>
-    
+
     <!-- Build Output -->
     <PropertyGroup Condition="'$(CompatibilityFor)' == ''">
         <_OutputDirectory>..\..\Releases\Core\$(RimWorldVersion)\Assemblies</_OutputDirectory>
     </PropertyGroup>
-    
+
     <PropertyGroup Condition="'$(CompatibilityFor)' != ''">
         <_OutputDirectory>..\..\Releases\$(CompatibilityFor)\$(RimWorldVersion)\Assemblies</_OutputDirectory>
     </PropertyGroup>
-    
+
     <!-- Global Dependencies -->
     <ItemGroup Condition="'$(Standalone)' == ''">
         <PackageReference Include="Krafs.Rimworld.Ref" Version="$(RimWorldVersion).*" ExcludeAssets="runtime"/>
         <PackageReference Include="RimWorld.MultiplayerAPI" Version="0.4.0"/>
     </ItemGroup>
-    
+
     <!-- Global assembly data (auto-updated) -->
     <PropertyGroup>
         <!-- This property is pulled from the mod's manifest file. -->
         <Product>StreamKit</Product>
-        
+
         <!-- This property is pulled from the mod's manifest file. -->
         <Authors>SirRandoo</Authors>
-        
+
         <!--
         The full version string from the mod's manifest file. This string will
         include any suffixes that may be within the mod's version, such as
@@ -59,7 +60,7 @@
         -->
         <InformationalVersion>0.0.0.0</InformationalVersion>
     </PropertyGroup>
-    
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <OutDir>$(_OutputDirectory)</OutDir>
         <OutputPath>$(_OutputDirectory)</OutputPath>

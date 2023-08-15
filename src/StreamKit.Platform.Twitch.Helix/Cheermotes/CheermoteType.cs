@@ -22,39 +22,38 @@
 
 using System.Runtime.Serialization;
 
-namespace StreamKit.Platform.Twitch.Helix
+namespace StreamKit.Platform.Twitch.Helix;
+
+public enum CheermoteType
 {
-    public enum CheermoteType
-    {
-        /// <summary>
-        ///     Represents a cheermote with an unsupported type.
-        /// </summary>
-        Unknown,
+    /// <summary>
+    ///     Represents a cheermote with an unsupported type.
+    /// </summary>
+    Unknown,
 
-        /// <summary>
-        ///     A Twitch-defined cheermote that is shown in the bits card -- the
-        ///     popup shown when you click the bits icon near the chat box.
-        /// </summary>
-        [EnumMember(Value = "global_first_party")]
-        GlobalFirstParty,
+    /// <summary>
+    ///     A Twitch-defined cheermote that is shown in the bits card -- the
+    ///     popup shown when you click the bits icon near the chat box.
+    /// </summary>
+    [EnumMember(Value = "global_first_party")]
+    GlobalFirstParty,
 
-        /// <summary>
-        ///     A Twitch-defined cheermote that isn't shown in the bits card --
-        ///     the popup shown when you click the bits icon near the chat box.
-        /// </summary>
-        [EnumMember(Value = "global_third_party")]
-        GlobalThirdParty,
+    /// <summary>
+    ///     A Twitch-defined cheermote that isn't shown in the bits card --
+    ///     the popup shown when you click the bits icon near the chat box.
+    /// </summary>
+    [EnumMember(Value = "global_third_party")]
+    GlobalThirdParty,
 
-        /// <summary>
-        ///     A custom cheermote provided by a broadcaster.
-        /// </summary>
-        [EnumMember(Value = "channel_custom")]
-        ChannelCustom,
+    /// <summary>
+    ///     A custom cheermote provided by a broadcaster.
+    /// </summary>
+    [EnumMember(Value = "channel_custom")]
+    ChannelCustom,
 
-        /// <summary>
-        ///     A cheermote provided by a sponsor.
-        /// </summary>
-        [EnumMember(Value = "sponsored")]
-        Sponsored
-    }
+    /// <summary>
+    ///     A cheermote provided by a sponsor.
+    /// </summary>
+    [EnumMember(Value = "sponsored")]
+    Sponsored
 }

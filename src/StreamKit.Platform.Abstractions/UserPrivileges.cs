@@ -23,36 +23,35 @@
 using System;
 using NetEscapades.EnumGenerators;
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     The various types of users that can exist within the mod.
+/// </summary>
+[Flags]
+[EnumExtensions]
+public enum UserPrivileges
 {
     /// <summary>
-    ///     The various types of users that can exist within the mod.
+    ///     The user has no types, and should be considered a basic user.
     /// </summary>
-    [Flags]
-    [EnumExtensions]
-    public enum UserPrivileges
-    {
-        /// <summary>
-        ///     The user has no types, and should be considered a basic user.
-        /// </summary>
-        None = 0,
+    None = 0,
 
-        /// <summary>
-        ///     The user is a follower of the given channel.
-        /// </summary>
-        Follower = 1,
+    /// <summary>
+    ///     The user is a follower of the given channel.
+    /// </summary>
+    Follower = 1,
 
-        /// <summary>
-        ///     The user is a premium user whether it be through the platform the
-        ///     user is on, or an external subscription-based platform, like
-        ///     Patreon.
-        /// </summary>
-        Premium = 2,
+    /// <summary>
+    ///     The user is a premium user whether it be through the platform the
+    ///     user is on, or an external subscription-based platform, like
+    ///     Patreon.
+    /// </summary>
+    Premium = 2,
 
-        /// <summary>
-        ///     The user is contains permissions only available to channel
-        ///     moderators.
-        /// </summary>
-        Moderation = 4
-    }
+    /// <summary>
+    ///     The user is contains permissions only available to channel
+    ///     moderators.
+    /// </summary>
+    Moderation = 4
 }

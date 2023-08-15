@@ -22,22 +22,21 @@
 
 using StreamKit.Api;
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     Represents a platform within the mod.
+/// </summary>
+public interface IPlatform : IIdentifiable
 {
     /// <summary>
-    ///     Represents a platform within the mod.
+    ///     The underlying connection to the platform.
     /// </summary>
-    public interface IPlatform : IIdentifiable
-    {
-        /// <summary>
-        ///     The underlying connection to the platform.
-        /// </summary>
-        IConnection<IResponse> Connection { get; }
+    IConnection<IResponse> Connection { get; }
 
-        /// <summary>
-        ///     An implementation of <see cref="IPlatformSettings"/> containing
-        ///     settings relevant for the associated <see cref="IPlatform"/>.
-        /// </summary>
-        IPlatformSettings Settings { get; }
-    }
+    /// <summary>
+    ///     An implementation of <see cref="IPlatformSettings"/> containing
+    ///     settings relevant for the associated <see cref="IPlatform"/>.
+    /// </summary>
+    IPlatformSettings Settings { get; }
 }

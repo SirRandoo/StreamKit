@@ -20,15 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.Helix
+namespace StreamKit.Platform.Twitch.Helix;
+
+public interface IPaginated
 {
-    public interface IPaginated
-    {
-        /// <summary>
-        ///     Contains the information used to page through the list of
-        ///     results. The cursor within the object is either null or empty
-        ///     when there are no more pages left to page through.
-        /// </summary>
-        public IPaginationCursor Pagination { get; set; }
-    }
+    /// <summary>
+    ///     Contains the information used to page through the list of
+    ///     results. The cursor within the object is either null or empty
+    ///     when there are no more pages left to page through.
+    /// </summary>
+    public IPaginationCursor Pagination { get; set; }
 }

@@ -20,10 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.Helix
+namespace StreamKit.Platform.Twitch.Helix;
+
+public class HelixDataResponse<T>
 {
-    public class HelixDataResponse<T>
-    {
-        public T[] Data { get; set; }
-    }
+    public T[] Data { get; set; }
 }

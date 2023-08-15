@@ -20,44 +20,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Api
+namespace StreamKit.Api;
+
+/// <summary>
+///     Represents an object that draws <see cref="IComponent"/> settings
+///     on screen.
+/// </summary>
+public interface ISettingsDrawer
 {
     /// <summary>
-    ///     Represents an object that draws <see cref="IComponent"/> settings
-    ///     on screen.
+    ///     The current position of the drawn settings on the X axis
+    ///     (horizontally).
     /// </summary>
-    public interface ISettingsDrawer
-    {
-        /// <summary>
-        ///     The current position of the drawn settings on the X axis
-        ///     (horizontally).
-        /// </summary>
-        float X { get; set; }
+    float X { get; set; }
 
-        /// <summary>
-        ///     The current position of the drawn settings on the Y axis
-        ///     (vertically).
-        /// </summary>
-        float Y { get; set; }
+    /// <summary>
+    ///     The current position of the drawn settings on the Y axis
+    ///     (vertically).
+    /// </summary>
+    float Y { get; set; }
 
-        /// <summary>
-        ///     The span of the drawn settings on the X axis (horizontally).
-        /// </summary>
-        float Width { get; set; }
+    /// <summary>
+    ///     The span of the drawn settings on the X axis (horizontally).
+    /// </summary>
+    float Width { get; set; }
 
-        /// <summary>
-        ///     The span of the drawn settings on the Y axis (vertically).
-        /// </summary>
-        float Height { get; set; }
+    /// <summary>
+    ///     The span of the drawn settings on the Y axis (vertically).
+    /// </summary>
+    float Height { get; set; }
 
-        /// <summary>
-        ///     Draws the component's settings on screen.
-        /// </summary>
-        void Draw();
+    /// <summary>
+    ///     Draws the component's settings on screen.
+    /// </summary>
+    void Draw();
 
-        /// <summary>
-        ///     Invalidates the internal state of the drawer.
-        /// </summary>
-        void Invalidate();
-    }
+    /// <summary>
+    ///     Invalidates the internal state of the drawer.
+    /// </summary>
+    void Invalidate();
 }

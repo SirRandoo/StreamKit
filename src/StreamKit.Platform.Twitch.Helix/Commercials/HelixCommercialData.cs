@@ -20,26 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.Helix
+namespace StreamKit.Platform.Twitch.Helix;
+
+public class HelixCommercialData
 {
-    public class HelixCommercialData
-    {
-        /// <summary>
-        ///     The length of the commercial you requested. If you request a
-        ///     commercial that's longer than 180 seconds, the API will use 180
-        ///     seconds instead.
-        /// </summary>
-        public int Length { get; set; }
+    /// <summary>
+    ///     The length of the commercial you requested. If you request a
+    ///     commercial that's longer than 180 seconds, the API will use 180
+    ///     seconds instead.
+    /// </summary>
+    public int Length { get; set; }
 
-        /// <summary>
-        ///     A message that indicates whether Twitch was able to serve an ad.
-        /// </summary>
-        public string Message { get; set; }
+    /// <summary>
+    ///     A message that indicates whether Twitch was able to serve an ad.
+    /// </summary>
+    public string Message { get; set; }
 
-        /// <summary>
-        ///     The number of seconds you must wait before running another
-        ///     commercial.
-        /// </summary>
-        public int RetryAfter { get; set; }
-    }
+    /// <summary>
+    ///     The number of seconds you must wait before running another
+    ///     commercial.
+    /// </summary>
+    public int RetryAfter { get; set; }
 }

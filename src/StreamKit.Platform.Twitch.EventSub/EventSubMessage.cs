@@ -20,17 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+/// <summary>
+///     Represents a primitive message implementation that only provides
+///     access to a message's metadata. EventSub message parsers should
+///     use a more specific message derivative to accurately describe the
+///     message received.
+/// </summary>
+public class EventSubMessage : IEventSubMessage
 {
-    /// <summary>
-    ///     Represents a primitive message implementation that only provides
-    ///     access to a message's metadata. EventSub message parsers should
-    ///     use a more specific message derivative to accurately describe the
-    ///     message received.
-    /// </summary>
-    public class EventSubMessage : IEventSubMessage
-    {
-        /// <inheritdoc/>
-        public IEventSubMetadata Metadata { get; set; }
-    }
+    /// <inheritdoc/>
+    public IEventSubMetadata Metadata { get; set; }
 }

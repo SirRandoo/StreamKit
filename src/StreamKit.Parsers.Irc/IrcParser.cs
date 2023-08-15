@@ -21,161 +21,148 @@
 // SOFTWARE.
 
 using System;
-using JetBrains.Annotations;
+using NetEscapades.EnumGenerators;
 
-namespace StreamKit.Parsers.Irc
+namespace StreamKit.Parsers.Irc;
+
+public record IrcMessage(MessageTag[] Tags, string Prefix, string Command, string Params) : IIrcMessage;
+
+public static class IrcParser
 {
-    public class IrcMessage : IIrcMessage
+    public static IIrcMessage Parse(ReadOnlySpan<char> message)
     {
-        public MessageTag[] Tags { get; set; }
-        public string Prefix { get; set; }
-        public string Command { get; set; }
-        public string Params { get; set; }
+        Boundaries boundaries = GetMessageBoundaries(message);
+        MessageTag[] tags = ParseTags(boundaries.Tags);
+
+        var command = boundaries.Command.ToString();
+
+        return new IrcMessage(tags, boundaries.Prefix.ToString(), command, boundaries.Params.ToString());
     }
 
-    public static class IrcParser
+    private static Boundaries GetMessageBoundaries(ReadOnlySpan<char> message)
     {
-        [ItemNotNull]
-        [NotNull]
-        public static IIrcMessage Parse(ReadOnlySpan<char> message)
+        var boundaries = new Boundaries();
+
+        var section = MessageSection.None;
+        var boundaryStart = 0;
+        var spacesEncountered = 0;
+
+        for (var i = 0; i < message.Length; i++)
         {
-            Boundaries boundaries = GetMessageBoundaries(message);
-            MessageTag[] tags = ParseTags(boundaries.Tags);
+            switch (message[i])
+            {
+                case '@':
+                    boundaryStart = i + 1;
+                    section = MessageSection.Tags;
 
-            var command = boundaries.Command.ToString();
+                    break;
+                case ':' when spacesEncountered == 1:
+                    boundaryStart = i + 1;
+                    section = MessageSection.Prefix;
 
-            return new IrcMessage { Tags = tags, Command = command, Params = boundaries.Params.ToString(), Prefix = boundaries.Prefix.ToString() };
+                    break;
+                case ' ' when spacesEncountered == 2:
+                    boundaryStart = i + 1;
+                    section = MessageSection.Command;
+
+                    break;
+                case ' ' when spacesEncountered == 3:
+                    boundaryStart = i + 1;
+                    section = MessageSection.Params;
+
+                    break;
+                case ' ':
+                    spacesEncountered += 1;
+                    ReadOnlySpan<char> sectionSpan = message.Slice(boundaryStart, i - boundaryStart);
+
+                    boundaryStart = i + 1;
+
+                    switch (section)
+                    {
+                        case MessageSection.Tags:
+                            boundaries.Tags = sectionSpan;
+
+                            break;
+                        case MessageSection.Command:
+                            boundaries.Command = sectionSpan;
+
+                            break;
+                        case MessageSection.Prefix:
+                            boundaries.Prefix = sectionSpan;
+
+                            break;
+                    }
+
+                    break;
+            }
         }
 
-        private static Boundaries GetMessageBoundaries(ReadOnlySpan<char> message)
-        {
-            var boundaries = new Boundaries();
+        boundaries.Params = message.Slice(boundaryStart);
 
-            var section = MessageSection.None;
-            var boundaryStart = 0;
-            var spacesEncountered = 0;
-
-            for (var i = 0; i < message.Length; i++)
-            {
-                switch (message[i])
-                {
-                    case '@':
-                        boundaryStart = i + 1;
-                        section = MessageSection.Tags;
-
-                        break;
-                    case ':' when spacesEncountered == 1:
-                        boundaryStart = i + 1;
-                        section = MessageSection.Prefix;
-
-                        break;
-                    case ' ' when spacesEncountered == 2:
-                        boundaryStart = i + 1;
-                        section = MessageSection.Command;
-
-                        break;
-                    case ' ' when spacesEncountered == 3:
-                        boundaryStart = i + 1;
-                        section = MessageSection.Params;
-
-                        break;
-                    case ' ':
-                        spacesEncountered += 1;
-                        ReadOnlySpan<char> sectionSpan = message.Slice(boundaryStart, i - boundaryStart);
-
-                        boundaryStart = i + 1;
-
-                        switch (section)
-                        {
-                            case MessageSection.Tags:
-                                boundaries.Tags = sectionSpan;
-
-                                break;
-                            case MessageSection.Command:
-                                boundaries.Command = sectionSpan;
-
-                                break;
-                            case MessageSection.Prefix:
-                                boundaries.Prefix = sectionSpan;
-
-                                break;
-                        }
-
-                        break;
-                }
-            }
-
-            boundaries.Params = message.Slice(boundaryStart);
-
-            return boundaries;
-        }
-
-        [ItemNotNull]
-        [NotNull]
-        public static MessageTag[] ParseTags(ReadOnlySpan<char> tags)
-        {
-            var tagCount = 0;
-
-            foreach (char c in tags)
-            {
-                switch (c)
-                {
-                    case ' ':
-                    case ';':
-                        tagCount += 1;
-
-                        break;
-                }
-            }
-
-            var tagIndex = 0;
-            var tagsArray = new MessageTag[tagCount + 1];
-            var current = new MessageTag();
-            var tokenStart = 0;
-
-            for (var i = 0; i < tags.Length; i++)
-            {
-                switch (tags[i])
-                {
-                    case ' ':
-                    case ';':
-                        current.Value = tags.Slice(tokenStart, i - tokenStart).ToString();
-                        tagsArray[tagIndex++] = current;
-
-                        tokenStart = i + 1;
-
-                        break;
-                    case '=':
-                        var name = tags.Slice(tokenStart, i - tokenStart).ToString();
-                        current = GetTagObjectFor(name);
-                        current.Name = name;
-
-                        tokenStart = i + 1;
-
-                        break;
-                }
-            }
-
-            current.Value = tags.Slice(tokenStart).ToString();
-            tagsArray[tagIndex] = current;
-
-            return tagsArray;
-        }
-
-        [NotNull]
-        private static MessageTag GetTagObjectFor(string name)
-        {
-            switch (name)
-            {
-                case "badges":
-                    return new BadgesMessageTag();
-                case "bits":
-                    return new IntegerMessageTag();
-            }
-
-            return new MessageTag { Name = name };
-        }
-
-        private enum MessageSection { None, Tags, Prefix, Command, Params }
+        return boundaries;
     }
+
+    public static MessageTag[] ParseTags(ReadOnlySpan<char> tags)
+    {
+        var tagCount = 0;
+
+        foreach (char c in tags)
+        {
+            switch (c)
+            {
+                case ' ':
+                case ';':
+                    tagCount += 1;
+
+                    break;
+            }
+        }
+
+        var tagIndex = 0;
+        var tagsArray = new MessageTag[tagCount + 1];
+        MessageTag? current = null;
+        var tokenStart = 0;
+
+        for (var i = 0; i < tags.Length; i++)
+        {
+            switch (tags[i])
+            {
+                case ' ':
+                case ';' when current is not null:
+                    current!.Value = tags.Slice(tokenStart, i - tokenStart).ToString();
+                    tagsArray[tagIndex++] = current;
+
+                    tokenStart = i + 1;
+
+                    break;
+                case '=':
+                    var name = tags.Slice(tokenStart, i - tokenStart).ToString();
+                    current = GetTagObjectFor(name);
+
+                    tokenStart = i + 1;
+
+                    break;
+            }
+        }
+
+        current!.Value = tags[tokenStart..].ToString();
+        tagsArray[tagIndex] = current;
+
+        return tagsArray;
+    }
+
+    private static MessageTag GetTagObjectFor(string name)
+    {
+        switch (name)
+        {
+            case "badges":
+                return new BadgesMessageTag(name, string.Empty);
+            case "bits":
+                return new IntegerMessageTag(name, string.Empty);
+        }
+
+        return new MessageTag(name, string.Empty);
+    }
+
+    [EnumExtensions] private enum MessageSection { None, Tags, Prefix, Command, Params }
 }

@@ -20,10 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+public interface IEventSubMessage
 {
-    public interface IEventSubMessage
-    {
-        IEventSubMetadata Metadata { get; set; }
-    }
+    IEventSubMetadata Metadata { get; set; }
 }

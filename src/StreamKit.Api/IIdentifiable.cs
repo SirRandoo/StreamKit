@@ -20,21 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Api
+namespace StreamKit.Api;
+
+/// <summary>
+///     An interface outlining identifiable portions of code.
+/// </summary>
+public interface IIdentifiable
 {
     /// <summary>
-    ///     An interface outlining identifiable portions of code.
+    ///     The unique id of the object.
     /// </summary>
-    public interface IIdentifiable
-    {
-        /// <summary>
-        ///     The unique id of the object.
-        /// </summary>
-        string Id { get; }
+    string Id { get; }
 
-        /// <summary>
-        ///     The human-readable name of the object.
-        /// </summary>
-        string Name { get; set; }
-    }
+    /// <summary>
+    ///     The human-readable name of the object.
+    /// </summary>
+    string Name { get; set; }
 }

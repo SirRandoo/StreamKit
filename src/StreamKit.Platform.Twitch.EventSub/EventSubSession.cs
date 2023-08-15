@@ -22,27 +22,26 @@
 
 using System;
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+/// <summary>
+///     Represents an object that describes session information about a
+///     EventSub connection.
+/// </summary>
+public class EventSubSession : IEventSubSession
 {
-    /// <summary>
-    ///     Represents an object that describes session information about a
-    ///     EventSub connection.
-    /// </summary>
-    public class EventSubSession : IEventSubSession
-    {
-        /// <inheritdoc/>
-        public string Id { get; set; }
+    /// <inheritdoc/>
+    public string Id { get; set; }
 
-        /// <inheritdoc/>
-        public EventConnectionStatus Status { get; set; }
+    /// <inheritdoc/>
+    public EventConnectionStatus Status { get; set; }
 
-        /// <inheritdoc/>
-        public int KeepAliveTimeoutSeconds { get; set; }
+    /// <inheritdoc/>
+    public int KeepAliveTimeoutSeconds { get; set; }
 
-        /// <inheritdoc/>
-        public Uri ReconnectUrl { get; set; }
+    /// <inheritdoc/>
+    public Uri ReconnectUrl { get; set; }
 
-        /// <inheritdoc/>
-        public DateTime ConnectedAt { get; set; }
-    }
+    /// <inheritdoc/>
+    public DateTime ConnectedAt { get; set; }
 }

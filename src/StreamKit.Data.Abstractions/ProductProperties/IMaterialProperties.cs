@@ -22,22 +22,21 @@
 
 using System.Collections.Generic;
 
-namespace StreamKit.Data.Abstractions
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     Represents the various properties materials can have.
+/// </summary>
+public interface IMaterialProperties
 {
     /// <summary>
-    ///     Represents the various properties materials can have.
+    ///     The adjective used to describe an item made of the given
+    ///     material.
     /// </summary>
-    public interface IMaterialProperties
-    {
-        /// <summary>
-        ///     The adjective used to describe an item made of the given
-        ///     material.
-        /// </summary>
-        string Adjective { get; set; }
+    string Adjective { get; set; }
 
-        /// <summary>
-        ///     The various categories a given material can be in.
-        /// </summary>
-        HashSet<string> Categories { get; set; }
-    }
+    /// <summary>
+    ///     The various categories a given material can be in.
+    /// </summary>
+    HashSet<string> Categories { get; set; }
 }

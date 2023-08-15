@@ -22,88 +22,71 @@
 
 using System.Xml.Serialization;
 
-namespace StreamKit.Bootstrap
+namespace StreamKit.Bootstrap;
+
+/// <summary>
+///     Represents a runtime representation of a given directory tree.
+/// </summary>
+/// <param name="Resources">
+///     A collection of bundles which are a representation of a
+///     directory.
+/// </param>
+public record Corpus([property: XmlArrayItem(typeof(ResourceBundle))] ResourceBundle[] Resources);
+
+/// <summary>
+///     Represents a directory on disk.
+/// </summary>
+/// <param name="Root">
+///     The path of the directory on disk.
+/// </param>
+/// <param name="Versioned">
+///     Whether the current version of RimWorld should be appended to the
+///     <see cref="Root"/> path.<br/>
+///     <br/>
+///     The version used depends on the first directory found with the
+///     associated version. The first version used is the version with
+///     the build number included, while the second version checked is
+///     the version without the build number.
+/// </param>
+/// <param name="Resources">
+///     A collection of resources found in the directory.
+/// </param>
+public record ResourceBundle(
+    [property: XmlAttribute] string Root,
+    [property: XmlAttribute] bool Versioned,
+    [property: XmlArrayItem(typeof(Resource))] Resource[] Resources
+);
+
+/// <summary>
+///     Represents a file on disk.
+/// </summary>
+/// <param name="Type">
+///     The type of file being represented.
+/// </param>
+/// <param name="Name">
+///     The name of the file (without an extension).
+/// </param>
+/// <param name="Root">
+///     The path to the directory housing the file.
+/// </param>
+public record Resource([property: XmlAttribute] ResourceType Type, [property: XmlAttribute] string Name, [property: XmlAttribute] string Root);
+
+/// <summary>
+///     The various types of resources that can be loaded by the mod's
+///     bootloader.
+/// </summary>
+public enum ResourceType
 {
     /// <summary>
-    ///     Represents a runtime representation of a given directory tree.
+    ///     Represents a dll that can only be loaded by the operating system.
     /// </summary>
-    public class Corpus
-    {
-        /// <summary>
-        ///     A collection of bundles which are a representation of a
-        ///     directory.
-        /// </summary>
-        [XmlArrayItem(typeof(ResourceBundle))]
-        public ResourceBundle[] Resources { get; set; }
-    }
+    [XmlEnum("Dll")]
+    Dll,
 
     /// <summary>
-    ///     Represents a directory on disk.
+    ///     Represents a dll that can be loaded by the C# runtime without
+    ///     special platform handling.
     /// </summary>
-    public class ResourceBundle
-    {
-        /// <summary>
-        ///     The path of the directory on disk.
-        /// </summary>
-        [XmlAttribute] public string Root { get; set; }
-
-        /// <summary>
-        ///     Whether the current version of RimWorld should be appended to the
-        ///     <see cref="Root"/> path.
-        /// </summary>
-        /// <remarks>
-        ///     The version used depends on the first directory found with the
-        ///     associated version. The first version used is the version with
-        ///     the build number included, while the second version checked is
-        ///     the version without the build number.
-        /// </remarks>
-        [XmlAttribute] public bool Versioned { get; set; }
-
-        /// <summary>
-        ///     A collection of resources found in the directory.
-        /// </summary>
-        [XmlArrayItem(nameof(Resource))]
-        public Resource[] Resources { get; set; }
-    }
-
-    /// <summary>
-    ///     Represents a file on disk.
-    /// </summary>
-    public class Resource
-    {
-        /// <summary>
-        ///     The type of file being represented.
-        /// </summary>
-        [XmlAttribute] public ResourceType Type { get; set; }
-
-        /// <summary>
-        ///     The name of the file (without an extension).
-        /// </summary>
-        [XmlAttribute] public string Name { get; set; }
-
-        /// <summary>
-        ///     The path to the directory housing the file.
-        /// </summary>
-        [XmlAttribute] public string Root { get; set; }
-    }
-
-    /// <summary>
-    ///     The various types of resources that can be loaded by the mod's
-    ///     bootloader.
-    /// </summary>
-    public enum ResourceType
-    {
-        /// <summary>
-        ///     Represents a dll that can only be loaded by the operating system.
-        /// </summary>
-        [XmlEnum("Dll")]
-        Dll,
-
-        /// <summary>
-        ///     Represents a dll that can be loaded by the C# runtime without
-        ///     special platform handling.
-        /// </summary>
-        [XmlEnum("Assembly")]
-        Assembly
-    }
+    [XmlEnum("Assembly")]
+    Assembly
 }

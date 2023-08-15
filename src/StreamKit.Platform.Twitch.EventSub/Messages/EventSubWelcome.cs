@@ -20,14 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+/// <summary>
+///     Represents a welcome message from the EventSub system.
+/// </summary>
+public class EventSubWelcome : EventSubMessage, IEventSubPayload<IEventSubSession>
 {
-    /// <summary>
-    ///     Represents a welcome message from the EventSub system.
-    /// </summary>
-    public class EventSubWelcome : EventSubMessage, IEventSubPayload<IEventSubSession>
-    {
-        /// <inheritdoc/>
-        public IEventSubSession Payload { get; set; }
-    }
+    /// <inheritdoc/>
+    public IEventSubSession Payload { get; set; }
 }

@@ -22,44 +22,43 @@
 
 using System.Threading.Tasks;
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+public interface IConnection<in T>
 {
-    public interface IConnection<in T>
-    {
-        /// <summary>
-        ///     Returns whether or not the underlying connection being
-        ///     represented is connected to the platform's servers.
-        /// </summary>
-        bool Connected { get; }
+    /// <summary>
+    ///     Returns whether or not the underlying connection being
+    ///     represented is connected to the platform's servers.
+    /// </summary>
+    bool Connected { get; }
 
-        /// <summary>
-        ///     The current state of the connection.
-        /// </summary>
-        ConnectionState State { get; }
+    /// <summary>
+    ///     The current state of the connection.
+    /// </summary>
+    ConnectionState State { get; }
 
-        /// <summary>
-        ///     Connects to the <see cref="IPlatform"/>'s service.
-        /// </summary>
-        /// <returns>
-        ///     Whether a connection could be established to the
-        ///     <see cref="IPlatform"/>'s service.
-        /// </returns>
-        Task<bool> ConnectAsync();
+    /// <summary>
+    ///     Connects to the <see cref="IPlatform"/>'s service.
+    /// </summary>
+    /// <returns>
+    ///     Whether a connection could be established to the
+    ///     <see cref="IPlatform"/>'s service.
+    /// </returns>
+    Task<bool> ConnectAsync();
 
-        /// <summary>
-        ///     Disconnects from the <see cref="IPlatform"/>'s service.
-        /// </summary>
-        /// <returns>
-        ///     Whether the connection to the <see cref="IPlatform"/>'s
-        ///     service was successfully closed.
-        /// </returns>
-        Task<bool> DisconnectAsync();
+    /// <summary>
+    ///     Disconnects from the <see cref="IPlatform"/>'s service.
+    /// </summary>
+    /// <returns>
+    ///     Whether the connection to the <see cref="IPlatform"/>'s
+    ///     service was successfully closed.
+    /// </returns>
+    Task<bool> DisconnectAsync();
 
-        /// <summary>
-        ///     Sends a payload to the platform.
-        /// </summary>
-        /// <param name="payload">The payload to send to the platform.</param>
-        /// <returns>Whether the payload was successfully sent.</returns>
-        Task<bool> SendAsync(T payload);
-    }
+    /// <summary>
+    ///     Sends a payload to the platform.
+    /// </summary>
+    /// <param name="payload">The payload to send to the platform.</param>
+    /// <returns>Whether the payload was successfully sent.</returns>
+    Task<bool> SendAsync(T payload);
 }

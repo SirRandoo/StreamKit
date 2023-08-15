@@ -9,6 +9,6 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="0SirRandoo.CommonLib" Version="1.12.1" />
-        <PackageReference Include="WatsonWebsocket" Version="4.0.8" />
+        <PackageReference Update="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
     </ItemGroup>
 </Project>

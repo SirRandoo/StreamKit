@@ -10,25 +10,28 @@
         <Compile Update="Serializer\Json.Async.cs">
             <DependentUpon>Json.cs</DependentUpon>
         </Compile>
+        <Compile Update="Serializers\Json.Async.cs">
+            <DependentUpon>Json.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Serializers\Json.Sync.cs">
+            <DependentUpon>Json.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta06" />
+        <Reference Include="Dapper">
+            <HintPath>..\..\..\..\..\..\.nuget\packages\dapper\2.0.123\lib\net461\Dapper.dll</HintPath>
+        </Reference>
+        <Reference Include="Mono.Data.Sqlite">
+            <HintPath>..\Libs\Mono.Data.Sqlite.dll</HintPath>
+        </Reference>
+        <Reference Include="Tomlyn">
+            <HintPath>..\Libs\Tomlyn.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
-      <Reference Include="0SirRandoo.CommonLib">
-        <HintPath>..\..\..\..\..\..\.nuget\packages\0sirrandoo.commonlib\1.12.1\lib\net472\0SirRandoo.CommonLib.dll</HintPath>
-      </Reference>
-      <Reference Include="Dapper">
-        <HintPath>..\..\..\..\..\..\.nuget\packages\dapper\2.0.123\lib\net461\Dapper.dll</HintPath>
-      </Reference>
-      <Reference Include="Mono.Data.Sqlite">
-        <HintPath>..\Libs\Mono.Data.Sqlite.dll</HintPath>
-      </Reference>
-      <Reference Include="Newtonsoft.Json">
-        <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
-      </Reference>
-      <Reference Include="Tomlyn">
-        <HintPath>..\Libs\Tomlyn.dll</HintPath>
-      </Reference>
+        <ProjectReference Include="..\StreamKit.Async.Wrappers\StreamKit.Async.Wrappers.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="System.Text.Json" Version="7.0.3" />
     </ItemGroup>
 </Project>

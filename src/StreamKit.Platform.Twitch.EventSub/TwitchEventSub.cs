@@ -25,26 +25,25 @@ using System.Threading.Tasks;
 using StreamKit.Platform.Abstractions;
 using WatsonWebsocket;
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+public class TwitchEventSub : IConnection<IResponse>
 {
-    public class TwitchEventSub : IConnection<IResponse>
-    {
-        private const string EventSubUrl = "wss://eventsub.wss.twitch.tv/ws";
-        private static readonly Uri EventSubUri = new Uri(EventSubUrl);
-        private WatsonWsClient _primarySocket = new WatsonWsClient(EventSubUri);
-        private WatsonWsClient _intermediateSocket = new WatsonWsClient(EventSubUri);
+    private const string EventSubUrl = "wss://eventsub.wss.twitch.tv/ws";
+    private static readonly Uri EventSubUri = new(EventSubUrl);
+    private WatsonWsClient _intermediateSocket = new(EventSubUri);
+    private WatsonWsClient _primarySocket = new(EventSubUri);
 
-        /// <inheritdoc />
-        public bool Connected { get; }
+    /// <inheritdoc/>
+    public bool Connected { get; }
 
-        /// <inheritdoc />
-        public ConnectionState State { get; }
+    /// <inheritdoc/>
+    public ConnectionState State { get; }
 
-        /// <inheritdoc />
-        public async Task<bool> ConnectAsync() => throw new NotImplementedException();
-        /// <inheritdoc />
-        public async Task<bool> DisconnectAsync() => throw new NotImplementedException();
-        /// <inheritdoc />
-        public async Task<bool> SendAsync(IResponse payload) => throw new NotImplementedException();
-    }
+    /// <inheritdoc/>
+    public async Task<bool> ConnectAsync() => throw new NotImplementedException();
+    /// <inheritdoc/>
+    public async Task<bool> DisconnectAsync() => throw new NotImplementedException();
+    /// <inheritdoc/>
+    public async Task<bool> SendAsync(IResponse payload) => throw new NotImplementedException();
 }

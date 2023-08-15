@@ -20,27 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Parsers.Irc
+namespace StreamKit.Parsers.Irc;
+
+public record IntegerMessageTag(string Name, string Value) : MessageTag(Name, Value)
 {
-    public class IntegerMessageTag : MessageTag
+    private string _value;
+
+    /// <inheritdoc/>
+    public override string Value
     {
-        private string _value;
-
-        /// <inheritdoc/>
-        public override string Value
+        get => _value;
+        set
         {
-            get => _value;
-            set
-            {
-                _value = value;
+            _value = value;
 
-                if (int.TryParse(_value, out int result))
-                {
-                    ParsedValue = result;
-                }
+            if (int.TryParse(_value, out int result))
+            {
+                ParsedValue = result;
             }
         }
-
-        public int ParsedValue { get; private set; }
     }
+
+    public int ParsedValue { get; private set; }
 }

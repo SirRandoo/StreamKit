@@ -20,26 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     Represents a response from the mod itself.
+///     <br/>
+///     <br/>
+///     Responses are returned from commands and given to all
+///     <see cref="IPlatform"/>s registered with the mod. Responses only
+///     provide an override of <see cref="object.ToString()"/> for use in
+///     text-based platform implementations -- handling of response
+///     objects outside of this use case is up to the platform itself.
+/// </summary>
+/// <seealso cref="PlatformRegistry"/>
+public interface IResponse
 {
     /// <summary>
-    ///     Represents a response from the mod itself.
-    ///     <br/>
-    ///     <br/>
-    ///     Responses are returned from commands and given to all
-    ///     <see cref="IPlatform"/>s registered with the mod. Responses only
-    ///     provide an override of <see cref="object.ToString()"/> for use in
-    ///     text-based platform implementations -- handling of response
-    ///     objects outside of this use case is up to the platform itself.
+    ///     The intended recipient of the response. If there is no intended
+    ///     recipient the value of this property will be
+    ///     <see langword="null"/>.
     /// </summary>
-    /// <seealso cref="PlatformRegistry"/>
-    public interface IResponse
-    {
-        /// <summary>
-        ///     The intended recipient of the response. If there is no intended
-        ///     recipient the value of this property will be
-        ///     <see langword="null"/>.
-        /// </summary>
-        IUser Recipient { get; set; }
-    }
+    IUser Recipient { get; set; }
 }

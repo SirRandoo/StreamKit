@@ -20,21 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Api
+namespace StreamKit.Api;
+
+/// <summary>
+///     An interface for defining the minimum required class members for
+///     a component's settings class.
+/// </summary>
+public interface  IComponentSettings
 {
     /// <summary>
-    ///     An interface for defining the minimum required class members for
-    ///     a component's settings class.
+    ///     The current version of the settings.
     /// </summary>
-    public interface IComponentSettings
-    {
-        /// <summary>
-        ///     The current version of the settings.
-        /// </summary>
-        /// <remarks>
-        ///     This is used internally by the mod to indicate any setting
-        ///     version migration that may need to take place.
-        /// </remarks>
-        int Version { get; set; }
-    }
+    /// <remarks>
+    ///     This is used internally by the mod to indicate any setting
+    ///     version migration that may need to take place.
+    /// </remarks>
+    int Version { get; set; }
 }

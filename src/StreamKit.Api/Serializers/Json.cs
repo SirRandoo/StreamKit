@@ -20,15 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+namespace StreamKit.Api;
 
-namespace StreamKit.Api
+public static partial class Json
 {
-    public static partial class Json
-    {
-        private static readonly JsonSerializer Serializer =
-            JsonSerializer.CreateDefault(new JsonSerializerSettings { Converters = new List<JsonConverter> { new StringEnumConverter() } });
-    }
 }

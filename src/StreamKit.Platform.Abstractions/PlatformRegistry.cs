@@ -25,55 +25,54 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using StreamKit.Api;
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     A class for housing <see cref="IPlatform"/>s that were registered
+///     with the mod.
+///     <br/>
+///     <br/>
+///     Registering a <see cref="IPlatform"/> with the mod allows said
+///     platform to be managed by the end-user. Platforms that are
+///     managed by the mod are asked to perform certain lifecycle events,
+///     like connecting on startup. Unlike components, platforms are
+///     required to implement a <see cref="IPlatformSettings"/>
+///     derivative that houses their platform specific settings, which
+///     are then displayed to the user in a specific section of the
+///     StreamKit's settings menu.
+/// </summary>
+public static class PlatformRegistry
 {
+    private static readonly Registry<IPlatform> Registry = new();
+
     /// <summary>
-    ///     A class for housing <see cref="IPlatform"/>s that were registered
-    ///     with the mod.
-    ///     <br/>
-    ///     <br/>
-    ///     Registering a <see cref="IPlatform"/> with the mod allows said
-    ///     platform to be managed by the end-user. Platforms that are
-    ///     managed by the mod are asked to perform certain lifecycle events,
-    ///     like connecting on startup. Unlike components, platforms are
-    ///     required to implement a <see cref="IPlatformSettings"/>
-    ///     derivative that houses their platform specific settings, which
-    ///     are then displayed to the user in a specific section of the
-    ///     StreamKit's settings menu.
+    ///     Returns a list of <see cref="WeakReference{T}"/> for all the
+    ///     <see cref="IPlatform"/>s registered within the registry.
     /// </summary>
-    public static class PlatformRegistry
-    {
-        private static readonly Registry<IPlatform> Registry = new Registry<IPlatform>();
+    [NotNull]
+    public static List<IPlatform> AllComponents => Registry.AllRegistrants;
 
-        /// <summary>
-        ///     Returns a list of <see cref="WeakReference{T}"/> for all the
-        ///     <see cref="IPlatform"/>s registered within the registry.
-        /// </summary>
-        [NotNull]
-        public static List<IPlatform> AllComponents => Registry.AllRegistrants;
+    /// <summary>
+    ///     Returns a <see cref="IPlatform"/> that was previously registered
+    ///     by the platform's id.
+    /// </summary>
+    /// <param name="id">The unique id of the <see cref="IPlatform"/>.</param>
+    /// <returns>
+    ///     A <see cref="WeakReference{T}"/> to the <see cref="IPlatform"/>
+    ///     that was registered under the given id, or <see langword="null"/>
+    ///     if there was no platform associated with that id.
+    /// </returns>
+    [CanBeNull]
+    public static IPlatform Get([NotNull] string id) => Registry.Get(id);
 
-        /// <summary>
-        ///     Returns a <see cref="IPlatform"/> that was previously registered
-        ///     by the platform's id.
-        /// </summary>
-        /// <param name="id">The unique id of the <see cref="IPlatform"/>.</param>
-        /// <returns>
-        ///     A <see cref="WeakReference{T}"/> to the <see cref="IPlatform"/>
-        ///     that was registered under the given id, or <see langword="null"/>
-        ///     if there was no platform associated with that id.
-        /// </returns>
-        [CanBeNull]
-        public static IPlatform Get([NotNull] string id) => Registry.Get(id);
+    /// <summary>
+    ///     Registers a <see cref="IPlatform"/> within the registry.
+    /// </summary>
+    public static void Register([NotNull] IPlatform platform) => Registry.Register(platform);
 
-        /// <summary>
-        ///     Registers a <see cref="IPlatform"/> within the registry.
-        /// </summary>
-        public static void Register([NotNull] IPlatform platform) => Registry.Register(platform);
-
-        /// <summary>
-        ///     Unregisters a <see cref="IPlatform"/> from the registry.
-        /// </summary>
-        /// <returns>Whether the <see cref="IPlatform"/> was unregistered.</returns>
-        public static bool Unregister(IPlatform platform) => Registry.Unregister(platform);
-    }
+    /// <summary>
+    ///     Unregisters a <see cref="IPlatform"/> from the registry.
+    /// </summary>
+    /// <returns>Whether the <see cref="IPlatform"/> was unregistered.</returns>
+    public static bool Unregister(IPlatform platform) => Registry.Unregister(platform);
 }

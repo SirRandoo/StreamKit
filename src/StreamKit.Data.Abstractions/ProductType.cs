@@ -20,40 +20,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Data.Abstractions
+using NetEscapades.EnumGenerators;
+
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     Represents the various types of purchasable products available
+///     within the mod.
+/// </summary>
+[EnumExtensions]
+public enum ProductType
 {
     /// <summary>
-    ///     Represents the various types of purchasable products available
-    ///     within the mod.
+    ///     Represents a product that will spawn an item in most cases.
     /// </summary>
-    public enum ProductType
-    {
-        /// <summary>
-        ///     Represents a product that will spawn an item in most cases.
-        /// </summary>
-        Item,
+    Item,
 
-        /// <summary>
-        ///     Represents a product that will cause an in-game event to occur.
-        /// </summary>
-        Event,
+    /// <summary>
+    ///     Represents a product that will cause an in-game event to occur.
+    /// </summary>
+    Event,
 
-        /// <summary>
-        ///     Represents a product that will spawn a pawn in-game for the
-        ///     purchaser in most cases.
-        /// </summary>
-        Pawn,
+    /// <summary>
+    ///     Represents a product that will spawn a pawn in-game for the
+    ///     purchaser in most cases.
+    /// </summary>
+    Pawn,
 
-        /// <summary>
-        ///     Represents a product that will alter the traits of a purchaser's
-        ///     pawn when purchased.
-        /// </summary>
-        Trait,
+    /// <summary>
+    ///     Represents a product that will alter the traits of a purchaser's
+    ///     pawn when purchased.
+    /// </summary>
+    Trait,
 
-        /// <summary>
-        ///     Represents a product that will alter the backstory of a
-        ///     purchaser's pawn when purchased.
-        /// </summary>
-        Backstory
-    }
+    /// <summary>
+    ///     Represents a product that will alter the backstory of a
+    ///     purchaser's pawn when purchased.
+    /// </summary>
+    Backstory
 }

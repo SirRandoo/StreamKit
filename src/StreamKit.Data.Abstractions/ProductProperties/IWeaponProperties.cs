@@ -20,23 +20,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Data.Abstractions
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     Represents the properties of a weapon that viewers may be able to
+///     purchase.
+/// </summary>
+public interface IWeaponProperties
 {
     /// <summary>
-    ///     Represents the properties of a weapon that viewers may be able to
-    ///     purchase.
+    ///     Whether viewers are allowed to purchase this weapon through the
+    ///     "equipping" system.
     /// </summary>
-    public interface IWeaponProperties
-    {
-        /// <summary>
-        ///     Whether viewers are allowed to purchase this weapon through the
-        ///     "equipping" system.
-        /// </summary>
-        bool CanEquip { get; set; }
+    bool CanEquip { get; set; }
 
-        /// <summary>
-        ///     The type of weapon this product is.
-        /// </summary>
-        WeaponType WeaponType { get; set; }
-    }
+    /// <summary>
+    ///     The type of weapon this product is.
+    /// </summary>
+    WeaponType WeaponType { get; set; }
 }

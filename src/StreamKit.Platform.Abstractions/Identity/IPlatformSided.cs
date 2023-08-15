@@ -20,22 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     An interface outlining the required members for an object that
+///     originates from a <see cref="IPlatform"/>.
+/// </summary>
+public interface IPlatformSided
 {
     /// <summary>
-    ///     An interface outlining the required members for an object that
-    ///     originates from a <see cref="IPlatform"/>.
+    ///     The id of the associated entity.
     /// </summary>
-    public interface IPlatformSided
-    {
-        /// <summary>
-        ///     The id of the associated entity.
-        /// </summary>
-        string Id { get; }
+    string Id { get; }
 
-        /// <summary>
-        ///     The platform a platform-sided object originated from.
-        /// </summary>
-        IPlatform Platform { get; }
-    }
+    /// <summary>
+    ///     The platform a platform-sided object originated from.
+    /// </summary>
+    IPlatform Platform { get; }
 }

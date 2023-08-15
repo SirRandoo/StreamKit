@@ -22,31 +22,30 @@
 
 using System.Threading.Tasks;
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     Defines an object for handling <see cref="IMessage"/>s emitted
+///     from a platform.
+/// </summary>
+public interface IMessageHandler
 {
     /// <summary>
-    ///     Defines an object for handling <see cref="IMessage"/>s emitted
-    ///     from a platform.
+    ///     The priority level of the message handler.
     /// </summary>
-    public interface IMessageHandler
-    {
-        /// <summary>
-        ///     The priority level of the message handler.
-        /// </summary>
-        /// <remarks>
-        ///     Handlers with a higher priority will execute before handlers with
-        ///     a lower priority.
-        /// </remarks>
-        int Priority { get; }
+    /// <remarks>
+    ///     Handlers with a higher priority will execute before handlers with
+    ///     a lower priority.
+    /// </remarks>
+    int Priority { get; }
 
-        /// <summary>
-        ///     Invoked when a new message is received from a connection.
-        /// </summary>
-        /// <param name="message">The message to handle.</param>
-        /// <returns>
-        ///     Whether the messaging api should continuing calling message
-        ///     handlers.
-        /// </returns>
-        Task<bool> Handle(IMessage message);
-    }
+    /// <summary>
+    ///     Invoked when a new message is received from a connection.
+    /// </summary>
+    /// <param name="message">The message to handle.</param>
+    /// <returns>
+    ///     Whether the messaging api should continuing calling message
+    ///     handlers.
+    /// </returns>
+    Task<bool> Handle(IMessage message);
 }

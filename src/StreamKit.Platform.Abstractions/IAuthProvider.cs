@@ -22,31 +22,29 @@
 
 using System;
 using System.ComponentModel;
-using StreamKit.Api;
 
-namespace StreamKit.Platform.Abstractions
+namespace StreamKit.Platform.Abstractions;
+
+/// <summary>
+///     Defines a special class used for authenticating to a platform.
+/// </summary>
+public interface IAuthProvider : IPlatformSided, INotifyPropertyChanged
 {
     /// <summary>
-    ///     Defines a special class used for authenticating to a platform.
+    ///     Returns a url viewers can use to authorize the mod.
     /// </summary>
-    public interface IAuthProvider : IPlatformSided, INotifyPropertyChanged
-    {
-        /// <summary>
-        ///     Returns a url viewers can use to authorize the mod.
-        /// </summary>
-        Uri AuthLink { get; }
+    Uri AuthLink { get; }
 
-        /// <summary>
-        ///     Whether there's been a change that requires users to
-        ///     reauthenticate.
-        /// </summary>
-        /// <remarks>
-        ///     This is generally used as a hint to the mod that the user must
-        ///     reauthenticate for a new feature to work. However,
-        ///     re-authentication is optional and developers of the feature
-        ///     should ensure their code works properly when users haven't
-        ///     re-authenticated.
-        /// </remarks>
-        bool RequiresReAuth { get; }
-    }
+    /// <summary>
+    ///     Whether there's been a change that requires users to
+    ///     reauthenticate.
+    /// </summary>
+    /// <remarks>
+    ///     This is generally used as a hint to the mod that the user must
+    ///     reauthenticate for a new feature to work. However,
+    ///     re-authentication is optional and developers of the feature
+    ///     should ensure their code works properly when users haven't
+    ///     re-authenticated.
+    /// </remarks>
+    bool RequiresReAuth { get; }
 }

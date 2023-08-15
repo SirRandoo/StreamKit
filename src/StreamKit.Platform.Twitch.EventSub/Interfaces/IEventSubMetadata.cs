@@ -22,14 +22,13 @@
 
 using System;
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+public interface IEventSubMetadata
 {
-    public interface IEventSubMetadata
-    {
-        public string MessageId { get; set; }
-        public DateTime MessageTimestamp { get; set; }
-        public string SubscriptionVersion { get; set; }
-        public EventMessageType MessageType { get; set; }
-        public EventSubscriptionType SubscriptionType { get; set; }
-    }
+    public string MessageId { get; set; }
+    public DateTime MessageTimestamp { get; set; }
+    public string SubscriptionVersion { get; set; }
+    public EventMessageType MessageType { get; set; }
+    public EventSubscriptionType SubscriptionType { get; set; }
 }

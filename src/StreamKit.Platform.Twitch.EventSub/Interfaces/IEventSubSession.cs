@@ -22,42 +22,41 @@
 
 using System;
 
-namespace StreamKit.Platform.Twitch.EventSub
+namespace StreamKit.Platform.Twitch.EventSub;
+
+/// <summary>
+///     An interface representing the session information sent by the
+///     EventSub system.
+/// </summary>
+public interface IEventSubSession
 {
     /// <summary>
-    ///     An interface representing the session information sent by the
-    ///     EventSub system.
+    ///     An ID that uniquely identifies this WebSocket connection. Use
+    ///     this ID to set the session id field in all subscription requests.
     /// </summary>
-    public interface IEventSubSession
-    {
-        /// <summary>
-        ///     An ID that uniquely identifies this WebSocket connection. Use
-        ///     this ID to set the session id field in all subscription requests.
-        /// </summary>
-        string Id { get; set; }
+    string Id { get; set; }
 
-        /// <summary>
-        ///     The current status of the EventSub connection.
-        /// </summary>
-        public EventConnectionStatus Status { get; set; }
+    /// <summary>
+    ///     The current status of the EventSub connection.
+    /// </summary>
+    public EventConnectionStatus Status { get; set; }
 
-        /// <summary>
-        ///     The maximum number of seconds that you should expect silence
-        ///     before receiving a keepalive message. For a welcome message, this
-        ///     is the number of seconds that you have to subscribe to an event
-        ///     after receiving the welcome message. If you don’t subscribe to an
-        ///     event within this window, the socket is disconnected.
-        /// </summary>
-        public int KeepAliveTimeoutSeconds { get; set; }
+    /// <summary>
+    ///     The maximum number of seconds that you should expect silence
+    ///     before receiving a keepalive message. For a welcome message, this
+    ///     is the number of seconds that you have to subscribe to an event
+    ///     after receiving the welcome message. If you don’t subscribe to an
+    ///     event within this window, the socket is disconnected.
+    /// </summary>
+    public int KeepAliveTimeoutSeconds { get; set; }
 
-        /// <summary>
-        ///     The URL to reconnect to if you get a Reconnect message.
-        /// </summary>
-        public Uri ReconnectUrl { get; set; }
+    /// <summary>
+    ///     The URL to reconnect to if you get a Reconnect message.
+    /// </summary>
+    public Uri ReconnectUrl { get; set; }
 
-        /// <summary>
-        ///     The UTC date and time that the connection was created.
-        /// </summary>
-        public DateTime ConnectedAt { get; set; }
-    }
+    /// <summary>
+    ///     The UTC date and time that the connection was created.
+    /// </summary>
+    public DateTime ConnectedAt { get; set; }
 }
