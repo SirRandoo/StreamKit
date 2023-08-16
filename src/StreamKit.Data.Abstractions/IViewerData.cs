@@ -22,58 +22,62 @@
 
 using System;
 using System.Collections.Generic;
-using StreamKit.Platform.Abstractions;
+using StreamKit.Api;
 
-namespace StreamKit.Data.Abstractions
+namespace StreamKit.Data.Abstractions;
+
+/// <summary>
+///     Represents the mod data for a given viewer that interacts with
+///     the mod.
+/// </summary>
+public interface IViewerData : IIdentifiable
 {
     /// <summary>
-    ///     Represents the mod data for a given viewer that interacts with
-    ///     the mod.
+    ///     The id of the platform this viewer's data originated from.
     /// </summary>
-    public interface IViewerData : IPlatformSided
-    {
-        /// <summary>
-        ///     The amount of points the viewer has accumulated.
-        ///     <br/>
-        ///     <br/>
-        ///     Points are used by the mod's store for purchases, and in some
-        ///     other systems for other use cases. For the full rundown of what
-        ///     points are used for, please refer to the relevant documentation
-        ///     on the mod, and any addons that directly (or indirectly) use
-        ///     points.
-        /// </summary>
-        long Points { get; set; }
+    string Platform { get; set; }
+    
+    /// <summary>
+    ///     The amount of points the viewer has accumulated.
+    ///     <br/>
+    ///     <br/>
+    ///     Points are used by the mod's store for purchases, and in some
+    ///     other systems for other use cases. For the full rundown of what
+    ///     points are used for, please refer to the relevant documentation
+    ///     on the mod, and any addons that directly (or indirectly) use
+    ///     points.
+    /// </summary>
+    long Points { get; set; }
 
-        /// <summary>
-        ///     The amount of karma the viewer has.
-        ///     <br/>
-        ///     <br/>
-        ///     Karma is the immediate system for altering the buying power of
-        ///     viewers. As the karma and reputation systems are relatively
-        ///     complex, please refer to the documentation for both in the mod,
-        ///     as well as any addons that may directly (or indirectly) alter
-        ///     either system.
-        /// </summary>
-        short Karma { get; set; }
+    /// <summary>
+    ///     The amount of karma the viewer has.
+    ///     <br/>
+    ///     <br/>
+    ///     Karma is the immediate system for altering the buying power of
+    ///     viewers. As the karma and reputation systems are relatively
+    ///     complex, please refer to the documentation for both in the mod,
+    ///     as well as any addons that may directly (or indirectly) alter
+    ///     either system.
+    /// </summary>
+    short Karma { get; set; }
 
-        /// <summary>
-        ///     The date and time when the viewer was last seen by the mod.
-        ///     <br/>
-        ///     <br/>
-        ///     How this field is updated depends on the implementation of the
-        ///     mod at a given point in time, but it generally refers to the last
-        ///     time the viewer was last seen chatting.
-        /// </summary>
-        DateTime LastSeen { get; set; }
+    /// <summary>
+    ///     The date and time when the viewer was last seen by the mod.
+    ///     <br/>
+    ///     <br/>
+    ///     How this field is updated depends on the implementation of the
+    ///     mod at a given point in time, but it generally refers to the last
+    ///     time the viewer was last seen chatting.
+    /// </summary>
+    DateTime LastSeen { get; set; }
 
-        /// <summary>
-        ///     The purchases the viewer has made while using the mod.
-        /// </summary>
-        /// <remarks>
-        ///     The purchase history of a viewer does not always indicate their
-        ///     full history as streamers are permitted to clear their history at
-        ///     any moment.
-        /// </remarks>
-        List<ITransaction> Transactions { get; set; }
-    }
+    /// <summary>
+    ///     The purchases the viewer has made while using the mod.
+    /// </summary>
+    /// <remarks>
+    ///     The purchase history of a viewer does not always indicate their
+    ///     full history as streamers are permitted to clear their history at
+    ///     any moment.
+    /// </remarks>
+    List<ITransaction> Transactions { get; set; }
 }
