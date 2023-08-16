@@ -1,4 +1,4 @@
-﻿// MIT License
+// MIT License
 // 
 // Copyright (c) 2023 SirRandoo
 // 
@@ -20,12 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Parsers.Irc;
+using UnityEngine;
 
-public interface IIrcMessage
+namespace StreamKit.UX.CodeEditor;
+
+public interface IMarkupBlock
 {
-    MessageTag[] Tags { get; init; }
-    string Prefix { get; init; }
-    string Command { get; init; }
-    string Params { get; init; }
+    string Content { get; set; }
+}
+
+public interface IMarkupDocument
+{
+    IMarkupBlock Blocks { get; }
+}
+
+/// <summary>
+///     An abstract representation of a markup engine, which is a specialized
+///     class tasked with tracking, updating, and removing markup the end user
+///     provides through the associated text editor.
+/// </summary>
+public interface IMarkupEngine
+{
+    IMarkupDocument GetMarkupDocument();
 }
