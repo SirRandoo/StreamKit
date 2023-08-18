@@ -20,25 +20,51 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using SirRandoo.CommonLib.Windows;
+using SirRandoo.CommonLib.Workers;
 using UnityEngine;
+using Verse;
 
-namespace StreamKit.Mod
+namespace StreamKit.Mod;
+
+public partial class SettingsWindow : ProxySettingsWindow
 {
-    public class SettingsWindow : ProxySettingsWindow
+    private readonly TabWorker _tabWorker = new MaterializedTabWorker();
+
+    /// <inheritdoc/>
+    public SettingsWindow(Verse.Mod mod) : base(mod)
     {
-        /// <inheritdoc/>
-        public SettingsWindow(Verse.Mod mod) : base(mod)
-        {
-        }
+    }
 
-        /// <inheritdoc/>
-        public override void DoWindowContents(Rect inRect)
-        {
-            GUI.BeginGroup(inRect);
+    /// <inheritdoc/>
+    protected override void GetTranslations()
+    {
+        base.GetTranslations();
 
+    #if DEBUG
+        _tabWorker.AddTab("tabs.debug", "Debug", "A collection of debugging utilities for StreamKit", DrawDebugTab);
+    #endif
+    }
 
-            GUI.EndGroup();
-        }
+    /// <inheritdoc/>
+    public override void DoWindowContents(Rect inRect)
+    {
+        GUI.BeginGroup(inRect);
+
+        GUI.EndGroup();
+    }
+
+    private static void DrawDebugTab(Rect region)
+    {
+        GUI.BeginGroup(region);
+
+        var windowColumn = new Rect(0f, 0f, (float)Math.Floor(region.width * 0.333f), region.height);
+
+        GUI.BeginGroup(windowColumn);
+        DrawDebugWindowColumn(windowColumn.AtZero());
+        GUI.EndGroup();
+
+        GUI.EndGroup();
     }
 }
