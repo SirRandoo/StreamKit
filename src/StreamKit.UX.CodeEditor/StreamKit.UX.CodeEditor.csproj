@@ -1,5 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <Description>A library for housing code relating to an Unity IMGUI implementation of a code editor.</Description>
-    </PropertyGroup>
-</Project>
