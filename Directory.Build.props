@@ -20,6 +20,7 @@
         <RimWorldVersion>1.4</RimWorldVersion>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
         <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+        <DefineConstants>$(DefineConstants);NETESCAPADES_ENUMGENERATORS_EMBED_ATTRIBUTES</DefineConstants>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     </PropertyGroup>
