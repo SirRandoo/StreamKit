@@ -7,5 +7,14 @@
       <Compile Update="Windows\SettingsWindow.Debug.cs">
         <DependentUpon>SettingsWindow.cs</DependentUpon>
       </Compile>
+      <Compile Update="Windows\IntEntryDialog.cs">
+        <DependentUpon>NumberEntryDialog.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Windows\LongEntryDialog.cs">
+        <DependentUpon>NumberEntryDialog.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Windows\ShortEntryDialog.cs">
+        <DependentUpon>NumberEntryDialog.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>
