@@ -83,7 +83,6 @@ public static class BootModLoader
         AssemblyIsUsableMethod(pack.assemblies, assembly);
         pack.assemblies.loadedAssemblies.Add(assembly);
 
-        InstantiateModClasses(pack, assembly);
         try
         {
             InstantiateModClasses(pack, assembly);
