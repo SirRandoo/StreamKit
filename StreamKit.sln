@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Data.Products", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Async.Incidents", "src\StreamKit.Async.Incidents\StreamKit.Async.Incidents.csproj", "{576997DC-38D9-422F-A21A-940B1501252A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Api.Extensions", "src\StreamKit.Api.Extensions\StreamKit.Api.Extensions.csproj", "{CE7B4E0E-2297-4439-B753-644BA25C34D5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,5 +58,9 @@ Global
 		{576997DC-38D9-422F-A21A-940B1501252A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{576997DC-38D9-422F-A21A-940B1501252A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{576997DC-38D9-422F-A21A-940B1501252A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE7B4E0E-2297-4439-B753-644BA25C34D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE7B4E0E-2297-4439-B753-644BA25C34D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE7B4E0E-2297-4439-B753-644BA25C34D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE7B4E0E-2297-4439-B753-644BA25C34D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
