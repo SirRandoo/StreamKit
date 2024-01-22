@@ -40,7 +40,7 @@ internal static class Bootstrap
     private static readonly string? NativeExtension = GetNativeExtension();
     private static readonly XmlSerializer Serializer = new(typeof(Corpus));
     private static readonly IRimLogger Logger = new RimThreadedLogger("StreamKit.BootLoader");
-    private static readonly List<string> NativeFiles = new();
+    private static readonly List<string> SpecialFiles = new();
 
     static Bootstrap()
     {
@@ -70,8 +70,10 @@ internal static class Bootstrap
 
     private static void CleanNativeFiles()
     {
-        foreach (string file in NativeFiles)
+        for (var index = 0; index < SpecialFiles.Count; index++)
         {
+            string file = SpecialFiles[index];
+
             try
             {
                 File.Delete(file);
@@ -135,6 +137,10 @@ internal static class Bootstrap
                     BootModLoader.LoadAssembly(mod, Path.Combine(path, resource.Root, $"{resource.Name}.dll"));
 
                     break;
+                case ResourceType.NetStandardAssembly:
+                    CopyStandardManagedFile(resource, resourceDir);
+
+                    break;
             }
         }
     }
@@ -154,7 +160,31 @@ internal static class Bootstrap
         {
             File.Copy(resourcePath, destinationPath);
 
-            NativeFiles.Add(destinationPath);
+            SpecialFiles.Add(destinationPath);
+        }
+        catch (Exception e)
+        {
+            Logger.Error($"Could not copy {fileName} to {destinationPath} (from {resourcePath}). Things will not work correctly.", e);
+        }
+    }
+
+
+    private static void CopyStandardManagedFile(Resource resource, string resourceDir)
+    {
+        var fileName = $"{resource.Name}.dll";
+        string resourcePath = Path.Combine(resourceDir, $"{resource.Name}.dll");
+        string destinationPath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+
+        if (File.Exists(destinationPath))
+        {
+            return;
+        }
+
+        try
+        {
+            File.Copy(resourcePath, destinationPath);
+
+            SpecialFiles.Add(destinationPath);
         }
         catch (Exception e)
         {
