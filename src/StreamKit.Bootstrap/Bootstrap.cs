@@ -123,6 +123,13 @@ internal static class Bootstrap
     {
         string path = GetPathFor(mod, bundle);
 
+        if (!Directory.Exists(path))
+        {
+            Logger.Error($"The directory {path} doesn't exist, but was specified in {mod.Name}'s corpus. Aborting...");
+
+            return;
+        }
+
         foreach (Resource resource in bundle.Resources)
         {
             string resourceDir = Path.GetFullPath(Path.Combine(path, resource.Root));
