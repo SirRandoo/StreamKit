@@ -7,14 +7,9 @@ namespace StreamKit.Bootstrap;
 
 [StaticConstructorOnStartup]
 [UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
-internal class BootstrapMod : Mod
+internal class BootstrapMod(ModContentPack content) : Mod(content)
 {
     private bool _isKitLoaded;
-
-    /// <inheritdoc/>
-    public BootstrapMod(ModContentPack content) : base(content)
-    {
-    }
 
     /// <inheritdoc/>
     public override string? SettingsCategory()
