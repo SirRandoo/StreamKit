@@ -24,11 +24,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using SirRandoo.CommonLib.Enums;
 using SirRandoo.CommonLib.Helpers;
+using StreamKit.Api.Extensions;
 using StreamKit.Data.Abstractions;
 using UnityEngine;
 using Verse;
 
-namespace StreamKit.Mod.UX.Tables;
+namespace StreamKit.Api.UX.Tables;
 
 public abstract partial class TableDrawer<T> where T : IIdentifiable
 {
@@ -108,7 +109,7 @@ public abstract partial class TableDrawer<T> where T : IIdentifiable
         GUI.EndGroup();
 
         GUI.BeginGroup(contentRegion);
-        DrawContent(contentRegion.AtZero());
+        DrawContent(GenUI.AtZero(contentRegion));
         GUI.EndGroup();
 
         GUI.EndGroup();
@@ -123,7 +124,7 @@ public abstract partial class TableDrawer<T> where T : IIdentifiable
             var offset = 0f;
             TableColumn column = _columns[i];
             Rect headerRegion = _readOnlyColumnRegions[i];
-            Rect headerDisplayRegion = headerRegion.ContractedBy(4f);
+            Rect headerDisplayRegion = GenUI.ContractedBy(headerRegion, 4f);
 
             Widgets.DrawLightHighlight(headerRegion);
             Widgets.DrawLightHighlight(headerRegion);
@@ -156,7 +157,7 @@ public abstract partial class TableDrawer<T> where T : IIdentifiable
                 continue;
             }
 
-            Texture2D sortIcon = column.SortOrder is SortOrder.Descending ? TexButton.ReorderUp : TexButton.ReorderDown;
+            Texture2D sortIcon = column.SortOrder is SortOrder.Descending ? Icons.SortUp : Icons.SortDown;
 
             Rect sortRegion = LayoutHelper.IconRect(
                 headerDisplayRegion.x + headerDisplayRegion.width - headerDisplayRegion.height,
@@ -169,7 +170,7 @@ public abstract partial class TableDrawer<T> where T : IIdentifiable
 
             if (Widgets.ButtonInvisible(headerRegion))
             {
-                column.SortOrder = column.SortOrder is SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+                column.SortOrder = column.SortOrder.GetNextOrder();
 
                 column.SortAction(column.SortOrder, _contents);
             }

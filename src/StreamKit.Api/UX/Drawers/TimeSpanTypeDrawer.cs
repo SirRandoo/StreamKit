@@ -30,27 +30,20 @@ namespace StreamKit.Api.UX.Drawers;
 
 // TODO: Consider allowing more fine grain control of time spans to users.
 
-public class TimeSpanDrawer : TypeDrawer<TimeSpan>
+public class TimeSpanTypeDrawer : TypeDrawer<TimeSpan>
 {
     private readonly string[] _stringUnits = TimeUnitExtensions.GetNames();
-    private readonly TimeUnit[] _units = TimeUnitExtensions.GetValues();
+    private string _buffer = null!;
 
-    private string _buffer;
     private bool _bufferValid;
+    private double _lastParsed;
     private TimeUnit _currentUnit;
-
-    public TimeSpanDrawer(TimeSpan currentValue)
-    {
-        _currentUnit = GetLargestUnit(currentValue);
-        _buffer = Stringify(_currentUnit);
-        _bufferValid = true;
-    }
 
     /// <inheritdoc />
     public override void Draw(ref Rect region)
     {
-        var fieldRegion = new Rect(region.x, region.y, region.width * 0.7f - 5f, region.height);
-        var dropdownRegion = new Rect(fieldRegion.x + fieldRegion.width + 10f, fieldRegion.y, region.width - fieldRegion.width - 10f, fieldRegion.height);
+        var fieldRegion = new Rect(region.x, region.y, region.width * 0.45f - 2f, region.height);
+        var dropdownRegion = new Rect(fieldRegion.x + fieldRegion.width + 4f, fieldRegion.y, region.width - fieldRegion.width - 4f, fieldRegion.height);
 
         DropdownDrawer.Draw(
             dropdownRegion,
@@ -59,13 +52,17 @@ public class TimeSpanDrawer : TypeDrawer<TimeSpan>
             value =>
             {
                 _currentUnit = TimeUnitExtensions.TryParse(value, out TimeUnit unit) ? unit : TimeUnit.Seconds;
+
+                UpdateSetting(_lastParsed);
             }
         );
 
         GUI.color = _bufferValid ? Color.white : Color.red;
+
         if (!UiHelper.TextField(fieldRegion, _buffer, out string newValue))
         {
             GUI.color = Color.white;
+
             return;
         }
 
@@ -80,6 +77,7 @@ public class TimeSpanDrawer : TypeDrawer<TimeSpan>
         ))
         {
             _bufferValid = true;
+            _lastParsed = result;
 
             UpdateSetting(result);
         }
@@ -116,17 +114,17 @@ public class TimeSpanDrawer : TypeDrawer<TimeSpan>
 
     private static TimeUnit GetLargestUnit(TimeSpan span)
     {
-        if (span.TotalDays > 0)
+        if (span.TotalDays >= 1)
         {
             return TimeUnit.Days;
         }
 
-        if (span.TotalHours > 0)
+        if (span.TotalHours >= 1)
         {
             return TimeUnit.Hours;
         }
 
-        if (span.TotalMinutes > 0)
+        if (span.TotalMinutes >= 1)
         {
             return TimeUnit.Minutes;
         }
@@ -151,6 +149,14 @@ public class TimeSpanDrawer : TypeDrawer<TimeSpan>
             default:
                 throw new ArgumentOutOfRangeException(nameof(unit), unit, "Unsupported time unit specified.");
         }
+    }
+
+    /// <inheritdoc />
+    public override void Initialise()
+    {
+        _currentUnit = GetLargestUnit(Value);
+        _buffer = Stringify(_currentUnit);
+        _bufferValid = true;
     }
 }
 

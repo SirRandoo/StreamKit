@@ -31,6 +31,8 @@ public static class DescriptionDrawer
     public static readonly Color DescriptionTextColor = new(0.72f, 0.72f, 0.72f);
     public static readonly Color ExperimentalTextColor = new(1f, 0.53f, 0.76f);
 
+    public static string ExperimentalNoticeText => "This content is experimental, and may be removed or changed at any time.".MarkNotTranslated();
+
     public static void DrawTextBlock(Rect region, string content, Color color)
     {
         UiHelper.Label(region, content, color, TextAnchor.UpperLeft, GameFont.Tiny);
@@ -40,7 +42,7 @@ public static class DescriptionDrawer
     {
         if (string.IsNullOrEmpty(content))
         {
-            content = "This content is experimental, and may be removed or changed at any time.".MarkNotTranslated();
+            content = ExperimentalNoticeText;
         }
 
         DrawTextBlock(region, content!, ExperimentalTextColor);
@@ -57,6 +59,17 @@ public static class DescriptionDrawer
 
         Text.Font = GameFont.Tiny;
         float height = Text.CalcHeight(content, width);
+        Text.Font = previous;
+
+        return height;
+    }
+
+    public static float GetExperimentalNoticeLineHeight(float width)
+    {
+        GameFont previous = Text.Font;
+
+        Text.Font = GameFont.Tiny;
+        float height = Text.CalcHeight(ExperimentalNoticeText, width);
         Text.Font = previous;
 
         return height;

@@ -20,9 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
+using StreamKit.Data.Abstractions;
 
 namespace StreamKit.Api;
 
@@ -35,44 +38,46 @@ namespace StreamKit.Api;
 /// <typeparam name="T">
 ///     The type of the class being represented within the registry.
 /// </typeparam>
-public class SynchronisedRegistry<T> : IRegistry<T> where T : class, IIdentifiable
+[SuppressMessage("ReSharper", "PossibleUnintendedReferenceComparison")]
+public record SynchronisedRegistry<T>(IList<T>? AllRegistrants = default) : IRegistry<T> where T : class, IIdentifiable
 {
-    /// <summary>
-    ///     Returns a list of to the objects within the registry.
-    /// </summary>
+    private IList<T> _allRegistrants = AllRegistrants ?? ImmutableList<T>.Empty;
+
+    /// <inheritdoc/>
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
-    public ImmutableList<T> AllRegistrants { get; private set; } = ImmutableList<T>.Empty;
+    public IList<T> AllRegistrants => _allRegistrants;
 
-    /// <summary>
-    ///     Registers an object to the registry.
-    /// </summary>
-    /// <param name="obj">The object to register</param>
-    public void Register([NotNull] T obj)
+    /// <inheritdoc/>
+    public bool Register([NotNull] T obj)
     {
-        ImmutableList<T> original, modified;
+        ImmutableList<T> modified, original;
 
         do
         {
-            original = AllRegistrants;
+            original = ((ImmutableList<T>)AllRegistrants);
             modified = original.Add(obj);
-        } while (Interlocked.CompareExchange(ref original, modified, original) != original);
-    }
-
-    /// <summary>
-    ///     Unregisters an object from the registry.
-    /// </summary>
-    /// <param name="obj">The object to unregister.</param>
-    /// <returns>Whether the object was unregistered.</returns>
-    public bool Unregister(T obj)
-    {
-        ImmutableList<T> original, modified;
-
-        do
-        {
-            original = AllRegistrants;
-            modified = original.Remove(obj);
-        } while (Interlocked.CompareExchange(ref original, modified, original) != original);
+        } while (Interlocked.CompareExchange(ref _allRegistrants, modified, original) != original);
 
         return true;
+    }
+
+    /// <inheritdoc/>
+    public bool Unregister(T obj)
+    {
+        ImmutableList<T> modified, original;
+
+        do
+        {
+            original = ((ImmutableList<T>)AllRegistrants);
+            modified = original.Remove(obj);
+        } while (Interlocked.CompareExchange(ref _allRegistrants, modified, original) != original);
+
+        return true;
+    }
+
+    /// <inheritdoc />
+    public T? Get(string id)
+    {
+        return ((ImmutableList<T>)AllRegistrants).Find(r => string.Equals(id, r.Id, StringComparison.Ordinal));
     }
 }

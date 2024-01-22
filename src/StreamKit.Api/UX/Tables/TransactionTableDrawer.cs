@@ -26,7 +26,7 @@ using StreamKit.Data.Abstractions;
 using UnityEngine;
 using Verse;
 
-namespace StreamKit.Mod.UX.Tables;
+namespace StreamKit.Api.UX.Tables;
 
 public class TransactionTableDrawer : TableDrawer<ITransaction>
 {
@@ -56,7 +56,7 @@ public class TransactionTableDrawer : TableDrawer<ITransaction>
             priceString = $"+{priceString}";
         }
 
-        UiHelper.Label(amountRegion, priceString);
+        UiHelper.Label(amountRegion, priceString, TextAnchor.MiddleRight);
 
         TooltipHandler.TipRegion(rowRegion, $"Transaction id: {data.Id}");
         TooltipHandler.TipRegion(rowRegion, $"Purchased on: {data.PurchasedAt:F}");

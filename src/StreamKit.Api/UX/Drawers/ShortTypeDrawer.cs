@@ -24,7 +24,7 @@ using System.Globalization;
 using SirRandoo.CommonLib.Helpers;
 using UnityEngine;
 
-namespace StreamKit.Api.Drawers;
+namespace StreamKit.Api.UX.Drawers;
 
 /// <summary>
 ///     A specialized class for drawing shorts on screen.
@@ -58,7 +58,7 @@ public class ShortTypeDrawer(short currentValue) : TypeDrawer<short>
         {
             _bufferValid = true;
 
-            Setter(newValue);
+            Value = newValue;
         }
         else
         {

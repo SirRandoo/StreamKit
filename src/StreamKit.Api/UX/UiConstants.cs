@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Mod.UX;
+namespace StreamKit.Api.UX;
 
 /// <summary>
 ///     A set of constants that are used throughout the mod's menus.
@@ -36,4 +36,9 @@ public static class UiConstants
     ///     contain a lot of information that needs to be digested.
     /// </remarks>
     public const float LineHeight = 28f;
+
+    /// <summary>
+    ///     The line height of all tabs within the mod's menus.
+    /// </summary>
+    public const float TabHeight = 35f;
 }

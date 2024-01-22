@@ -24,12 +24,11 @@ using System;
 using System.Collections.Generic;
 using SirRandoo.CommonLib.Enums;
 using SirRandoo.CommonLib.Helpers;
+using StreamKit.Api.Extensions;
 using UnityEngine;
 using Verse;
 
-namespace StreamKit.Mod.UX;
-
-// TODO: This class should be reorganized into smaller, more dedicated methods for common operations within a tabular screen.
+namespace StreamKit.Api.UX;
 
 /// <summary>
 ///     A serialized class for drawing tabbed content on screen.
@@ -41,6 +40,10 @@ namespace StreamKit.Mod.UX;
 public sealed class TabularDrawer
 {
     public delegate void ContentDrawer(Rect region);
+    private const int IconSize = 16;
+    private const int IconTextPadding = 5;
+    private static readonly Color BackgroundColor = new(0.46f, 0.49f, 0.5f);
+    private readonly Dictionary<Tab, Vector2> _labelCache = [];
     private int _currentPage = 1;
     private float _foregroundProgress;
     private float _highlightProgress;
@@ -50,6 +53,8 @@ public sealed class TabularDrawer
     private Rect _previousRegion = Rect.zero;
 
     private IReadOnlyList<Tab> _tabs = [];
+    private int _tabsPerView;
+    private int _totalPages;
 
     private TabularDrawer()
     {
@@ -65,20 +70,27 @@ public sealed class TabularDrawer
             RecalculateLayout();
         }
 
-        GUI.color = new Color(0.46f, 0.49f, 0.5f);
-        Widgets.DrawLightHighlight(region.AtZero());
+        var barRegion = new Rect(0f, 0f, region.width, UiConstants.TabHeight);
+        var contentRegion = new Rect(0f, barRegion.height, region.width, region.height - barRegion.height);
+
+        GUI.BeginGroup(region);
+
+        GUI.color = BackgroundColor;
+        Widgets.DrawLightHighlight(RectExtensions.AtZero(ref region));
         GUI.color = Color.white;
 
-        Rect barRegion = DrawHorizontal(region);
-        var contentRegion = new Rect(region.x, region.y + barRegion.height, region.width, region.height - barRegion.height);
+        GUI.BeginGroup(barRegion);
+        DrawTabs(barRegion);
+        GUI.EndGroup();
 
         if (CurrentTab != null)
         {
             Widgets.DrawLightHighlight(contentRegion);
         }
 
-        Rect innerContentRegion = contentRegion.ContractedBy(16f);
-        GUI.BeginGroup(innerContentRegion);
+        RectExtensions.ContractedBy(ref contentRegion, 16f);
+
+        GUI.BeginGroup(contentRegion);
 
         if (CurrentTab == null)
         {
@@ -87,63 +99,54 @@ public sealed class TabularDrawer
             return;
         }
 
-        CurrentTab.ContentDrawer?.Invoke(innerContentRegion.AtZero());
+        CurrentTab.ContentDrawer?.Invoke(RectExtensions.AtZero(ref contentRegion));
+        GUI.EndGroup();
+
         GUI.EndGroup();
     }
 
-    private Rect DrawHorizontal(Rect region)
+    private void DrawTabs(Rect region)
     {
-        float height = Mathf.CeilToInt(Text.LineHeight * 1.5f);
-        var tabBarRegion = new Rect(region.x, region.y, region.width, height);
+        var tabBarRegion = new Rect(0f, 0f, region.width, region.height);
 
-        GUI.BeginGroup(tabBarRegion);
-        DrawTabsHorizontally(tabBarRegion);
-        GUI.EndGroup();
-
-        return tabBarRegion;
-    }
-
-    private void DrawTabsHorizontally(Rect region)
-    {
-        int tabsPerView = Mathf.FloorToInt(Mathf.CeilToInt(region.width - region.height * 2f) / _maxWidth);
-        int totalPages = Mathf.CeilToInt(_tabs.Count / (float)tabsPerView);
-
-        var offset = 0f;
-        float usableWidth = region.width;
-
-        if (totalPages > 1)
+        if (_totalPages > 1)
         {
             var previousPageRegion = new Rect(0f, 0f, region.height, region.height);
             var nextPageRegion = new Rect(region.width - region.height, 0f, region.height, region.height);
 
-            DrawHorizontalNavigation(totalPages, previousPageRegion, nextPageRegion);
+            DrawHorizontalNavigation(previousPageRegion, nextPageRegion);
 
-            offset = previousPageRegion.width;
-            usableWidth -= previousPageRegion.width + nextPageRegion.width;
+            tabBarRegion.SetX(previousPageRegion.width);
+            tabBarRegion.SetWidth(tabBarRegion.width - (previousPageRegion.width + nextPageRegion.width));
         }
-
-        var tabBarRegion = new Rect(offset, region.y, usableWidth, region.height);
 
         GUI.BeginGroup(tabBarRegion);
 
-        int pageIndex = (_currentPage - 1) * tabsPerView;
-        int viewCount = Mathf.Min(_tabs.Count, tabsPerView);
-        float width = Mathf.FloorToInt(usableWidth / tabsPerView);
+        // Page #1 -> (1 - 1) * 7 -> 0 * 7 -> 0
+        // Page #2 -> (2 - 1) * 7 -> 1 * 7 -> 7
+        int pageIndex = (_currentPage - 1) * _tabsPerView;
+        int viewCount = Mathf.Min(_tabs.Count, _tabsPerView);
+        float width = Mathf.FloorToInt(tabBarRegion.width / _tabsPerView);
 
         for (var i = 0; i < viewCount; i++)
         {
             int tabIndex = pageIndex + i;
+
+            if (tabIndex >= _tabs.Count)
+            {
+                break;
+            }
+
             Tab tab = _tabs[tabIndex];
 
-            var tabRegion = new Rect(tabBarRegion.x + tabIndex * width, tabBarRegion.y, width, region.height);
+            var tabRegion = new Rect(i * width, tabBarRegion.y, width, region.height);
 
-            if (tab.Icon == null)
+            Widgets.DrawHighlightIfMouseover(tabRegion);
+            TooltipHandler.TipRegion(tabRegion, tab.Tooltip);
+
+            if (tab == CurrentTab)
             {
-                UiHelper.Label(tabRegion, tab.Label, TextAnchor.MiddleCenter);
-            }
-            else
-            {
-                DrawTabContent(tabRegion, tab);
+                DrawTabHighlight(tabRegion);
             }
 
             if (Widgets.ButtonInvisible(tabRegion))
@@ -151,29 +154,38 @@ public sealed class TabularDrawer
                 CurrentTab = tab;
             }
 
-            if (tab == CurrentTab)
-            {
-                DrawTabHighlight(tabRegion);
-            }
+            GUI.BeginGroup(RectExtensions.ContractedBy(ref tabRegion, 5f));
+            DrawTabContent(RectExtensions.AtZero(ref tabRegion), tab);
+            GUI.EndGroup();
         }
 
         GUI.EndGroup();
     }
 
-    private void DrawHorizontalNavigation(int pages, Rect leftRegion, Rect rightRegion)
+    private void DrawHorizontalNavigation(Rect leftRegion, Rect rightRegion)
     {
-        UiHelper.Label(leftRegion, "<", TextAnchor.MiddleCenter);
-        UiHelper.Label(rightRegion, ">", TextAnchor.MiddleCenter);
+        Vector2 leftRegionCenter = leftRegion.center;
+        Vector2 rightRegionCenter = rightRegion.center;
+
+        const float halvedIconSize = IconSize * 0.5f;
+        var leftIconRegion = new Rect(leftRegionCenter.x - halvedIconSize, leftRegionCenter.y - halvedIconSize, IconSize, IconSize);
+        var rightIconRegion = new Rect(rightRegionCenter.x - halvedIconSize, rightRegionCenter.y - halvedIconSize, IconSize, IconSize);
+
+        UiHelper.Icon(leftIconRegion, _currentPage == 1 ? Icons.AnglesLeft : Icons.AngleLeft, Color.white);
+        UiHelper.Icon(rightIconRegion, _currentPage == _totalPages ? Icons.AnglesRight : Icons.AngleRight, Color.white);
 
         if (Widgets.ButtonInvisible(leftRegion))
         {
-            _currentPage = Mathf.Clamp(_currentPage, 1, pages);
+            _currentPage = _currentPage <= 1 ? _totalPages : _currentPage - 1;
         }
 
         if (Widgets.ButtonInvisible(rightRegion))
         {
-            _currentPage = Mathf.Clamp(_currentPage, 1, pages);
+            _currentPage = _currentPage >= _totalPages ? 1 : _currentPage + 1;
         }
+
+        Widgets.DrawHighlightIfMouseover(leftRegion);
+        Widgets.DrawHighlightIfMouseover(rightRegion);
     }
 
     private void DrawTabHighlight(Rect region)
@@ -198,21 +210,33 @@ public sealed class TabularDrawer
         _foregroundProgress = Mathf.SmoothStep(_foregroundProgress, center.x - region.x, 0.15f);
         var animationRegion = new Rect(center.x, center.y, 0f, 0f);
 
-        Widgets.DrawLightHighlight(animationRegion.ExpandedBy(_foregroundProgress));
+        Widgets.DrawLightHighlight(RectExtensions.ExpandedBy(ref animationRegion, _foregroundProgress));
     }
 
-    private static void DrawTabContent(Rect region, Tab tab)
+    private void DrawTabContent(Rect region, Tab tab)
     {
         Rect iconRegion;
 
         switch (tab.Layout)
         {
             case IconLayout.IconAndText:
-                iconRegion = LayoutHelper.IconRect(region.x + 2f, region.y + 2f, 16f, 16f);
-                var textRegion = new Rect(iconRegion.x + 2f, region.y, region.width - iconRegion.width - 2f, region.height);
+                Vector2 center = region.center;
+                Vector2 tabSize = _labelCache[tab];
+
+                float contentWidth = tabSize.x - 10f;
+                float halvedContentWidth = contentWidth * 0.5f;
+                iconRegion = new Rect(center.x - halvedContentWidth, center.y - IconSize * 0.5f, IconSize, IconSize);
+
+                var textRegion = new Rect(
+                    iconRegion.x + IconSize + IconTextPadding,
+                    center.y - UiConstants.LineHeight * 0.5f,
+                    contentWidth - IconSize - IconTextPadding,
+                    UiConstants.LineHeight
+                );
+
 
                 UiHelper.Icon(iconRegion, tab.Icon, Color.white);
-                UiHelper.Label(textRegion, tab.Label, TextAnchor.MiddleCenter);
+                UiHelper.Label(textRegion, tab.Label, TextAnchor.MiddleLeft);
 
                 return;
             case IconLayout.Text:
@@ -220,8 +244,7 @@ public sealed class TabularDrawer
 
                 return;
             case IconLayout.Icon:
-                Vector2 center = region.center;
-                iconRegion = LayoutHelper.IconRect(center.x - 8f, center.y - 8f, 16f, 16f);
+                iconRegion = LayoutHelper.IconRect(0f, 0f, IconSize, region.height);
                 UiHelper.Icon(iconRegion, tab.Icon, Color.white);
 
                 return;
@@ -240,29 +263,37 @@ public sealed class TabularDrawer
         for (var index = 0; index < _tabs.Count; index++)
         {
             Tab tab = _tabs[index];
-            float width = Text.CalcSize(tab.Label).x;
-            float adjustedWidth = width + 10f;
 
-            if (tab.Icon != null)
+            if (!_labelCache.TryGetValue(tab, out Vector2 vector))
             {
-                adjustedWidth += 20f;
+                Vector2 size = !string.IsNullOrEmpty(tab.Label) ? Text.CalcSize(tab.Label) : new Vector2();
+
+                if (tab.Icon != null)
+                {
+                    size.IncrementX(IconSize + IconTextPadding);
+                }
+
+                size.IncrementX(10f); // Padding
+
+                _labelCache[tab] = vector = size;
             }
 
-            if (adjustedWidth > _maxWidth)
+            if (vector.x > _maxWidth)
             {
-                _maxWidth = adjustedWidth;
+                _maxWidth = vector.x;
             }
 
-            float height = Text.CalcHeight(tab.Label, width);
-            float adjustedHeight = height + 10f;
-
-            if (adjustedHeight > _maxHeight)
+            if (vector.y > _maxHeight)
             {
-                _maxHeight = adjustedHeight;
+                _maxHeight = vector.y;
             }
         }
 
         Text.Font = cache;
+
+        int tabBarWidth = Mathf.CeilToInt(_previousRegion.width - UiConstants.TabHeight * 2f);
+        _tabsPerView = Mathf.FloorToInt(tabBarWidth / _maxWidth);
+        _totalPages = Mathf.CeilToInt(_tabs.Count / (float)_tabsPerView);
     }
 
     public class Builder
@@ -280,7 +311,7 @@ public sealed class TabularDrawer
                 throw new InvalidOperationException("An icon or label must be when adding a new tab.");
             }
 
-            _tabs.Add(new Tab(options.Label, options.Drawer, options.Tooltip, options.Icon, options.AnchoredAtEnd, options.Layout));
+            _tabs.Add(new Tab(options.Label, options.Drawer, options.Tooltip, options.Icon, options.Layout));
 
             return this;
         }
@@ -304,8 +335,7 @@ public sealed class TabularDrawer
         public string? Tooltip { get; set; }
         public ContentDrawer? Drawer { get; set; }
         public Texture2D? Icon { get; set; }
-        public bool AnchoredAtEnd { get; set; }
-        public IconLayout Layout { get; set; } = IconLayout.IconAndText;
+        public IconLayout Layout { get; set; } = IconLayout.Text;
     }
 
     public sealed record Tab(
@@ -313,7 +343,6 @@ public sealed class TabularDrawer
         ContentDrawer? ContentDrawer = null,
         string? Tooltip = null,
         Texture2D? Icon = null,
-        bool AnchorAtEnd = false,
         IconLayout Layout = IconLayout.IconAndText
     );
 }

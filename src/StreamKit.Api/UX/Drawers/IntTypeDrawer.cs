@@ -24,7 +24,7 @@ using System.Globalization;
 using SirRandoo.CommonLib.Helpers;
 using UnityEngine;
 
-namespace StreamKit.Api.Drawers;
+namespace StreamKit.Api.UX.Drawers;
 
 /// <summary>
 ///     A specialized class for drawing ints on screen.
@@ -53,7 +53,7 @@ public class IntTypeDrawer(int currentValue) : TypeDrawer<int>
         {
             _bufferValid = true;
 
-            Setter(newValue);
+            Value = newValue;
         }
         else
         {

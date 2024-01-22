@@ -23,7 +23,7 @@
 using SirRandoo.CommonLib.Helpers;
 using UnityEngine;
 
-namespace StreamKit.Api.Drawers;
+namespace StreamKit.Api.UX.Drawers;
 
 /// <summary>
 ///     A specialized class for drawing strings on screen.
@@ -37,7 +37,7 @@ public class StringTypeDrawer : TypeDrawer<string>
 
         if (UiHelper.TextField(region, value, out string newValue))
         {
-            Setter(newValue);
+            Value = newValue;
         }
     }
 }

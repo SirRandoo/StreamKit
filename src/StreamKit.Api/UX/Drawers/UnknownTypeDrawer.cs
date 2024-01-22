@@ -21,12 +21,11 @@
 // SOFTWARE.
 
 using System;
-using HarmonyLib;
 using SirRandoo.CommonLib.Helpers;
 using UnityEngine;
 using Verse;
 
-namespace StreamKit.Api.Drawers;
+namespace StreamKit.Api.UX.Drawers;
 
 /// <summary>
 ///     A generic class for informing developers of a type that isn't supported by the setting system.
@@ -37,14 +36,18 @@ public class UnknownTypeDrawer(Type type) : ITypeDrawer
     private readonly string _typeName = type.Name;
 
     /// <inheritdoc />
-    public Func<object> Getter { get; set; } = null!;
-
-    /// <inheritdoc />
-    public Action<object> Setter { get; set; } = null!;
-
-    /// <inheritdoc />
     public void Draw(ref Rect region)
     {
         UiHelper.Label(region, _typeName, Color.grey, TextAnchor.MiddleRight, GameFont.Tiny);
+    }
+
+    /// <inheritdoc />
+    public void Toggle()
+    {
+    }
+
+    /// <inheritdoc />
+    public void Initialise()
+    {
     }
 }

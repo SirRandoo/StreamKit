@@ -20,12 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
-using StreamKit.Data.Abstractions;
 
-namespace StreamKit.Api;
+namespace StreamKit.Data.Abstractions;
 
 /// <summary>
 ///     An abstract definition of a "registry", an object designated for
@@ -37,13 +36,14 @@ public interface IRegistry<T> where T : class, IIdentifiable
     /// <summary>
     ///     Returns the current objects registered within the registry.
     /// </summary>
-    ImmutableList<T> AllRegistrants { get; }
+    IList<T> AllRegistrants { get; }
 
     /// <summary>
     ///     Registers an object to the registry.
     /// </summary>
     /// <param name="obj">The object to register</param>
-    void Register([NotNull] T obj);
+    /// <returns>Whether the object was registered.</returns>
+    bool Register([NotNull] T obj);
 
     /// <summary>
     ///     Unregisters an object from the registry.
@@ -51,4 +51,15 @@ public interface IRegistry<T> where T : class, IIdentifiable
     /// <param name="obj">The object to unregister.</param>
     /// <returns>Whether the object was unregistered.</returns>
     bool Unregister(T obj);
+
+    /// <summary>
+    ///     Gets the object within the registry by the id, or
+    ///     <see langword="null"/> if the object doesn't exist.
+    /// </summary>
+    /// <param name="id">The id of the object being obtained.</param>
+    /// <returns>
+    ///     The object registered within the registry, or the
+    ///     <see langword="null"/> if the object doesn't exist.
+    /// </returns>
+    T? Get(string id);
 }

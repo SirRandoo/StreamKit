@@ -27,7 +27,7 @@ using StreamKit.Api.Extensions;
 using UnityEngine;
 using Verse;
 
-namespace StreamKit.Api.Drawers;
+namespace StreamKit.Api.UX.Drawers;
 
 /// <summary>
 ///     A specialized class for drawing a <see cref="ShortRange" /> on screen.
@@ -54,7 +54,7 @@ public class ShortRangeTypeDrawer(ShortRange currentValue) : TypeDrawer<ShortRan
         UiHelper.Label(RectExtensions.Shift(ref minimumRegion, Direction8Way.South, 1f), "Minimum".MarkNotTranslated(), Color.grey, TextAnchor.UpperCenter, GameFont.Tiny);
         UiHelper.Label(RectExtensions.Shift(ref maximumRegion, Direction8Way.South, 1f), "Maximum".MarkNotTranslated(), Color.grey, TextAnchor.UpperCenter, GameFont.Tiny);
 
-        Setter(value);
+        Value = value;
     }
 
     private static void DrawField(Rect region, ref short currentValue, ref string buffer, ref bool bufferValid)
