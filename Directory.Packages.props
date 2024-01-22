@@ -1,0 +1,17 @@
+<Project>
+    <!-- Packages that directly require a reference to the RimWorld reference package -->
+    <ItemGroup Condition="'$(Standalone)' == '' OR '$(Standalone)' == 'partial'">
+        <PackageReference Include="0SirRandoo.CommonLib" Version="1.12.1"/>
+        <PackageReference Include="RimWorld.MultiplayerAPI" Version="0.5.0"/>
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="$(RimWorldVersion).*"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="PolySharp" Version="1.14.1"/>
+        <PackageReference Include="Lib.Harmony" Version="2.2.2"/>
+        <PackageReference Condition="'$(IsBootstrapper)' != 'true'" Include="Dapper" Version="2.1.28"/>
+        <PackageReference Condition="'$(DisallowResults)' == ''" Include="FluentResults" Version="3.15.2"/>
+        <PackageReference Condition="'$(IsBootstrapper)' != 'true'" Include="System.Collections.Immutable" Version="8.0.0"/>
+        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta08" PrivateAssets="" ExcludeAssets="runtime"/>
+    </ItemGroup>
+</Project>

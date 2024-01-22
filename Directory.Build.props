@@ -39,20 +39,6 @@
         <_OutputDirectory>..\..\Releases\$(CompatibilityFor)\$(RimWorldVersion)\Assemblies</_OutputDirectory>
     </PropertyGroup>
 
-    <!-- Global Dependencies -->
-    <ItemGroup Condition="'$(Standalone)' == ''">
-        <PackageReference Include="0sirrandoo.commonlib" Version="1.12.1"/>
-        <PackageReference Include="RimWorld.MultiplayerAPI" Version="0.4.0"/>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="$(RimWorldVersion).*" ExcludeAssets="runtime"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Polyfill" Version="1.26.0"/>
-        <PackageReference Include="LightInject" Version="6.6.4"/>
-        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta08"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1"/>
-    </ItemGroup>
-
     <!-- Global assembly data (auto-updated) -->
     <PropertyGroup>
         <!-- This property is pulled from the mod's manifest file. -->
