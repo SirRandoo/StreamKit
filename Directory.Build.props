@@ -57,11 +57,9 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <OutDir>$(_OutputDirectory)</OutDir>
         <OutputPath>$(_OutputDirectory)</OutputPath>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <OutDir>$(_OutputDirectory)</OutDir>
         <OutputPath>$(_OutputDirectory)</OutputPath>
     </PropertyGroup>
 </Project>

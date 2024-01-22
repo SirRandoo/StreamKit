@@ -1,15 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <ItemGroup>
-        <PackageReference Include="Dapper" Version="2.0.143" />
-    </ItemGroup>
-    <ItemGroup>
-        <Reference Include="Mono.Data.Sqlite">
-            <HintPath>..\Libs\Mono.Data.Sqlite.dll</HintPath>
-        </Reference>
-    </ItemGroup>
+    <PropertyGroup>
+        <Standalone>partial</Standalone>
+        <IsBootstrapper>true</IsBootstrapper>
+        <DisallowResults>true</DisallowResults>
+    </PropertyGroup>
     <PropertyGroup>
         <_OutputDirectory>..\..\Releases\Bootstrap\Assemblies</_OutputDirectory>
-        <OutDir>$(_OutputDirectory)</OutDir>
-        <OutputPath>$(_OutputDirectory)</OutputPath>
     </PropertyGroup>
 </Project>
