@@ -1,6 +1,6 @@
 using FluentResults;
 
-namespace StreamKit.Api;
+namespace StreamKit.Api.Errors;
 
 /// <summary>
 ///     An error used to indicate that a given path was empty, null, or contained invalid path
