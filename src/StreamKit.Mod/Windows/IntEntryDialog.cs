@@ -22,99 +22,24 @@
 
 using System;
 using System.Globalization;
-using SirRandoo.CommonLib.Helpers;
-using StreamKit.Api;
-using UnityEngine;
-using Verse;
 
 namespace StreamKit.Mod;
 
-public class NumberEntryDialog : Window
+public class IntEntryDialog : NumberEntryDialog<int>
 {
-    private readonly int _maximum;
-    private readonly int _minimum;
-
-    private string _buffer;
-    private bool _bufferValid;
-    private int _current;
-
-    public NumberEntryDialog(Action<int> setter, int current, int minimum = int.MinValue, int maximum = int.MaxValue)
+    /// <inheritdoc/>
+    public IntEntryDialog(Action<int> setter, int minimum = 0, int maximum = int.MaxValue) : base(setter, minimum, maximum)
     {
-        _current = current;
-        _minimum = minimum;
-        _maximum = maximum;
-
-        _buffer = current.ToString(CultureInfo.CurrentCulture);
-        _bufferValid = true;
-
-        doCloseX = true;
-        doCloseButton = false;
-        layer = WindowLayer.Dialog;
     }
 
     /// <inheritdoc/>
-    public override void DoWindowContents(Rect inRect)
-    {
-        var fieldRegion = new Rect(0f, 0f, inRect.width, Mathf.FloorToInt(Text.SmallFontHeight * 1.25f));
-        var rangeRegion = new Rect(0f, fieldRegion.height, inRect.width, Text.SmallFontHeight);
-        var buttonRegion = new Rect(0f, rangeRegion.y + rangeRegion.height, inRect.width, Text.SmallFontHeight);
+    protected override string FormatNumber(int value) => value.ToString("N0", NumberFormatInfo.CurrentInfo);
 
-        GUI.BeginGroup(inRect);
-
-        GUI.BeginGroup(fieldRegion);
-        DrawEntryField(fieldRegion);
-        GUI.EndGroup();
-
-        GUI.BeginGroup(rangeRegion);
-        DrawRangeRequirement(rangeRegion.AtZero());
-        GUI.EndGroup();
-
-        GUI.BeginGroup(buttonRegion);
-        DrawDialogButtons(buttonRegion.AtZero());
-        GUI.EndGroup();
-
-        GUI.EndGroup();
-    }
-
-    private void DrawEntryField(Rect region)
-    {
-        GUI.color = Color.red;
-
-        if (UiHelper.TextField(region, _buffer, out string newContent))
-        {
-            _buffer = newContent;
-
-            if (int.TryParse(
-                _buffer,
-                NumberStyles.Integer | NumberStyles.AllowCurrencySymbol | NumberStyles.AllowExponent | NumberStyles.AllowThousands,
-                CultureInfo.CurrentCulture.NumberFormat,
-                out int newValue
-            ))
-            {
-                _current = newValue;
-                _bufferValid = true;
-            }
-            else
-            {
-                _bufferValid = false;
-            }
-        }
-
-        if (!_bufferValid)
-        {
-            UiHelper.FieldIcon(region, TexButton.Info, "The value entered is not a valid number.".MarkNotTranslated());
-        }
-
-        GUI.color = Color.white;
-    }
-
-    private void DrawRangeRequirement(Rect region)
-    {
-        UiHelper.Label(region, $"Must be between {_minimum.ToString(CultureInfo.CurrentCulture)} and {_minimum.ToString(CultureInfo.CurrentCulture)}".MarkNotTranslated());
-    }
-
-    private void DrawDialogButtons(Rect region)
-    {
-
-    }
+    /// <inheritdoc/>
+    protected override bool TryParseNumber(string value, out int number) => int.TryParse(
+        value,
+        NumberStyles.Integer | NumberStyles.AllowThousands | NumberStyles.Currency | NumberStyles.AllowExponent,
+        NumberFormatInfo.CurrentInfo,
+        out number
+    );
 }
