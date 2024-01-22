@@ -84,6 +84,24 @@ public static class BootModLoader
         pack.assemblies.loadedAssemblies.Add(assembly);
 
         InstantiateModClasses(pack, assembly);
+        try
+        {
+            InstantiateModClasses(pack, assembly);
+        }
+        catch (ReflectionTypeLoadException e)
+        {
+            var builder = new StringBuilder();
+
+            for (int i = 0; i < e.LoaderExceptions.Length; i++)
+            {
+                builder.Append(e.LoaderExceptions[i]).Append("\n\n");
+            }
+
+            if (builder.Length > 0)
+            {
+                builder.Insert(0, $"Encountered one or more errors while instantiating mod classes for {pack.Name} ({pack.PackageId}) in assembly {assembly.GetName()}:\n");
+            }
+        }
 
         try
         {
