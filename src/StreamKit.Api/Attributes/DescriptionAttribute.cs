@@ -25,17 +25,22 @@ using System;
 namespace StreamKit.Api.Attributes;
 
 [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
-public sealed class DescAttribute(string description, bool inline = false) : Attribute
+public sealed class DescriptionAttribute(string text, bool inline = true, bool isKey = false) : Attribute
 {
     /// <summary>
     ///     When multiple description attributes are used, this property is a hint to loaders that the
-    ///     content stored within the <see cref="Description" /> property should inserted within the same
+    ///     content stored within the <see cref="Text" /> property should inserted within the same
     ///     line as the previous description.
     /// </summary>
     public bool Inline { get; } = inline;
 
     /// <summary>
+    ///     Whether the text passed was a translation key.
+    /// </summary>
+    public bool IsKey { get; } = isKey;
+
+    /// <summary>
     ///     The content of the description.
     /// </summary>
-    public string Description { get; } = description;
+    public string Text { get; } = text;
 }

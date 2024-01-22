@@ -25,11 +25,14 @@ using System;
 namespace StreamKit.Api.Attributes;
 
 /// <summary>
-///     An attribute used to mark
+///     An attribute used to mark a class member as a column.
 /// </summary>
-/// <param name="width"></param>
+/// <param name="width">
+///     A percentage indicating the amount of horizontal real estate the column will take up from the
+///     table.
+/// </param>
 [AttributeUsage(AttributeTargets.All, Inherited = false)]
-public sealed class TableColumnWidthAttribute(float width) : Attribute
+public sealed class TableColumnAttribute(float width) : Attribute
 {
     public float Width { get; } = width;
 }
