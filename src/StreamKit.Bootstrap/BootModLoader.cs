@@ -140,7 +140,7 @@ public static class BootModLoader
         catch (ReflectionTypeLoadException e)
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("ReflectionTypeLoadException getting types in assembly " + assembly.GetName().Name + ": " + e);
+            stringBuilder.AppendLine($"ReflectionTypeLoadException getting types in assembly {assembly.GetName().Name}: {e}");
             stringBuilder.AppendLine();
             stringBuilder.AppendLine("Loader exceptions:");
 
