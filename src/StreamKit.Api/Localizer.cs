@@ -20,11 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Diagnostics;
+using System;
 
 namespace StreamKit.Api;
 
-public static class DebugTranslator
+/// <summary>
+///     A static class dedicated to translating text into other languages supported by the mod, and
+///     RimWorld.
+/// </summary>
+public static class Localizer
 {
-    public static string Localize(this string )
+    /// <summary>
+    ///     Marks text as untranslated.
+    /// </summary>
+    /// <param name="text">The text that isn't translated.</param>
+    /// <remarks>
+    ///     This method is intended to be used by developers to mark strings as untranslated. This method
+    ///     alone does nothing if a developer's workflow doesn't track obsolete methods.
+    /// </remarks>
+    [Obsolete("Callers should translate the string passed prior to release.")]
+    public static string MarkNotTranslated(this string text) => text;
 }
