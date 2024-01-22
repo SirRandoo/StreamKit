@@ -1,19 +1,19 @@
-using System.Runtime.Serialization;
 using StreamKit.Api;
 using StreamKit.Api.Attributes;
 
 namespace StreamKit.Mod.Settings;
 
 /// <summary>
-///     A class for housing karma settings.
-///     <br />
-///     <br />
-///     Karma settings are settings that affect how "karma," the mod's
-///     short term limiter on bad purchases. This limiter directly
-///     affects how much income viewers can accumulate, and optionally,
-///     how much wealth viewers are stockpiling.
+///     <para>
+///         A class for housing morality settings.
+///     </para>
+///     <para>
+///         Karma settings are settings that affect how "karma," the mod's short term limiter on bad
+///         purchases. This limiter directly affects how much income viewers can accumulate, and
+///         optionally, how much wealth viewers are stockpiling.
+///     </para>
 /// </summary>
-public class KarmaSettings : IComponentSettings
+public class MoralitySettings : IComponentSettings
 {
     /// <summary>
     ///     The latest version of the karma settings.
@@ -47,6 +47,6 @@ public class KarmaSettings : IComponentSettings
     public ShortRange KarmaRange { get; set; } = new(-100, 100);
 
     /// <inheritdoc />
-    [IgnoreDataMember]
+    [InternalSetting]
     public int Version { get; set; } = LatestVersion;
 }
