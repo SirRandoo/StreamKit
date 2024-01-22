@@ -56,6 +56,13 @@ public static class BootModLoader
     /// <returns>The assembly that was loaded from the <see cref="path"/>.</returns>
     public static Assembly? LoadAssembly(ModContentPack pack, string path)
     {
+        if (!File.Exists(path))
+        {
+            Logger.Error($"Could not load non-existent assembly at path {path} ; Aborting...");
+
+            return null;
+        }
+
         string pdbPath = Path.ChangeExtension(path, ".pdb");
         byte[] content = File.ReadAllBytes(path);
         byte[] pdbContent = File.Exists(pdbPath) ? File.ReadAllBytes(pdbPath) : Array.Empty<byte>();

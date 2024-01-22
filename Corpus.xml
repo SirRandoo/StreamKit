@@ -1,21 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Corpus>
     <Resources>
-        <ResourceBundle Root="Releases/native" Versioned="false">
-            <Resource Type="Dll" Name="git" Root="git"/>
-            <Resource Type="Dll" Name="lua54" Root="lua54"/>
-            <Resource Type="Dll" Name="sqlite3" Root="Sqlite3.Interop"/>
+<!--        <ResourceBundle Root="Releases/native" Versioned="false">-->
+<!--            <Resource Type="Dll" Name="git" Root="git"/>-->
+<!--            <Resource Type="Dll" Name="lua54" Root="lua54"/>-->
+<!--            <Resource Type="Dll" Name="sqlite3" Root="Sqlite3.Interop"/>-->
+<!--        </ResourceBundle>-->
+        <ResourceBundle Root="Releases/Core" Versioned="true">
+            <Resource Type="NetStandardAssembly" Name="netstandard" Root="Assemblies"/>
+
+            <Resource Type="NetStandardAssembly" Name="Dapper" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="System.Memory" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="System.Buffers" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="FluentResults" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="Mono.Data.Sqlite" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="System.ValueTuple" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="ConcurrentCollections" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="System.Numerics.Vectors" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="System.Text.Encodings.Web" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="System.Collections.Immutable" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="System.Threading.Tasks.Extensions" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="System.Runtime.CompilerServices.Unsafe" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Logging.Abstractions" Root="Assemblies"/>
+
+            <Resource Type="NetStandardAssembly" Name="Tomlyn" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="System.Text.Json" Root="Assemblies"/>
         </ResourceBundle>
         <ResourceBundle Root="Releases/Core" Versioned="true">
-            <Resource Type="Assembly" Name="StreamKit.Wrappers.Async" Root="Assemblies"/>
-    
+            <Resource Type="Assembly" Name="Bogus" Root="Assemblies"/>
+
+            <Resource Type="Assembly" Name="StreamKit.Async.Wrappers" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Async.Incidents" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Data.Abstractions" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Api.Extensions" Root="Assemblies"/>
+
             <Resource Type="Assembly" Name="StreamKit.Api" Root="Assemblies"/>
-            <Resource Type="Assembly" Name="StreamKit.Platform.Abstractions" Root="Assemblies"/>
-            <Resource Type="Assembly" Name="StreamKit.Data.Models" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Data.Products" Root="Assemblies"/>
+
             <Resource Type="Assembly" Name="StreamKit.Mod" Root="Assemblies"/>
-    
-            <Resource Type="Assembly" Name="StreamKit.UX.Abstractions" Root="Assemblies"/>
-            <Resource Type="Assembly" Name="StreamKit.UX.UImgui" Root="Assemblies"/>
         </ResourceBundle>
     </Resources>
 </Corpus>
