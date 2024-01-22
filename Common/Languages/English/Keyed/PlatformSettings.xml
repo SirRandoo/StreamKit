@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+    <StreamKit.Settings.Platform.Username.Label>Username</StreamKit.Settings.Platform.Username.Label>
+    <StreamKit.Settings.Platform.Username.Description>The username of the account the token was generated for.
+
+    You generally shouldn't have to fill this field as most platforms support fetching the username from the token the account was generated for.</StreamKit.Settings.Platform.Username.Description>
+
+    <StreamKit.Settings.Platform.Token.Label>Authentication token</StreamKit.Settings.Platform.Token.Label>
+    <StreamKit.Settings.Platform.Token.Description>A token given to your by the platform or a 3rd party service, like a token generator site.</StreamKit.Settings.Platform.Token.Description>
+
+    <StreamKit.Settings.Platform.Channel.Label>Channel</StreamKit.Settings.Platform.Channel.Label>
+    <StreamKit.Settings.Platform.Channel.Description>The name of the channel to join when the mod finishes connecting to the platform.</StreamKit.Settings.Platform.Channel.Description>
+
+    <StreamKit.Settings.Platform.Automation.Startup.Connect.Label>Auto-connect</StreamKit.Settings.Platform.Automation.Startup.Connect.Label>
+    <StreamKit.Settings.Platform.Automation.Startup.Connect.Description>When enabled, the mod will auto-connect to this platform during startup.</StreamKit.Settings.Platform.Automation.Startup.Connect.Description>
+
+    <StreamKit.Settings.Platform.Automation.Startup.Message.Label>Startup message</StreamKit.Settings.Platform.Automation.Startup.Message.Label>
+    <StreamKit.Settings.Platform.Automation.Startup.Message.Description>When enabled, the mod will send a message to chat when it successully connects to the platform.</StreamKit.Settings.Platform.Automation.Startup.Message.Description>
+</LanguageData>

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
+    <StreamKit.Bootstrap.Info>The boostrapper's settings menu should not be accessible through RimWorld's options menu. If you got here from there, you should restart your game as it means StreamKit didn't fully load properly. If restarting your game didn't fix the problem, post your log file in the mod's Discord along with a message stating you're seeing this menu.
 
+    Why does StreamKit load differently than other mods?
+    StreamKit uses native DLLs that RimWorld can't properly load. As a result, StreamKit has to have its own mod loader, which also includes loading any addons for StreamKit.</StreamKit.Bootstrap.Info>
 </LanguageData>
