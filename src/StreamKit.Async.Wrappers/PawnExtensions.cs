@@ -69,10 +69,10 @@ public static class PawnExtensions
     }
 
     /// <inheritdoc cref="PawnRelationUtility.GetRelations"/>
-    public static async Task<List<PawnRelationDef>> GetRelationsAsync(this Pawn pawn, Pawn other)
+    public static async ValueTask<List<PawnRelationDef>> GetRelationsAsync(this Pawn pawn, Pawn other)
     {
         return await TaskExtensions.OnMainAsync(GetRelations, pawn, other);
 
-        List<PawnRelationDef> GetRelations(Pawn subject, Pawn target) => new(subject.GetRelations(target));
+        List<PawnRelationDef> GetRelations(Pawn subject, Pawn target) => [..subject.GetRelations(target)];
     }
 }
