@@ -6,13 +6,8 @@ using Verse;
 namespace StreamKit.Mod;
 
 [UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
-internal class ModKit : ModPlus
+internal class ModKit(ModContentPack content) : ModPlus(content)
 {
-    /// <inheritdoc/>
-    public ModKit(ModContentPack content) : base(content)
-    {
-    }
-
     /// <inheritdoc/>
     public override ProxySettingsWindow SettingsWindow => new SettingsWindow(this);
 }
