@@ -35,7 +35,7 @@ public interface IRegistry<T> where T : class, IIdentifiable
     /// <summary>
     ///     Returns the current objects registered within the registry.
     /// </summary>
-    ICollection<T> AllRegistrants { get; }
+    IList<T> AllRegistrants { get; }
 
     /// <summary>
     ///     Registers an object to the registry.

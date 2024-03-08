@@ -67,7 +67,7 @@ public class SynchronisedRegistry<T> : IRegistry<T> where T : class, IIdentifiab
 
     /// <inheritdoc />
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
-    public ICollection<T> AllRegistrants => _allRegistrants;
+    public IList<T> AllRegistrants => _allRegistrants;
 
     /// <inheritdoc />
     public bool Register([NotNull] T obj)

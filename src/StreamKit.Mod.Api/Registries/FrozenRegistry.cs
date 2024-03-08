@@ -49,7 +49,7 @@ public class FrozenRegistry<T> : IRegistry<T> where T : class, IIdentifiable
     }
 
     /// <inheritdoc />
-    public ICollection<T> AllRegistrants => _registrants;
+    public IList<T> AllRegistrants => _registrants;
 
     /// <summary>
     ///     <inheritdoc cref="IRegistry{T}.Register" Path="/summary" />

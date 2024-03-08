@@ -45,7 +45,7 @@ public class MutableRegistry<T> : IRegistry<T> where T : class, IIdentifiable
     }
 
     /// <inheritdoc />
-    public ICollection<T> AllRegistrants => new ReadOnlyCollection<T>(_allRegistrants);
+    public IList<T> AllRegistrants => new ReadOnlyCollection<T>(_allRegistrants);
 
     /// <inheritdoc />
     public bool Register([NotNull] T obj)
