@@ -235,7 +235,7 @@ public sealed class TabularDrawer
 
 
                 IconDrawer.DrawIcon(iconRegion, tab.Icon!, Color.white);
-                LabelDrawer.Draw(textRegion, tab.Label!, TextAnchor.MiddleLeft);
+                LabelDrawer.Draw(textRegion, tab.Label!);
 
                 return;
             case IconLayout.Text:

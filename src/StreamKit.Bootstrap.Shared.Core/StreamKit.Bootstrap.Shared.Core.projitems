@@ -10,8 +10,8 @@
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="$(MSBuildThisFileDirectory)BootModLoader.cs"/>
-    <Compile Include="$(MSBuildThisFileDirectory)Bootstrap.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BootstrapMod.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Corpus.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Bootstrap.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)BootstrapMod.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Corpus.cs"/>
     </ItemGroup>
 </Project>

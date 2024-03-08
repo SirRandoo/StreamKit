@@ -28,8 +28,8 @@ public class ResourceBundle
 
     /// <summary>
     ///     Whether the current version of RimWorld should be appended to the
-    ///     <see cref="Root"/> path.<br/>
-    ///     <br/>
+    ///     <see cref="Root" /> path.<br />
+    ///     <br />
     ///     The version used depends on the first directory found with the
     ///     associated version. The first version used is the version with
     ///     the build number included, while the second version checked is

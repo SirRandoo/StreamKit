@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using HarmonyLib;
-using UnityEngine;
 using Verse;
 
 namespace StreamKit.Bootstrap.Shared.Core;
@@ -28,7 +27,7 @@ public static class BootModLoader
     /// </summary>
     /// <param name="pack">The mod data being associated with the assembly.</param>
     /// <param name="path">The path to the assembly being loaded.</param>
-    /// <returns>The assembly that was loaded from the <see cref="path"/>.</returns>
+    /// <returns>The assembly that was loaded from the <see cref="path" />.</returns>
     public static Assembly? LoadAssembly(ModContentPack pack, string path)
     {
         if (!File.Exists(path))
@@ -66,7 +65,7 @@ public static class BootModLoader
         {
             var builder = new StringBuilder();
 
-            for (int i = 0; i < e.LoaderExceptions.Length; i++)
+            for (var i = 0; i < e.LoaderExceptions.Length; i++)
             {
                 builder.Append(e.LoaderExceptions[i]).Append("\n\n");
             }
@@ -91,11 +90,11 @@ public static class BootModLoader
 
     /// <summary>
     ///     Runs the static constructors of all types annotated with
-    ///     <see cref="StaticConstructorOnStartup"/> in an assembly.
+    ///     <see cref="StaticConstructorOnStartup" /> in an assembly.
     /// </summary>
     /// <param name="assembly">
     ///     An assembly with types annotated with
-    ///     <see cref="StaticConstructorOnStartup"/>.
+    ///     <see cref="StaticConstructorOnStartup" />.
     /// </param>
     public static void RunStaticConstructors(Assembly assembly)
     {
@@ -133,14 +132,14 @@ public static class BootModLoader
     }
 
     /// <summary>
-    ///     Instantiates <see cref="Mod"/> classes, and adds them to an
-    ///     internal field in RimWorld's <see cref="LoadedModManager"/>
+    ///     Instantiates <see cref="Mod" /> classes, and adds them to an
+    ///     internal field in RimWorld's <see cref="LoadedModManager" />
     ///     class.
     /// </summary>
     /// <param name="mod">The mod the assembly belongs to.</param>
     /// <param name="assembly">
     ///     The assembly being indexed for
-    ///     <see cref="Mod"/> classes.
+    ///     <see cref="Mod" /> classes.
     /// </param>
     public static void InstantiateModClasses(ModContentPack mod, Assembly assembly)
     {

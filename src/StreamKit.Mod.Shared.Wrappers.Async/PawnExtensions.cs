@@ -29,7 +29,7 @@ namespace StreamKit.Mod.Shared.Wrappers.Async;
 
 /// <summary>
 ///     A set of wrappers around the synchronous, unsafe methods within
-///     the <see cref="Pawn"/> class.
+///     the <see cref="Pawn" /> class.
 /// </summary>
 /// <remarks>
 ///     Usage of the extensions provided by this class are to be used
@@ -38,37 +38,37 @@ namespace StreamKit.Mod.Shared.Wrappers.Async;
 /// </remarks>
 public static class PawnExtensions
 {
-    /// <inheritdoc cref="ParentRelationUtility.SetFather"/>
+    /// <inheritdoc cref="ParentRelationUtility.SetFather" />
     public static async Task SetFatherAsync(this Pawn pawn, Pawn father)
     {
         await MainThreadExtensions.OnMainAsync(ParentRelationUtility.SetFather, pawn, father);
     }
 
-    /// <inheritdoc cref="ParentRelationUtility.SetMother"/>
+    /// <inheritdoc cref="ParentRelationUtility.SetMother" />
     public static async Task SetMotherAsync(this Pawn pawn, Pawn mother)
     {
         await MainThreadExtensions.OnMainAsync(ParentRelationUtility.SetMother, pawn, mother);
     }
 
-    /// <inheritdoc cref="Pawn.SetFactionDirect"/>
+    /// <inheritdoc cref="Pawn.SetFactionDirect" />
     public static async Task SetFactionDirectAsync(this Pawn pawn, Faction faction)
     {
         await MainThreadExtensions.OnMainAsync(pawn.SetFactionDirect, faction);
     }
 
-    /// <inheritdoc cref="Pawn.SetFaction"/>
+    /// <inheritdoc cref="Pawn.SetFaction" />
     public static async Task SetFactionAsync(this Pawn pawn, Faction faction, Pawn? recruiter = null)
     {
         await MainThreadExtensions.OnMainAsync(pawn.SetFaction, faction, recruiter);
     }
 
-    /// <inheritdoc cref="Pawn.Kill"/>
+    /// <inheritdoc cref="Pawn.Kill" />
     public static async Task KillAsync(this Pawn pawn, DamageInfo? info, Hediff? culprit = null)
     {
         await MainThreadExtensions.OnMainAsync(pawn.Kill, info, culprit);
     }
 
-    /// <inheritdoc cref="PawnRelationUtility.GetRelations"/>
+    /// <inheritdoc cref="PawnRelationUtility.GetRelations" />
     public static async ValueTask<List<PawnRelationDef>> GetRelationsAsync(this Pawn pawn, Pawn other)
     {
         return await MainThreadExtensions.OnMainAsync(GetRelations, pawn, other);

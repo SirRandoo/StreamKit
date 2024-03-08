@@ -26,7 +26,6 @@ public interface ITypeDrawer
     void Initialise();
 }
 
-
 public interface ITypeDrawer<T> : ITypeDrawer
 {
     Func<object> Getter { get; set; }

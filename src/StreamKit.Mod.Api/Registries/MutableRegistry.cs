@@ -29,14 +29,14 @@ namespace StreamKit.Mod.Api;
 
 public class MutableRegistry<T> : IRegistry<T> where T : class, IIdentifiable
 {
-    private readonly Dictionary<string, T> _allRegistrantsKeyed = new();
     private readonly IList<T> _allRegistrants;
+    private readonly Dictionary<string, T> _allRegistrantsKeyed = new();
 
     public MutableRegistry(IList<T>? allRegistrants = default)
     {
         _allRegistrants = allRegistrants ?? [];
 
-        for (int i = 0; i < _allRegistrants.Count; i++)
+        for (var i = 0; i < _allRegistrants.Count; i++)
         {
             T registrant = _allRegistrants[i];
 

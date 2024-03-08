@@ -9,41 +9,41 @@
         <Import_RootNamespace>StreamKit.Mod.Shared.UX</Import_RootNamespace>
     </PropertyGroup>
     <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ButtonDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CheckboxDrawer.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)ButtonDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)CheckboxDrawer.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)DescriptionDrawer.cs"/>
-    <Compile Include="$(MSBuildThisFileDirectory)DrawerRegistry.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)DrawerRegistry.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)DropdownDialogs\IdentifiableDropdownDialog.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)DropdownDialogs\DropdownDialog.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)DropdownDrawer.cs"/>
-    <Compile Include="$(MSBuildThisFileDirectory)IconDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IconLayout.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ITypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LabelDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LayoutHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ModSettingDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)RichTextHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SortOrder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SpriteSheetWorker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Icons.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ModSettingFactory.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)IconDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)IconLayout.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)ITypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)LabelDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)LayoutHelper.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)ModSettingDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)RichTextHelper.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)SortOrder.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)SpriteSheetWorker.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)Icons.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)ModSettingFactory.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)SearchDrawer.cs"/>
-    <Compile Include="$(MSBuildThisFileDirectory)TabLayout.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TableDrawers\TransactionTableDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TableDrawers\TableDrawer.Builder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TableDrawers\TableDrawer.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)TabLayout.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TableDrawers\TransactionTableDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TableDrawers\TableDrawer.Builder.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TableDrawers\TableDrawer.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)TabularDrawer.cs"/>
-    <Compile Include="$(MSBuildThisFileDirectory)FieldDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\BoolTypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\FloatTypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\IntTypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\ShortRangeTypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\ShortTypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\StringTypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\TimeSpanTypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\TypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\UnknownTypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\UriTypeDrawer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UiConstants.cs" />
-  </ItemGroup>
+        <Compile Include="$(MSBuildThisFileDirectory)FieldDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\BoolTypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\FloatTypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\IntTypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\ShortRangeTypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\ShortTypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\StringTypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\TimeSpanTypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\TypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\UnknownTypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\UriTypeDrawer.cs"/>
+        <Compile Include="$(MSBuildThisFileDirectory)UiConstants.cs"/>
+    </ItemGroup>
 </Project>

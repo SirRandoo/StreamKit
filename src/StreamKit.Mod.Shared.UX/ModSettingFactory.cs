@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using HarmonyLib;
 using StreamKit.Mod.Api;
 using StreamKit.Mod.Api.Attributes;
 using StreamKit.Mod.Shared.Core;

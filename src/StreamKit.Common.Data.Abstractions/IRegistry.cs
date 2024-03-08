@@ -53,12 +53,12 @@ public interface IRegistry<T> where T : class, IIdentifiable
 
     /// <summary>
     ///     Gets the object within the registry by the id, or
-    ///     <see langword="null"/> if the object doesn't exist.
+    ///     <see langword="null" /> if the object doesn't exist.
     /// </summary>
     /// <param name="id">The id of the object being obtained.</param>
     /// <returns>
     ///     The object registered within the registry, or the
-    ///     <see langword="null"/> if the object doesn't exist.
+    ///     <see langword="null" /> if the object doesn't exist.
     /// </returns>
     T? Get(string id);
 }

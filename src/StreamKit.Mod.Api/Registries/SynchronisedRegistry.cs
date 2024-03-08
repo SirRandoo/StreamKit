@@ -20,7 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -42,8 +41,8 @@ namespace StreamKit.Mod.Api;
 [SuppressMessage("ReSharper", "PossibleUnintendedReferenceComparison")]
 public class SynchronisedRegistry<T> : IRegistry<T> where T : class, IIdentifiable
 {
-    private ImmutableList<T> _allRegistrants;
     private readonly ConcurrentDictionary<string, T> _allRegistrantsKeyed = [];
+    private ImmutableList<T> _allRegistrants;
 
     /// <summary>
     ///     A registry implementation that uses
@@ -87,8 +86,5 @@ public class SynchronisedRegistry<T> : IRegistry<T> where T : class, IIdentifiab
     }
 
     /// <inheritdoc />
-    public T? Get(string id)
-    {
-        return _allRegistrantsKeyed.TryGetValue(id, out T? value) ? value : default;
-    }
+    public T? Get(string id) => _allRegistrantsKeyed.TryGetValue(id, out T? value) ? value : default;
 }

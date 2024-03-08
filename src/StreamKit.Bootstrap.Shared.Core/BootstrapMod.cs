@@ -8,10 +8,10 @@ namespace StreamKit.Bootstrap.Shared.Core;
 [UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
 internal class BootstrapMod(ModContentPack content) : Mod(content)
 {
-    private bool _isKitLoaded;
     private static readonly Color DescriptionTextColor = new(0.72f, 0.72f, 0.72f);
+    private bool _isKitLoaded;
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override string? SettingsCategory()
     {
         if (!_isKitLoaded && ModLister.GetActiveModWithIdentifier("sirrandoo.streamkit") is null)
@@ -24,7 +24,7 @@ internal class BootstrapMod(ModContentPack content) : Mod(content)
         return null;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override void DoSettingsWindowContents(Rect inRect)
     {
         Color oldColor = GUI.color;
@@ -34,7 +34,7 @@ internal class BootstrapMod(ModContentPack content) : Mod(content)
         Text.Font = GameFont.Medium;
         GUI.color = DescriptionTextColor;
         Text.Anchor = TextAnchor.MiddleCenter;
-        
+
         Widgets.Label(inRect, "StreamKit.Bootstrap.Info".TranslateSimple());
 
         Text.Font = oldFont;

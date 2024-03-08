@@ -27,7 +27,7 @@ namespace StreamKit.Mod.Shared.Wrappers.Async;
 
 /// <summary>
 ///     A set of wrappers around the synchronous, unsafe methods within
-///     the <see cref="StorytellerUtility"/> class.
+///     the <see cref="StorytellerUtility" /> class.
 /// </summary>
 /// <remarks>
 ///     Usage of the extensions provided by this class are to be used
@@ -36,14 +36,14 @@ namespace StreamKit.Mod.Shared.Wrappers.Async;
 /// </remarks>
 public static class StorytellerUtilityExtensions
 {
-    /// <inheritdoc cref="StorytellerUtility.DefaultParmsNow"/>
+    /// <inheritdoc cref="StorytellerUtility.DefaultParmsNow" />
     public static async ValueTask<IncidentParms> DefaultParmsNowAsync(IncidentCategoryDef category, IIncidentTarget target) =>
         await MainThreadExtensions.OnMainAsync(StorytellerUtility.DefaultParmsNow, category, target);
 
-    /// <inheritdoc cref="StorytellerUtility.DefaultThreatPointsNow"/>
+    /// <inheritdoc cref="StorytellerUtility.DefaultThreatPointsNow" />
     public static async Task<float> DefaultThreatPointsNowAsync(IIncidentTarget target) =>
         await MainThreadExtensions.OnMainAsync(StorytellerUtility.DefaultThreatPointsNow, target);
 
-    /// <inheritdoc cref="StorytellerUtility.DefaultSiteThreatPointsNow"/>
+    /// <inheritdoc cref="StorytellerUtility.DefaultSiteThreatPointsNow" />
     public static async Task<float> DefaultSitePointsNowAsync() => await MainThreadExtensions.OnMainAsync(StorytellerUtility.DefaultSiteThreatPointsNow);
 }

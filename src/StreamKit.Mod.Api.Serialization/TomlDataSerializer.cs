@@ -69,7 +69,7 @@ public class TomlDataSerializer : IDataSerializer
         {
             using (var writer = new StreamWriter(stream))
             {
-                var result = TomletMain.TomlStringFrom(typeof(T), data);
+                string result = TomletMain.TomlStringFrom(typeof(T), data);
 
                 writer.Write(result);
 
@@ -116,7 +116,7 @@ public class TomlDataSerializer : IDataSerializer
         {
             using (var writer = new StreamWriter(stream))
             {
-                var result = TomletMain.TomlStringFrom(typeof(T), data);
+                string result = TomletMain.TomlStringFrom(typeof(T), data);
 
                 await writer.WriteAsync(result);
 

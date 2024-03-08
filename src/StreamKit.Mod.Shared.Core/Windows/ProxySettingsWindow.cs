@@ -36,8 +36,8 @@ public class ProxySettingsWindow : Window
     private string _lastException = null!;
     private FloatMenu _noSettingsFloatMenu = null!;
     private string _selectModText = null!;
-    private FloatMenu _settingsFloatMenu = null!;
     private bool _settingsCloseAttempted;
+    private FloatMenu _settingsFloatMenu = null!;
     private int _totalErrors;
 
     public ProxySettingsWindow(Verse.Mod mod)
@@ -89,7 +89,7 @@ public class ProxySettingsWindow : Window
     {
         if (_totalErrors >= 20)
         {
-            LabelDrawer.Draw(region, _lastException, Color.gray, TextAnchor.UpperLeft, GameFont.Small);
+            LabelDrawer.Draw(region, _lastException, Color.gray, TextAnchor.UpperLeft);
 
             return;
         }

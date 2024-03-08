@@ -252,7 +252,8 @@ public class ButtonDrawer
     ///     keyboard control when the button is clicked by the user
     /// </param>
     /// <returns>Whether the button was clicked by the user</returns>
-    public static bool ClearButton(Rect parentRegion, string? tooltip, int offset, bool removeControl) => DrawFieldButton(parentRegion, "×", tooltip, offset, removeControl);
+    public static bool ClearButton(Rect parentRegion, string? tooltip, int offset, bool removeControl) =>
+        DrawFieldButton(parentRegion, "×", tooltip, offset, removeControl);
 
     /// <summary>
     ///     Draws an interactable "clear" button over an input field.

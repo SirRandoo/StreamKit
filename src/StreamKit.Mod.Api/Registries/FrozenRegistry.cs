@@ -38,6 +38,7 @@ public class FrozenRegistry<T> : IRegistry<T> where T : class, IIdentifiable
         _registrants = ImmutableList.CreateRange(allRegistrants);
 
         var dict = new Dictionary<string, T>();
+
         for (var index = 0; index < allRegistrants.Count; index++)
         {
             T registrant = allRegistrants[index];
@@ -55,7 +56,7 @@ public class FrozenRegistry<T> : IRegistry<T> where T : class, IIdentifiable
     /// </summary>
     /// <param name="obj">
     ///     <inheritdoc cref="IRegistry{T}.Register"
-    ///         Path="/param[name='obj']" />
+    ///                 Path="/param[name='obj']" />
     /// </param>
     /// <exception cref="ReadOnlyException">
     ///     Thrown when the registry is no longer accepting modifications.
@@ -73,7 +74,7 @@ public class FrozenRegistry<T> : IRegistry<T> where T : class, IIdentifiable
     /// </summary>
     /// <param name="obj">
     ///     <inheritdoc cref="IRegistry{T}.Register"
-    ///         Path="/param[name='obj']" />
+    ///                 Path="/param[name='obj']" />
     /// </param>
     /// <exception cref="ReadOnlyException">
     ///     Thrown when the registry is no longer accepting modifications.

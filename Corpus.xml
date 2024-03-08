@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Corpus>
     <Resources>
-<!--        <ResourceBundle Root="Releases/native" Versioned="false">-->
-<!--            <Resource Type="Dll" Name="git" Root="git"/>-->
-<!--            <Resource Type="Dll" Name="lua54" Root="lua54"/>-->
-<!--            <Resource Type="Dll" Name="sqlite3" Root="Sqlite3.Interop"/>-->
-<!--        </ResourceBundle>-->
+        <!--        <ResourceBundle Root="Releases/native" Versioned="false">-->
+        <!--            <Resource Type="Dll" Name="git" Root="git"/>-->
+        <!--            <Resource Type="Dll" Name="lua54" Root="lua54"/>-->
+        <!--            <Resource Type="Dll" Name="sqlite3" Root="Sqlite3.Interop"/>-->
+        <!--        </ResourceBundle>-->
         <ResourceBundle Root="Releases/Core" Versioned="true">
             <Resource Type="NetStandardAssembly" Name="netstandard" Root="Assemblies"/>
 

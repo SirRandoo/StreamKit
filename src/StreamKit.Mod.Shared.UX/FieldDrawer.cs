@@ -149,7 +149,7 @@ public static class FieldDrawer
 
         buffer = newValue;
 
-        if (float.TryParse(buffer, FloatNumberStyles, NumberFormatInfo.CurrentInfo,  out float result))
+        if (float.TryParse(buffer, FloatNumberStyles, NumberFormatInfo.CurrentInfo, out float result))
         {
             value = Mathf.Clamp(result, minimum, maximum);
             bufferValid = true;

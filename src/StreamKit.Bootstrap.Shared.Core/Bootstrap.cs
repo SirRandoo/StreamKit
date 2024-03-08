@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
-using Mono.Cecil;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -35,7 +34,10 @@ internal static class Bootstrap
         {
             string corpusPath = Path.Combine(mod.RootDir, "Corpus.xml");
 
-            if (!File.Exists(corpusPath)) continue;
+            if (!File.Exists(corpusPath))
+            {
+                continue;
+            }
 
             LoadContent(mod, corpusPath);
         }
@@ -133,7 +135,10 @@ internal static class Bootstrap
         string resourcePath = Path.Combine(resourceDir, $"{resource.Name}.{NativeExtension}");
         string destinationPath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
 
-        if (File.Exists(destinationPath)) return;
+        if (File.Exists(destinationPath))
+        {
+            return;
+        }
 
         try
         {
@@ -154,7 +159,10 @@ internal static class Bootstrap
         string resourcePath = Path.Combine(resourceDir, $"{resource.Name}.dll");
         string destinationPath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
 
-        if (File.Exists(destinationPath)) return;
+        if (File.Exists(destinationPath))
+        {
+            return;
+        }
 
         try
         {
@@ -172,9 +180,15 @@ internal static class Bootstrap
     {
         string root = mod.RootDir;
 
-        if (!string.IsNullOrEmpty(bundle.Root)) root = Path.Combine(root, bundle.Root);
+        if (!string.IsNullOrEmpty(bundle.Root))
+        {
+            root = Path.Combine(root, bundle.Root);
+        }
 
-        if (!bundle.Versioned) return root;
+        if (!bundle.Versioned)
+        {
+            return root;
+        }
 
         string withoutBuild = Path.Combine(root, VersionControl.CurrentVersionString);
 
