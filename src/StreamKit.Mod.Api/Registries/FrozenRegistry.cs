@@ -28,30 +28,27 @@ using StreamKit.Common.Data.Abstractions;
 
 namespace StreamKit.Mod.Api;
 
-public class FrozenRegistry<T>(IList<T> allRegistrants) : IRegistry<T> where T : class, IIdentifiable
+public class FrozenRegistry<T> : IRegistry<T> where T : class, IIdentifiable
 {
-    private readonly ImmutableDictionary<string, T> _registrantsKeyed = ImmutableDictionary<string, T>.Empty;
+    private readonly ImmutableList<T> _registrants;
+    private readonly ImmutableDictionary<string, T> _registrantsKeyed;
+
+    public FrozenRegistry(IList<T> allRegistrants)
+    {
+        _registrants = ImmutableList.CreateRange(allRegistrants);
+
+        var dict = new Dictionary<string, T>();
+        for (var index = 0; index < allRegistrants.Count; index++)
+        {
+            T registrant = allRegistrants[index];
+            dict[registrant.Id] = registrant;
+        }
+
+        _registrantsKeyed = dict.ToImmutableDictionary();
+    }
 
     /// <inheritdoc />
-    public IList<T> AllRegistrants
-    {
-        get => allRegistrants;
-        init
-        {
-            allRegistrants = value;
-
-            var container = new Dictionary<string, T>();
-
-            for (var index = 0; index < allRegistrants.Count; index++)
-            {
-                T obj = allRegistrants[index];
-
-                container[obj.Id] = obj;
-            }
-
-            _registrantsKeyed = container.ToImmutableDictionary();
-        }
-    }
+    public ICollection<T> AllRegistrants => _registrants;
 
     /// <summary>
     ///     <inheritdoc cref="IRegistry{T}.Register" Path="/summary" />

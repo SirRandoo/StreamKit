@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
@@ -39,45 +40,55 @@ namespace StreamKit.Mod.Api;
 ///     The type of the class being represented within the registry.
 /// </typeparam>
 [SuppressMessage("ReSharper", "PossibleUnintendedReferenceComparison")]
-public class SynchronisedRegistry<T>(IList<T>? allRegistrants = default) : IRegistry<T> where T : class, IIdentifiable
+public class SynchronisedRegistry<T> : IRegistry<T> where T : class, IIdentifiable
 {
-    private IList<T> _allRegistrants = allRegistrants ?? ImmutableList<T>.Empty;
+    private ImmutableList<T> _allRegistrants;
+    private readonly ConcurrentDictionary<string, T> _allRegistrantsKeyed = [];
+
+    /// <summary>
+    ///     A registry implementation that uses
+    ///     <see
+    ///         cref="Interlocked.CompareExchange(ref object, object, object)" />
+    ///     to modify the registry's contents.
+    /// </summary>
+    /// <typeparam name="T">
+    ///     The type of the class being represented within the registry.
+    /// </typeparam>
+    public SynchronisedRegistry(ImmutableList<T>? allRegistrants = default)
+    {
+        _allRegistrants = allRegistrants ?? ImmutableList<T>.Empty;
+
+        for (var i = 0; i < _allRegistrants.Count; i++)
+        {
+            T registrant = _allRegistrants[i];
+
+            _allRegistrantsKeyed.TryAdd(registrant.Id, registrant);
+        }
+    }
 
     /// <inheritdoc />
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
-    public IList<T> AllRegistrants => _allRegistrants;
+    public ICollection<T> AllRegistrants => _allRegistrants;
 
     /// <inheritdoc />
     public bool Register([NotNull] T obj)
     {
-        ImmutableList<T> modified, original;
+        bool added = ImmutableInterlocked.Update(ref _allRegistrants, list => list.Add(obj));
 
-        do
-        {
-            original = (ImmutableList<T>)AllRegistrants;
-            modified = original.Add(obj);
-        } while (Interlocked.CompareExchange(ref _allRegistrants, modified, original) != original);
-
-        return true;
+        return _allRegistrantsKeyed.TryAdd(obj.Id, obj) && added;
     }
 
     /// <inheritdoc />
     public bool Unregister(T obj)
     {
-        ImmutableList<T> modified, original;
+        bool removed = ImmutableInterlocked.Update(ref _allRegistrants, list => list.Remove(obj));
 
-        do
-        {
-            original = (ImmutableList<T>)AllRegistrants;
-            modified = original.Remove(obj);
-        } while (Interlocked.CompareExchange(ref _allRegistrants, modified, original) != original);
-
-        return true;
+        return _allRegistrantsKeyed.TryRemove(obj.Id, out T? _) && removed;
     }
 
     /// <inheritdoc />
     public T? Get(string id)
     {
-        return ((ImmutableList<T>)AllRegistrants).Find(r => string.Equals(id, r.Id, StringComparison.Ordinal));
+        return _allRegistrantsKeyed.TryGetValue(id, out T? value) ? value : default;
     }
 }

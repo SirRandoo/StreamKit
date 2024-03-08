@@ -90,7 +90,7 @@ public sealed class PseudoDataGenerator
     {
         return Enumerable.Range(0, count)
            .Select(
-                _ => (IUser)new PseudoUser(Guid.NewGuid().ToString(), Randomizer.ListItem(Platforms.AllRegistrants).Id)
+                _ => (IUser)new PseudoUser(Guid.NewGuid().ToString(), Randomizer.CollectionItem(Platforms.AllRegistrants).Id)
                 {
                     Name = Internet.UserName(),
                     Privileges = GetRandomPrivileges(),

@@ -27,13 +27,25 @@ using StreamKit.Common.Data.Abstractions;
 
 namespace StreamKit.Mod.Api;
 
-public class MutableRegistry<T>(IList<T>? allRegistrants = default) : IRegistry<T> where T : class, IIdentifiable
+public class MutableRegistry<T> : IRegistry<T> where T : class, IIdentifiable
 {
     private readonly Dictionary<string, T> _allRegistrantsKeyed = new();
-    private readonly IList<T> _allRegistrants = allRegistrants ?? [];
+    private readonly IList<T> _allRegistrants;
+
+    public MutableRegistry(IList<T>? allRegistrants = default)
+    {
+        _allRegistrants = allRegistrants ?? [];
+
+        for (int i = 0; i < _allRegistrants.Count; i++)
+        {
+            T registrant = _allRegistrants[i];
+
+            _allRegistrantsKeyed[registrant.Id] = registrant;
+        }
+    }
 
     /// <inheritdoc />
-    public IList<T> AllRegistrants => new ReadOnlyCollection<T>(_allRegistrants);
+    public ICollection<T> AllRegistrants => new ReadOnlyCollection<T>(_allRegistrants);
 
     /// <inheritdoc />
     public bool Register([NotNull] T obj)
