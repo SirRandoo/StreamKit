@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <_IsModProject>$(MSBuildProjectName.Contains('Shared'))</_IsModProject>
+        <_IsModProject>$(MSBuildProjectName.Contains('Mod'))</_IsModProject>
         <_IsCommonProject>$(MSBuildProjectName.Contains('Common'))</_IsCommonProject>
         <_IsServerProject>$(MSBuildProjectName.Contains('Server'))</_IsServerProject>
         <_IsWrapperProject>$(MSBuildProjectName.Contains('Wrapper'))</_IsWrapperProject>

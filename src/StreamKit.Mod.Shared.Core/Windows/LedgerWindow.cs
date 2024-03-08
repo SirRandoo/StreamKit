@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using HarmonyLib;
 using RimWorld;
 using StreamKit.Common.Data.Abstractions;
 using StreamKit.Mod.Api;
