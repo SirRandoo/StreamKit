@@ -230,7 +230,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
 
         if (string.IsNullOrEmpty(directory))
         {
-            return Result.Invalid(new ValidationError { ErrorMessage = "The path specified does not reside in a directory.", Severity = ValidationSeverity.Error });
+            return Result.Invalid([new ValidationError { ErrorMessage = "The path specified does not reside in a directory.", Severity = ValidationSeverity.Error }]);
         }
 
         string tempFileName = Path.GetRandomFileName();
