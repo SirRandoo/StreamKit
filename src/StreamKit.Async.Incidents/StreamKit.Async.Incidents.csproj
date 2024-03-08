@@ -1,5 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <Description>A library for housing asynchronous version of various RimWorld events, like pawn generation.</Description>
-    </PropertyGroup>
-</Project>

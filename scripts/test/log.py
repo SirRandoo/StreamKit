@@ -20,7 +20,7 @@ class LogMessageTyper:
             "DEBUG": LogMessageType.DEBUG,
             "ERR": LogMessageType.ERROR,
             "CRIT": LogMessageType.CRITICAL,
-            "FATAL": LogMessageType.FATAL
+            "FATAL": LogMessageType.FATAL,
         }
 
     def type(self, message: str) -> LogMessageType:
@@ -31,7 +31,11 @@ class LogMessageTyper:
                 continue
 
             has_prefix = message[0] in ("(", "[", "<")
-            level = message[1:token_length + 1] if has_prefix else message[:token_length]
+            level = (
+                message[1 : token_length + 1]
+                if has_prefix
+                else message[:token_length]
+            )
             if level.upper() != key.upper():
                 continue
 

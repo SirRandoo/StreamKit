@@ -1,5 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <Description>A library containing the products supported by "StreamKit", an interactivity mod for the game "RimWorld".</Description>
-    </PropertyGroup>
-</Project>

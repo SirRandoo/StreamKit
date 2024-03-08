@@ -1,0 +1,66 @@
+﻿attribute "fs_serializer";
+attribute "fs_valueStruct";
+
+/// Represents a miniature class for representing stat modifications in traits.
+struct StatModifier (fs_valueStruct) {
+  /// The unique id of the stat def, typically called the "def name."
+  def_name:string;
+
+  /// The unique package id of the mod.
+  mod_id:string;
+
+  /// A positive or negative value indicating a value modification towards the
+  /// given stat.
+  value:float;
+}
+
+/// Represents a "severity" within a trait "spectrum." Trait spectrums are
+/// special "container" traits that contain multiple "degrees" that indicate
+/// a rough range of values that can exist for a given trait. One common
+/// spectrum the "natural mood" trait spectrum that encapsulates "sanguine",
+/// "optimist", "pessimist", and "depressive" traits.
+table TraitDegree (fs_serializer) {
+  /// An integer indicating the "degree" a trait is within the spectrum. This
+  /// value can either be a positive or negative integer.
+  degree:int;
+
+  /// The name of the trait at the given degree.
+  name:string;
+
+  /// The description of the trait at the given degree.
+  ///
+  /// This field should be revisted prior to the initial release of the server,
+  /// as traits require a pawn in order for the description to be translated
+  /// into the given language due to the description containing pronoun markers.
+  /// It may be feasible to replace pronoun markers with gender neutral
+  /// pronouns, but some descriptions also include markers for a pawn's name.
+  /// Replacing the name marker may not be feasible as the description will
+  /// appear to be referencing a pawn that not only doesn't exist, but also
+  /// a completely different pawn from the viewer's pawn.
+  ///
+  /// Alternatively, the description could be substituted for a first party
+  /// description, but this method will quickly become infeasible as more
+  /// trait mods are added to the workshop.
+  ///
+  /// Alternatively, the description could be duplicated per pawn, but this
+  /// quickly leads to redundant data that doesn't contribute to anything
+  /// meaningful within the server's database. This method could be salvaged by
+  /// having the server do the heavy lifting of replacing the markers in a
+  /// translation string with pronouns and names from the game's language files.
+  /// This approach would also mean the server would need information about
+  /// the game's current pawn pronouns.
+  description:string;
+
+  /// A collection of stat changes that may happen when a pawn obtains the
+  /// trait. These values typically don't matter unless they obtain the trait
+  /// later on in life, like through childhood or by purchasing said trait.
+  ///
+  /// Offsets indicate flat value modifications towards the associated stat,
+  /// while factors indicate multipliers to the associated stat.
+  stat_offsets:[StatModifier];
+  stat_factors:[StatModifiers];
+}
+
+table Trait {
+  id:ProductId;
+}

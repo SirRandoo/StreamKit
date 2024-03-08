@@ -1,13 +1,12 @@
+import logging
 import os
 import subprocess
 import sys
 
-from watchdog import observers
 from watchdog.observers import polling
-import logging
-from log import register_text_type
 
 from handler import LogRelayFileSystemEventHandler
+from log import register_text_type
 
 register_text_type()
 logging.basicConfig(

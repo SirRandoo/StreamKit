@@ -1,0 +1,8 @@
+﻿attribute "fs_valueStruct";
+attribute "fs_unsafeExternal";
+
+
+/// Represents an integer vector with 3 channels.
+struct IntVec3 (fs_valueStruct, fs_unsafeExternal:"System.Numerics.Vector3") {
+  data:[int:3];
+}

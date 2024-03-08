@@ -1,0 +1,3 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\StreamKit.Bootstrap.Shared.Core\StreamKit.Bootstrap.Shared.Core.projitems" Label="Shared" />
+</Project>

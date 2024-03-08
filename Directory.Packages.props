@@ -1,17 +1,45 @@
 <Project>
-    <!-- Packages that directly require a reference to the RimWorld reference package -->
-    <ItemGroup Condition="'$(Standalone)' == '' OR '$(Standalone)' == 'partial'">
-        <PackageReference Include="0SirRandoo.CommonLib" Version="1.12.1"/>
-        <PackageReference Include="RimWorld.MultiplayerAPI" Version="0.5.0"/>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="$(RimWorldVersion).*"/>
+    <ItemGroup Condition="$(DefineConstants.Contains('STREAMKIT_MOD')) OR $(DefineConstants.Contains('STREAMKIT_BOOTSTRAP'))">
+        <PackageReference Include="Lib.Harmony" Version="2.3.1.1"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="$(DefineConstants.Contains('STREAMKIT_RIMWORLD'))">
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="$(_RimWorldVersion).*"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="PolySharp" Version="1.14.1"/>
-        <PackageReference Include="Lib.Harmony" Version="2.2.2"/>
-        <PackageReference Condition="'$(IsBootstrapper)' != 'true'" Include="Dapper" Version="2.1.28"/>
-        <PackageReference Condition="'$(DisallowResults)' == ''" Include="FluentResults" Version="3.15.2"/>
-        <PackageReference Condition="'$(IsBootstrapper)' != 'true'" Include="System.Collections.Immutable" Version="8.0.0"/>
-        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta08" PrivateAssets="" ExcludeAssets="runtime"/>
+        <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_SERVER'))" Include="PolySharp" Version="1.14.1"/>
+        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta08" PrivateAssets="all" ExcludeAssets="runtime"/>
+
+        <!--
+        System.Collections.Immutable is removed from the bootstrapper project since it's not needed.
+        -->
+        <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER')) AND !$(DefineConstants.Contains('STREAMKIT_COMMON'))" Include="System.Collections.Immutable" Version="8.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="!$(DefineConstants.Contains('STREAMKIT_COMMON')) AND !$(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER'))">
+        <ProjectReference Include="..\StreamKit.Common.Data\StreamKit.Common.Data.csproj"/>
+        <ProjectReference Include="..\StreamKit.Common.Communication\StreamKit.Common.Communication.csproj"/>
+        <ProjectReference Include="..\StreamKit.Common.Data.Abstractions\StreamKit.Common.Data.Abstractions.csproj"/>
+
+        <PackageReference Include="NLog" Version="5.2.8"/>
+
+        <!--
+        Ardalis.Results is removed from wrapper projects since an indirect dependency (System.Threading.Tasks.Extensions)
+        will cause ValueTask{T} to be unusable from wrapper projects due to it being defined in both mscorlib from Unity
+        AND System.Threading.Task.Extensions.
+        -->
+        <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_WRAPPER'))" Include="Ardalis.Result" Version="8.0.0"/>
+    </ItemGroup>
+
+    <!--
+    Depending on whether we're on a server project, or mod project, we'll use a relational database
+    that's appropriate for the system the project will be operating on, but all projects that require
+    a relational database will use Dapper for interacting with the database.
+    -->
+    <ItemGroup Condition="$(DefineConstants.Contains('ENABLE_SQL'))">
+        <PackageReference Include="Dapper" Version="2.1.28"/>
+        <Reference Condition="$(DefineConstants.Contains('STREAMKIT_MOD'))" Include="../Libs/Mono.Data.Sqlite.dll"/>
+        <PackageReference Condition="$(DefineConstants.Contains('STREAMKIT_SERVER'))" Include="Npgsql" Version="8.0.0"/>
     </ItemGroup>
 </Project>

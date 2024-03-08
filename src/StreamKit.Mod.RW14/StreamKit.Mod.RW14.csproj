@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <ProjectReference Include="..\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj"/>
+    </ItemGroup>
+
+    <Import Project="..\StreamKit.Mod.Shared.Core\StreamKit.Mod.Shared.Core.projitems" Label="Shared"/>
+    <Import Project="..\StreamKit.Mod.Shared.UX\StreamKit.Mod.Shared.UX.projitems" Label="Shared"/>
+    <Import Project="..\StreamKit.Mod.Shared.Extensions\StreamKit.Mod.Shared.Extensions.projitems" Label="Shared" />
+    <Import Project="..\StreamKit.Mod.Shared.Wrappers.Async\StreamKit.Mod.Shared.Wrappers.Async.projitems" Label="Shared" />
+</Project>

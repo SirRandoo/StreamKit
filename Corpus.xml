@@ -24,20 +24,23 @@
             <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Logging.Abstractions" Root="Assemblies"/>
 
             <Resource Type="NetStandardAssembly" Name="Tomlyn" Root="Assemblies"/>
+            <Resource Type="NetStandardAssembly" Name="Ardalis.Results" Root="Assemblies"/>
             <Resource Type="NetStandardAssembly" Name="System.Text.Json" Root="Assemblies"/>
         </ResourceBundle>
         <ResourceBundle Root="Releases/Core" Versioned="true">
             <Resource Type="Assembly" Name="Bogus" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Common.Data.Abstractions" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Common.Communication" Root="Assemblies"/>
 
-            <Resource Type="Assembly" Name="StreamKit.Async.Wrappers" Root="Assemblies"/>
-            <Resource Type="Assembly" Name="StreamKit.Async.Incidents" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Mod.Async.Wrappers" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Mod.Async.Incidents" Root="Assemblies"/>
             <Resource Type="Assembly" Name="StreamKit.Data.Abstractions" Root="Assemblies"/>
-            <Resource Type="Assembly" Name="StreamKit.Api.Extensions" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Mod.Api.Extensions" Root="Assemblies"/>
 
-            <Resource Type="Assembly" Name="StreamKit.Api" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Mod.Api" Root="Assemblies"/>
             <Resource Type="Assembly" Name="StreamKit.Data.Products" Root="Assemblies"/>
 
-            <Resource Type="Assembly" Name="StreamKit.Mod" Root="Assemblies"/>
+            <Resource Type="Assembly" Name="StreamKit.Mod.RW14" Root="Assemblies"/>
         </ResourceBundle>
     </Resources>
 </Corpus>

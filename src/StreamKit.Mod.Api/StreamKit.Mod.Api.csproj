@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Title>StreamKit.Api</Title>
+        <Description>The api for StreamKit, an interactivity mod for Unity games.</Description>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="Mono.Data.Sqlite">
+            <HintPath>..\Libs\Mono.Data.Sqlite.dll</HintPath>
+        </Reference>
+        <Reference Include="Tomlyn">
+            <HintPath>..\Libs\Tomlyn.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Bogus" Version="35.4.1" />
+        <PackageReference Include="ConcurrentHashSet" Version="1.3.0" />
+    </ItemGroup>
+</Project>

@@ -8,6 +8,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 pip = "^23.2.1"
+semver = "^3.0.2"
+rich-click = "^1.7.3"
+watchdog = "^4.0.0"
 
 
 [tool.poetry.group.dev.dependencies]

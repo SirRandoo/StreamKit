@@ -1,0 +1,193 @@
+﻿namespace StreamKit.Server.Data;
+
+attribute "fs_serializer";
+
+/// Represents the different types of entities that the mod will send
+/// to any connected clients.
+enum EntityType : byte {
+  /// Represents an entity that was either unsupported, or a supported entity
+  /// couldn't be deserialized properly.
+  Unknown = 1,
+
+  /// Represents a humanoid entity within the game. Humanoids are typically
+  /// "pawns", the game's internal name for human-like characters that players
+  /// can control.
+  Humanoid = 2,
+
+  /// Represents an animal within the game. Animals can either be wild, or
+  /// tamed by a pawn, and as a result, have a bond with the person that tamed
+  /// them.
+  Animal = 3,
+
+  /// Represents a mechanoid within the game. Mechanoids can either be apart of
+  /// a player's faction, or apart of the "Mechanoid" faction.
+  Mechanoid = 4,
+
+  /// Represents a projectile within the game.
+  ///
+  /// TODO: Consider whether this enum is really needed.
+  /// Projectiles may instead be created at the point of origin, then sent
+  /// down the wire with the projectile's velocity. The client can then do the
+  /// work of displaying the projectile along its travel path.
+  Projectile = 5,
+
+  /// Represents a buildable object within the game. This enum typically
+  /// represents structures within the game, like generators.
+  Building = 6,
+
+  /// Represents an item within the game.
+  Item = 7,
+
+  /// Represents a tree within the game.
+  ///
+  /// TODO: This enum could be expanded to represent any flora within the game.
+  /// TODO: This enum could be merged with "Building" to represent a structure.
+  Tree = 8,
+}
+
+
+/// Represents the health information from an entity within the game.
+struct Health (fs_valueStruct) {
+  /// The current health of the entity.
+  ///
+  /// TODO: Look into the feasibility of dropping this field to short/ushort.
+  current:int;
+
+  /// The maximum amount of health the entity can have.
+  ///
+  /// TODO: Look into the feasibility of dropping this field to short/ushort.
+  maximum:int;
+}
+
+
+/// Represents the visual information of the entity within the game.
+struct Appearance (fs_serializer) {
+  /// The hexcode color used to tint the item's image.
+  ///
+  /// RimWorld typically uses a greyscale image, then tints the image prior to
+  /// drawing it on screen through the `GUI.color` field provided by Unity's
+  /// IMGUI system.
+  tint:string;
+
+  /// The raw sprite of the entity within the game.
+  image:[ubyte];
+}
+
+/// Represents a faction within the game.
+struct Faction (fs_serializer) {
+  /// The def name of the faction.
+  id:string;
+
+  /// The name of the faction as it appears in-game.
+  name:string;
+
+  /// The current "goodwill" the faction has with the player. A faction's
+  /// "goodwill" is a measure of how friendly the faction is with the player,
+  /// where higher, positive numbers indicate a potential ally, and lower,
+  /// negative numbers indicate a potential enemy.
+  goodwill:short;
+}
+
+/// Represents a simple, one part name.
+table SimpleName (fs_serializer) {
+  /// A string indicating the name of the entity.
+  value:string;
+}
+
+/// Represents a complex, three part name.
+table ComplexName (fs_serializer) {
+  /// The first name of the entity.
+  first:string;
+
+  /// The nickname of the entity, or null if the entity doesn't have a
+  /// nickname.
+  nick:string = null;
+
+  /// The last name of the entity.
+  last:string;
+}
+
+union Name { SimpleName, ComplexName }
+
+/// Represents the various qualities that exist within RimWorld.
+enum ItemQuality : byte {
+  /// Typically used to indicate that the requested quality isn't supported by
+  /// the system implementing this flatbuffer.
+  Unknown = 1,
+
+  /// Used to indicate to implementors that the item doesn't support qualities.
+  Unsupported = 2,
+
+  /// Represents the "poor" quality within RimWorld.
+  Poor = 3,
+
+  /// Represents the "awful" quality within RimWorld.
+  Awful = 4,
+
+  /// Represents the "normal" quality within RimWorld.
+  Normal = 5,
+
+  /// Represents the "good" quality within RimWorld.
+  Good = 6,
+
+  /// Represents the "excellent" quality within RimWorld.
+  Excellent = 7,
+
+  /// Represents the "masterwork" quality within RimWorld.
+  Masterwork = 8,
+
+  /// Represents the "legendary" quality within RimWorld.
+  Legendary = 9
+}
+
+table ItemMetadata (fs_serializer) {
+  /// Represents the amount of a given item exist at the given location on the
+  /// map.
+  ///
+  /// Internally RimWorld uses an int to represent stack counts, but counts
+  /// realistically will never reach outside of the bounds of a simple short.
+  ///
+  /// TODO: Test this before initial release.
+  stack_count:short;
+
+  /// Represents the item's material. If an item cannot be made of any
+  /// material, this field will be null.
+  stuff:ProductId = null;
+
+  /// Represents the item's quality. If an item cannot have a quality, this
+  /// field will be "None".
+  quality:ItemQuality=Unsupported;
+}
+
+
+/// Represents an entity on a map.
+table Entity (fs_serializer) {
+  /// The def name of the entity.
+  id:string;
+
+  /// The entity's current name, if any.
+  ///
+  /// This field will be null if the entity doesn't support names.
+  name:Name;
+
+  // The id of the map the entity is located on.
+  map_id:int;
+
+  /// The location of the entity within the game.
+  location:IntVec3;
+
+  /// The rotation of the entity within the game.
+  rotation:IntVec3;
+
+  /// The current health of the entity within the game.
+  health:Health;
+
+  /// The physical appearance of the entity within the game.
+  appearance:Appearance;
+
+  /// The entity's aligning faction, if any.
+  ///
+  /// This field will be null if the entity can't be apart of a faction, like
+  /// trees and bullets.
+  faction:Faction = null;
+}

@@ -1,65 +1,31 @@
 ﻿<Project>
+    <Import Project="Properties/Metadata.props"/>
+    <Import Project="Properties/Constants.props"/>
+
     <!-- Language Metadata -->
     <PropertyGroup>
         <Nullable>enable</Nullable>
         <OutputType>Library</OutputType>
         <LangVersion>preview</LangVersion>
-        <TargetFramework>net48</TargetFramework>
     </PropertyGroup>
 
-    <!-- Assembly Metadata -->
-    <PropertyGroup>
-        <Authors>SirRandoo</Authors>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/sirrandoo/StreamKit</RepositoryUrl>
-        <Copyright>MIT Copyright (c) $([System.DateTime]::Now.ToString("yyyy")) SirRandoo</Copyright>
-    </PropertyGroup>
+    <Choose>
+        <When Condition="$(DefineConstants.Contains('STREAMKIT_SERVER'))">
+            <PropertyGroup>
+                <TargetFrameworks>net8.0</TargetFrameworks>
+            </PropertyGroup>
+        </When>
+        <When Condition="$(DefineConstants.Contains('STREAMKIT_COMMON'))">
+            <PropertyGroup>
+                <TargetFrameworks>netstandard2.0</TargetFrameworks>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <TargetFrameworks>net48</TargetFrameworks>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
 
-    <!-- Build Metadata -->
-    <PropertyGroup>
-        <RimWorldVersion>1.4</RimWorldVersion>
-        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-        <AssemblyName>$(MSBuildProjectName)</AssemblyName>
-        <DefineConstants>$(DefineConstants);NETESCAPADES_ENUMGENERATORS_EMBED_ATTRIBUTES</DefineConstants>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    </PropertyGroup>
-
-    <!-- NuGet Metadata -->
-    <PropertyGroup>
-        <Title>$(MSBuildProjectName)</Title>
-        <Description>A component of "StreamKit", a mod for the game "RimWorld" that provides allows viewers to affect the game.</Description>
-    </PropertyGroup>
-
-    <!-- Build Output -->
-    <PropertyGroup Condition="'$(CompatibilityFor)' == ''">
-        <_OutputDirectory>..\..\Releases\Core\$(RimWorldVersion)\Assemblies</_OutputDirectory>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(CompatibilityFor)' != ''">
-        <_OutputDirectory>..\..\Releases\$(CompatibilityFor)\$(RimWorldVersion)\Assemblies</_OutputDirectory>
-    </PropertyGroup>
-
-    <!-- Global assembly data (auto-updated) -->
-    <PropertyGroup>
-        <!-- This property is pulled from the mod's manifest file. -->
-        <Product>StreamKit</Product>
-
-        <!-- This property is pulled from the mod's manifest file. -->
-        <Authors>SirRandoo</Authors>
-
-        <!--
-        The full version string from the mod's manifest file. This string will
-        include any suffixes that may be within the mod's version, such as
-        "beta" or "rc".
-        -->
-        <InformationalVersion>0.0.0.0</InformationalVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <OutputPath>$(_OutputDirectory)</OutputPath>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <OutputPath>$(_OutputDirectory)</OutputPath>
-    </PropertyGroup>
+    <Import Project="Properties/Output.props"/>
 </Project>

@@ -1,0 +1,39 @@
+﻿namespace StreamKit.Server.Data;
+
+attribute "fs_serializer";
+attribute "fs_valueStruct";
+attribute "fs_unsafeExternal";
+
+
+/// TODO: Evaluate a good chunk size.
+
+table Map (fs_serializer) {
+  // The id of the map.
+  id:int;
+
+  // Represents all the chunks within the map.
+  chunks:[Chunk];
+
+  // Whether the map was settled on by the player.
+  is_player_home:bool;
+}
+
+/// Represents a cell chunk within the game.
+table Chunk (fs_serializer) {
+  /// The id of the map the chunk is from.
+  map_id:int;
+
+  /// The raw image date for the given chunk.
+  image:[ubyte];
+
+  /// The position of the chunk within the game.
+  ///
+  /// TODO: Consider dropping this to a IntVec2 since there's only two axies.
+  position:IntVec3;
+
+  /// The top-left cell of the chunk.
+  top_left_cell:IntVec3;
+
+  /// The bottom-right cell of the chunk.
+  bottom_right_cell:IntVec3;
+}
