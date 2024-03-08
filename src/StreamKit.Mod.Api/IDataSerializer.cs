@@ -31,12 +31,12 @@ namespace StreamKit.Mod.Api;
 ///     An interface representing the minimum required class members for describing an object that can
 ///     save and load persistable data.
 /// </summary>
-/// <typeparam name="T">The type of the object that will be saved or loaded from disk.</typeparam>
 public interface IDataSerializer
 {
     /// <summary>
     ///     Deserializes the data from the stream.
     /// </summary>
+    /// <typeparam name="T">The type of the object that's being loaded from disk.</typeparam>
     /// <param name="stream">The stream to deserialize the data from.</param>
     /// <returns>
     ///     The data model deserialized from the stream, or the default value of the model if it couldn't
@@ -47,6 +47,7 @@ public interface IDataSerializer
     /// <summary>
     ///     Serializes the data to a stream.
     /// </summary>
+    /// <typeparam name="T">The type of the object that's being saved to disk.</typeparam>
     /// <param name="data">The optional data model to serialize into the stream.</param>
     /// <param name="stream">The stream to serialize the data into.</param>
     Result Serialize<T>(Stream stream, [DisallowNull] T data);
@@ -54,6 +55,7 @@ public interface IDataSerializer
     /// <summary>
     ///     Deserializes the data from the stream.
     /// </summary>
+    /// <typeparam name="T">The type of the object that's being loaded from disk.</typeparam>
     /// <param name="stream">The stream to deserialize the data from.</param>
     /// <returns>
     ///     The data model deserialized from the stream, or the default value of the model if it couldn't
@@ -64,6 +66,7 @@ public interface IDataSerializer
     /// <summary>
     ///     Serializes the data to a stream.
     /// </summary>
+    /// <typeparam name="T">The type of the object that's being saved to disk.</typeparam>
     /// <param name="data">The data to serialize into the stream.</param>
     /// <param name="stream">The stream to serialize the data into.</param>
     Task<Result> SerializeAsync<T>(Stream stream, [DisallowNull] T data);
