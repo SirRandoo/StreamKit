@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Common.Data.Abstractions;
+namespace StreamKit.Common.Data.Abstractions.ProductProperties;
 
 /// <summary>
 ///     Represents the various properties an apparel can have.

@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace StreamKit.Common.Data.Abstractions;
+namespace StreamKit.Common.Data.Abstractions.ProductProperties;
 
 /// <summary>
 ///     Represents the properties of a weapon that viewers may be able to

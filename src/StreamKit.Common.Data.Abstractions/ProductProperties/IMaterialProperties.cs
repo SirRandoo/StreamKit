@@ -22,7 +22,7 @@
 
 using System.Collections.Generic;
 
-namespace StreamKit.Common.Data.Abstractions;
+namespace StreamKit.Common.Data.Abstractions.ProductProperties;
 
 /// <summary>
 ///     Represents the various properties materials can have.
