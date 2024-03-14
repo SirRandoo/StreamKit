@@ -44,8 +44,10 @@
         <_RimWorldMajorMinorVersion>$(_RimWorldMajorSegment).$(_RimWorldMinorSegment)</_RimWorldMajorMinorVersion>
         <_RimWorldVersion Condition="'$(_RimWorldBuildSegment)' == ''">$(_RimWorldMajorMinorVersion)</_RimWorldVersion>
         <_RimWorldVersion Condition="'$(_RimWorldBuildSegment)' != ''">$(_RimWorldMajorMinorVersion).$(_RimWorldBuildSegment)</_RimWorldVersion>
+        <_RimWorldVersionTransformed>$(_RimWorldVersion.Replace('.', ''))</_RimWorldVersionTransformed>
+        <_RimWorldMajorMinorVersionTransformed>$(_RimWorldMajorMinorVersion.Replace('.', ''))</_RimWorldMajorMinorVersionTransformed>
 
-        <DefineConstants>$(DefineConstants);STREAMKIT_RIMWORLD;RW_$(_RimWorldMajorMinorVersion);RW_$(_RimWorldMajorMinorVersion)_OR_LOWER</DefineConstants>
-        <DefineConstants Condition="'$(_RimWorldBuildVersion)' != ''">$(DefineConstants);RW_$(_RimWorldVersion);RW_$(_RimWorldVersion)_OR_LOWER</DefineConstants>
+        <DefineConstants>$(DefineConstants);RW_$(_RimWorldVersionTransformed);RW_$(_RimWorldVersionTransformed)_OR_LOWER</DefineConstants>
+        <DefineConstants>$(DefineConstants);STREAMKIT_RIMWORLD;RW_$(_RimWorldMajorMinorVersionTransformed);RW_$(_RimWorldMajorMinorVersionTransformed)_OR_LOWER</DefineConstants>
     </PropertyGroup>
 </Project>

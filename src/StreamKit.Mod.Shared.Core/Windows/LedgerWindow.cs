@@ -137,7 +137,13 @@ public class LedgerWindow : Window
             // TODO: Draw viewer's platform icon when platforms are implemented.
             LabelDrawer.Draw(lineRegion, viewer.Name);
 
-            if (ButtonDrawer.DrawFieldButton(lineRegion, TexButton.DeleteX, "Deletes the viewer's information from the ledger.".MarkNotTranslated()))
+            #if RW_14
+                Texture2D deleteBtnTexture = TexButton.DeleteX;
+            #else
+                Texture2D deleteBtnTexture = TexButton.Delete;
+            #endif
+
+            if (ButtonDrawer.DrawFieldButton(lineRegion, deleteBtnTexture, "Deletes the viewer's information from the ledger.".MarkNotTranslated()))
             {
                 _ledger!.Data.Unregister(viewer);
 
