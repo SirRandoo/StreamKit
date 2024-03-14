@@ -1,0 +1,6 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4034-beta"/>
+    </ItemGroup>
+    <Import Project="..\StreamKit.Bootstrap.Shared.Core\StreamKit.Bootstrap.Shared.Core.projitems" Label="Shared"/>
+</Project>
