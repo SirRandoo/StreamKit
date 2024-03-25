@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using NLog;
 using StreamKit.Mod.Api;
 using Verse;
 
@@ -32,7 +33,7 @@ namespace StreamKit.Mod.Shared.Core;
 /// </summary>
 public static class FilePaths
 {
-    private static readonly IRimLogger Logger = new RimLogger("StreamKit.FileSystem");
+    private static readonly Logger Logger = LogManager.Factory.GetCurrentClassLogger();
     private static readonly string BaseDirectory = GetDirectory(GenFilePaths.SaveDataFolderPath, "StreamKit", true);
     private static readonly string SettingsBase = GetDirectory(BaseDirectory, "settings", true);
     private static readonly string DataBase = GetDirectory(BaseDirectory, "data", true);
@@ -79,7 +80,7 @@ public static class FilePaths
         }
         catch (Exception e)
         {
-            Logger.Error($"{path} could not be created -- Things wil not work correctly.", e);
+            Logger.Error(e, "{path} could not be created -- Things wil not work correctly.", path);
         }
 
         return path;
