@@ -20,32 +20,50 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Linq;
+using System;
+using System.Text;
 using UnityEngine;
-using Verse;
 
 namespace StreamKit.Mod.Shared.UX;
 
-// TODO: Revisit this for any potential optimizations.
-
 /// <summary>
-///     A class for removing XHTML tags from text.
+///     A utility class for creating and removing rich text that Unity can display in certain contexts.
 /// </summary>
 public static class RichTextHelper
 {
-    private static readonly string[] SupportedTags = ["b", "i", "size", "color", "material", "quad"];
-
-    private static bool IsRichText(this string input)
+    /// <summary>
+    ///     Determines whether a given string contains any rich text.
+    /// </summary>
+    /// <param name="source">The string to check for any rich text tags.</param>
+    /// <remarks>
+    ///     This check is rather primitive, as it only checks if there's an opening and closing character
+    ///     within 18 characters of each other. This method does not check to make sure the found tag is
+    ///     a valid rich text tag.
+    /// </remarks>
+    public static bool IsRichText(this string source)
     {
-        string lowered = input.ToLowerInvariant();
+        int tagStart = -1;
 
-        for (var index = 0; index < SupportedTags.Length; index++)
+        // ReSharper disable once SuggestVarOrType_Elsewhere
+        var span = source.AsReadOnlySpan();
+
+        for (var i = 0; i < span.Length; i++)
         {
-            string tag = SupportedTags[index];
+            char current = span[i];
 
-            if (lowered.Contains($"<{tag}") && lowered.Contains($"</{tag}>"))
+            switch (current)
             {
-                return true;
+                case '<':
+                    tagStart = i;
+
+                    break;
+                case '>' when tagStart >= 0:
+                    if (i - tagStart > 18)
+                    {
+                        break;
+                    }
+
+                    return true;
             }
         }
 
@@ -53,109 +71,84 @@ public static class RichTextHelper
     }
 
     /// <summary>
-    ///     Removes XHTML tags from a given string.
+    ///     Removes rich text tags from a given string.
     /// </summary>
-    /// <param name="input">The string to remove tags from</param>
-    /// <returns>A potentially sanitized string</returns>
+    /// <param name="input">The string to remove rich text tags from.</param>
+    /// <remarks>
+    ///     This method is rather primitive, as it simply doesn't return any text within &lt;&gt;'s, nor
+    ///     the symbols themselves.
+    /// </remarks>
     public static string StripTags(this string input)
     {
-        string container = input;
-        var i = 0;
-        int expectedTags = Mathf.Min(input.Count(ch => ch.Equals('<')), input.Count(ch => ch.Equals('>')));
+        int tagStart = -1;
+        var builder = new StringBuilder();
 
-        while (IsRichText(container))
+        // ReSharper disable once SuggestVarOrType_Elsewhere
+        var span = input.AsReadOnlySpan();
+
+        for (var i = 0; i < span.Length; i++)
         {
-            var nameEnd = false;
-            var inTag = false;
-            var tag = "";
+            char current = span[i];
 
-            string tagContent = container.Aggregate("", (current, c) => ProcessCharacter(c, current, ref inTag, ref nameEnd, ref tag));
-
-            if (!tagContent.NullOrEmpty())
+            switch (current)
             {
-                container = container.ReplaceFirst($"<{tagContent}>", "");
-                container = container.ReplaceFirst($"</{tag}>", "");
-            }
+                case '<':
+                    tagStart = i;
 
-            i++;
+                    break;
+                case '>' when tagStart >= 0:
+                    tagStart = -1;
 
-            // While this may not catch everything, this should help prevent infinite loops. For
-            // the types of content this method will be used for, any strings that contain more
-            // than 10 tags is questionable.
-            if ((container.Contains("<") || container.Contains(">")) && i > expectedTags)
-            {
-                return container;
-            }
-        }
-
-        return container;
-    }
-
-    private static string ProcessCharacter(char c, string tagContent, ref bool inTag, ref bool nameEnd, ref string tag)
-    {
-        switch (c)
-        {
-            case '<' when tagContent == "":
-                inTag = true;
-
-                break;
-            case '=' when inTag:
-                nameEnd = true;
-                tagContent += c.ToString();
-
-                break;
-            case '>':
-                inTag = false;
-
-                break;
-            default:
-            {
-                if (inTag)
-                {
-                    tagContent += c.ToString();
-
-                    if (!nameEnd)
+                    break;
+                default:
+                    if (tagStart >= 0)
                     {
-                        tag += c.ToString();
+                        break;
                     }
-                }
 
-                break;
+                    builder.Append(current);
+
+                    break;
             }
         }
 
-        return tagContent;
+        return builder.ToString();
     }
 
     /// <summary>
-    ///     Surrounds the given text with the specified rich text tag.
+    ///     Returns a new string with the contents of the old string surrounded by rich text tags.
     /// </summary>
-    /// <param name="s">The text to surround</param>
-    /// <param name="tag">The rich text tag to surround the text with</param>
-    /// <returns>The tagged string</returns>
-    public static string Tagged(this string s, string tag) => $"<{tag}>{s}</{tag}>";
+    /// <param name="source">The text to surround with rich text tags.</param>
+    /// <param name="tag">The type of (primitive) rich text tag to surround the source string with.</param>
+    /// <remarks>
+    ///     This method only supports primitive rich text tags, such as bold and italics. In essence, this
+    ///     method is only meant for tags that require no arguments.
+    /// </remarks>
+    public static string Tagged(this string source, string tag) => $"<{tag}>{source}</{tag}>";
 
     /// <summary>
-    ///     Surrounds the given text with the specified rich text color tag.
+    ///     Returns a new string with the contents of the old string surrounded by a color rich text tag.
     /// </summary>
-    /// <param name="s">The text to surround</param>
-    /// <param name="hex">The specified color's hex code</param>
-    /// <returns>The color tagged text</returns>
-    public static string ColorTagged(this string s, string hex)
+    /// <param name="source">The text to surround with a color rich text tag.</param>
+    /// <param name="color">The color of the text, specified as a hex color code.</param>
+    public static string ColorTagged(this string source, string color)
     {
-        if (!hex.StartsWith("#"))
+        if (!color.StartsWith("#"))
         {
-            hex = $"#{hex}";
+            return $"""
+                    <color="#{color}">{source}</color>
+                    """;
         }
 
-        return $"""<color="{hex}">{s}</color>""";
+        return $"""
+                <color="{color}">{source}</color>
+                """;
     }
 
     /// <summary>
-    ///     Surrounds the given text with the specified rich text tag.
+    ///     Returns a new string with the contents of the old string surrounded by a color rich text tag.
     /// </summary>
-    /// <param name="s">The text to surround</param>
-    /// <param name="color">The specified color</param>
-    /// <returns>The color tagged text</returns>
-    public static string ColorTagged(this string s, Color color) => ColorTagged(s, ColorUtility.ToHtmlStringRGB(color));
+    /// <param name="source">The text to surround with a color rich text tag.</param>
+    /// <param name="color">The color of the text, specified as a <see cref="Color"/> instance.</param>
+    public static string ColorTagged(this string source, Color color) => ColorTagged(source, ColorUtility.ToHtmlStringRGB(color));
 }
