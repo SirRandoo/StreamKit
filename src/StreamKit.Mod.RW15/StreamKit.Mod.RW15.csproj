@@ -2,7 +2,7 @@
     <PropertyGroup>
     </PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4034-beta" />
+      <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4041-beta" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj" />
