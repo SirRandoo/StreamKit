@@ -35,7 +35,7 @@ namespace StreamKit.Mod.Shared.UX;
 ///     Developers wanting tabbed content should use the <see cref="TabularDrawer.Builder" />
 ///     class to instantiate a new tabular drawer.
 /// </remarks>
-public sealed class TabularDrawer
+public class TabularDrawer
 {
     public delegate void ContentDrawer(Rect region);
     private const int IconSize = 16;
@@ -247,7 +247,7 @@ public sealed class TabularDrawer
 
                 return;
             default:
-                LabelDrawer.Draw(region, tab.Label, TextAnchor.MiddleCenter);
+                LabelDrawer.Draw(region, tab.Label!, TextAnchor.MiddleCenter);
 
                 return;
         }

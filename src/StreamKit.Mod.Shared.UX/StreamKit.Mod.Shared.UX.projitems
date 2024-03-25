@@ -32,8 +32,8 @@
         <Compile Include="$(MSBuildThisFileDirectory)TableDrawers\TransactionTableDrawer.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)TableDrawers\TableDrawer.Builder.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)TableDrawers\TableDrawer.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)TabularDrawer.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)FieldDrawer.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)TabularDrawers\TabularDrawer.cs" />
         <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\BoolTypeDrawer.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\FloatTypeDrawer.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\IntTypeDrawer.cs"/>
@@ -45,5 +45,5 @@
         <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\UnknownTypeDrawer.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)TypeDrawers\UriTypeDrawer.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)UiConstants.cs"/>
-    </ItemGroup>
+  </ItemGroup>
 </Project>

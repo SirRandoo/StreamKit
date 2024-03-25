@@ -25,7 +25,7 @@ public class TransactionHistoryDialog : Window
     private readonly IUser _viewer;
     private readonly ImmutableList<ITransaction> _workingList;
     private bool _isSearchExpanded;
-    private Vector2 _scrollPos = new(0f, 0f);
+    private Vector2 _scrollPosition = Vector2.zero;
     private float _searchOpenTime;
     private TransactionTableDrawer _tableDrawer = null!;
 
@@ -68,13 +68,13 @@ public class TransactionHistoryDialog : Window
         var viewport = new Rect(0f, 0f, region.width - (scrollbarVisible ? 16f : 0f), viewportHeight);
 
         GUI.BeginGroup(region);
-        _scrollPos = GUI.BeginScrollView(region, _scrollPos, viewport);
+        _scrollPosition = GUI.BeginScrollView(region, _scrollPosition, viewport);
 
         for (var index = 0; index < _workingList.Count; index++)
         {
             var lineRegion = new Rect(0f, index * UiConstants.LineHeight, viewport.width, UiConstants.LineHeight);
 
-            if (!lineRegion.IsVisible(region, _scrollPos))
+            if (!lineRegion.IsVisible(region, _scrollPosition))
             {
                 continue;
             }

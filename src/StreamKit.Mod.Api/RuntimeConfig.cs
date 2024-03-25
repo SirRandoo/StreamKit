@@ -37,7 +37,7 @@ public static class RuntimeConfig
     /// <summary>
     ///     Returns all flags currently set within the config.
     /// </summary>
-    public static ImmutableArray<string> AllFlags => Flags.ToImmutableArray();
+    public static ImmutableArray<string> AllFlags => [..Flags];
 
     /// <summary>
     ///     Sets a flag within the config.

@@ -29,7 +29,7 @@ public class LedgerWindow : Window
 
     private bool _isDebugInstance;
     private ILedger? _ledger;
-    private Vector2 _listScrollPos = new(0f, 0f);
+    private Vector2 _listScrollPosition = Vector2.zero;
     private IUser? _viewer;
     private string? _viewerBalanceBuffer;
     private bool _viewerBalanceBufferValid;
@@ -110,7 +110,7 @@ public class LedgerWindow : Window
         var scrollView = new Rect(0f, 0f, region.width - (scrollViewHeight > region.height ? 16f : 0f), scrollViewHeight);
 
         GUI.BeginGroup(region);
-        _listScrollPos = GUI.BeginScrollView(region, _listScrollPos, scrollView);
+        _listScrollPosition = GUI.BeginScrollView(region, _listScrollPosition, scrollView);
 
         var workingListDirty = false;
 
@@ -118,7 +118,7 @@ public class LedgerWindow : Window
         {
             var lineRegion = new Rect(0f, UiConstants.LineHeight * index, scrollView.width, UiConstants.LineHeight);
 
-            if (!lineRegion.IsVisible(region, _listScrollPos))
+            if (!lineRegion.IsVisible(region, _listScrollPosition))
             {
                 continue;
             }

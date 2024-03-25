@@ -22,7 +22,7 @@ public class RuntimeFlagWindow : Window
     private static RuntimeFlag[] _allFlags = null!;
     private static int _totalFlags;
     private static float _viewportHeight;
-    private Vector2 _scrollPos;
+    private Vector2 _scrollPosition = Vector2.zero;
 
     private RuntimeFlagWindow()
     {
@@ -37,7 +37,7 @@ public class RuntimeFlagWindow : Window
         var viewport = new Rect(0f, 0f, inRect.width - (_viewportHeight > inRect.height ? 16f : 0f), _viewportHeight);
 
         GUI.BeginGroup(inRect);
-        _scrollPos = GUI.BeginScrollView(inRect, _scrollPos, viewport);
+        _scrollPosition = GUI.BeginScrollView(inRect, _scrollPosition, viewport);
 
         for (var i = 0; i < _totalFlags; i++)
         {
@@ -45,7 +45,7 @@ public class RuntimeFlagWindow : Window
 
             var lineRegion = new Rect(0f, UiConstants.LineHeight * i, viewport.width, UiConstants.LineHeight);
 
-            if (!lineRegion.IsVisible(inRect, _scrollPos))
+            if (!lineRegion.IsVisible(inRect, _scrollPosition))
             {
                 continue;
             }

@@ -20,13 +20,13 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
     private readonly StoreSettings _storeSettingsInstance = new();
     private readonly TabularDrawer _tabWorker;
     private readonly TwitchSettings _twitchSettingsInstance = new();
-    private Vector2 _commandScrollPos = Vector2.zero;
-    private Vector2 _moralityScrollPos = Vector2.zero;
-    private Vector2 _pawnScrollPos = Vector2.zero;
-    private Vector2 _pointScrollPos = Vector2.zero;
-    private Vector2 _pollScrollPos = Vector2.zero;
-    private Vector2 _storeScrollPos = Vector2.zero;
-    private Vector2 _twitchScrollPos = Vector2.zero;
+    private Vector2 _commandScrollPosition = Vector2.zero;
+    private Vector2 _moralityScrollPosition = Vector2.zero;
+    private Vector2 _pawnScrollPosition = Vector2.zero;
+    private Vector2 _pointScrollPosition = Vector2.zero;
+    private Vector2 _pollScrollPosition = Vector2.zero;
+    private Vector2 _storeScrollPosition = Vector2.zero;
+    private Vector2 _twitchScrollPosition = Vector2.zero;
 
     /// <inheritdoc />
     public SettingsWindow(Verse.Mod mod) : base(mod)
@@ -42,7 +42,7 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
                     o.Layout = IconLayout.IconAndText;
                     o.Label = "Commands".MarkNotTranslated();
                     o.Tooltip = "A collection of settings that affect how the mod's command system functions.".MarkNotTranslated();
-                    o.Drawer = region => DrawTabSettings(region, commandSettings, ref _commandScrollPos);
+                    o.Drawer = region => DrawTabSettings(region, commandSettings, ref _commandScrollPosition);
                 }
             )
            .WithTab(
@@ -54,7 +54,7 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
                     o.Layout = IconLayout.IconAndText;
                     o.Label = "Morality".MarkNotTranslated();
                     o.Tooltip = "A collection of settings that affect how the mod's morality system functions.".MarkNotTranslated();
-                    o.Drawer = region => DrawTabSettings(region, moralitySettings, ref _moralityScrollPos);
+                    o.Drawer = region => DrawTabSettings(region, moralitySettings, ref _moralityScrollPosition);
                 }
             )
            .WithTab(
@@ -66,7 +66,7 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
                     o.Layout = IconLayout.IconAndText;
                     o.Label = "Pawns".MarkNotTranslated();
                     o.Tooltip = "A collection of settings that affect how the mod's pawn system functions.".MarkNotTranslated();
-                    o.Drawer = region => DrawTabSettings(region, pawnSettings, ref _pawnScrollPos);
+                    o.Drawer = region => DrawTabSettings(region, pawnSettings, ref _pawnScrollPosition);
                 }
             )
            .WithTab(
@@ -78,7 +78,7 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
                     o.Layout = IconLayout.IconAndText;
                     o.Label = "Points".MarkNotTranslated();
                     o.Tooltip = "A collection of settings that affect how the mod's point system functions.".MarkNotTranslated();
-                    o.Drawer = region => DrawTabSettings(region, pointSettings, ref _pointScrollPos);
+                    o.Drawer = region => DrawTabSettings(region, pointSettings, ref _pointScrollPosition);
                 }
             )
            .WithTab(
@@ -90,7 +90,7 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
                     o.Layout = IconLayout.IconAndText;
                     o.Label = "Poll".MarkNotTranslated();
                     o.Tooltip = "A collection of settings that affect how the mod's polling system functions.".MarkNotTranslated();
-                    o.Drawer = region => DrawTabSettings(region, pollSettings, ref _pollScrollPos);
+                    o.Drawer = region => DrawTabSettings(region, pollSettings, ref _pollScrollPosition);
                 }
             )
            .WithTab(
@@ -102,7 +102,7 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
                     o.Layout = IconLayout.IconAndText;
                     o.Label = "Store".MarkNotTranslated();
                     o.Tooltip = "A collection of settings that affect how the mod's store functions.".MarkNotTranslated();
-                    o.Drawer = region => DrawTabSettings(region, storeSettings, ref _storeScrollPos);
+                    o.Drawer = region => DrawTabSettings(region, storeSettings, ref _storeScrollPosition);
                 }
             )
            .WithTab(
@@ -114,7 +114,7 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
                     o.Layout = IconLayout.IconAndText;
                     o.Label = "Twitch".MarkNotTranslated();
                     o.Tooltip = "A collection of settings that affect how the mod's Twitch connection functions.".MarkNotTranslated();
-                    o.Drawer = region => DrawTabSettings(region, twitchSettings, ref _twitchScrollPos);
+                    o.Drawer = region => DrawTabSettings(region, twitchSettings, ref _twitchScrollPosition);
                 }
             )
         #if DEBUG
