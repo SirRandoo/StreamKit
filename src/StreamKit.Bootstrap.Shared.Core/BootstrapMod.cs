@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using RimWorld.Logging.Api;
 using UnityEngine;
 using Verse;
 
@@ -6,10 +7,17 @@ namespace StreamKit.Bootstrap.Shared.Core;
 
 [StaticConstructorOnStartup]
 [UsedImplicitly(ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature)]
-internal class BootstrapMod(ModContentPack content) : Mod(content)
+internal class BootstrapMod : Mod
 {
     private static readonly Color DescriptionTextColor = new(0.72f, 0.72f, 0.72f);
     private bool _isKitLoaded;
+
+    public BootstrapMod(ModContentPack content) : base(content)
+    {
+        Instance = this;
+
+        LogManager.Instance.AddTargetProvider(new StreamKitTargetProvider());
+    }
 
     /// <inheritdoc />
     public override string? SettingsCategory()
@@ -23,6 +31,8 @@ internal class BootstrapMod(ModContentPack content) : Mod(content)
 
         return null;
     }
+
+    public static BootstrapMod Instance { get; private set; } = null!;
 
     /// <inheritdoc />
     public override void DoSettingsWindowContents(Rect inRect)

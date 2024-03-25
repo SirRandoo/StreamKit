@@ -25,17 +25,18 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using HarmonyLib;
+using NLog;
 using StreamKit.Mod.Api;
 using StreamKit.Mod.Api.Attributes;
-using StreamKit.Mod.Shared.Core;
 using Verse;
 using DescriptionAttribute = StreamKit.Mod.Api.Attributes.DescriptionAttribute;
+using LogManager = StreamKit.Mod.Shared.Core.LogManager;
 
 namespace StreamKit.Mod.Shared.UX;
 
 public static class ModSettingFactory
 {
-    private static readonly IRimLogger Logger = new RimLogger("StreamKit.Factories.ModSettings");
+    private static readonly Logger Logger = LogManager.Factory.GetCurrentClassLogger();
 
     public static IReadOnlyList<ModSettingDrawer> FromInstance<T>(T instance) where T : class, IComponentSettings
     {
@@ -152,7 +153,7 @@ public static class ModSettingFactory
         }
         catch (Exception e)
         {
-            Logger.Error($"Could not initialise setting for {instance.GetType().FullDescription()}.{property.Name}");
+            Logger.Error(e, "Could not initialise setting for {QualifiedType}.{PropertyName}", instance.GetType().FullDescription(), property.Name);
         }
 
         return drawerInstance;

@@ -13,12 +13,14 @@
         <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER')) AND !$(DefineConstants.Contains('STREAMKIT_COMMON'))" Include="System.Collections.Immutable" Version="8.0.0"/>
     </ItemGroup>
 
+    <ItemGroup Condition="!$(DefineConstants.Contains('STREAMKIT_COMMON'))">
+        <PackageReference Include="RimWorld.Logging.Api" Version="1.0.0"/>
+    </ItemGroup>
+
     <ItemGroup Condition="!$(DefineConstants.Contains('STREAMKIT_COMMON')) AND !$(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER'))">
         <ProjectReference Include="..\StreamKit.Common.Data\StreamKit.Common.Data.csproj"/>
         <ProjectReference Include="..\StreamKit.Common.Communication\StreamKit.Common.Communication.csproj"/>
         <ProjectReference Include="..\StreamKit.Common.Data.Abstractions\StreamKit.Common.Data.Abstractions.csproj"/>
-
-        <PackageReference Include="NLog" Version="5.2.8"/>
 
         <!--
         Ardalis.Results isn't updated past 7.1.0 since newer versions reference System.Text.Json directly, which applies an

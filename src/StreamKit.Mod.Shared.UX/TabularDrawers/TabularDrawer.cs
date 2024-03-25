@@ -33,8 +33,7 @@ namespace StreamKit.Mod.Shared.UX;
 /// </summary>
 /// <remarks>
 ///     Developers wanting tabbed content should use the <see cref="TabularDrawer.Builder" />
-///     class to
-///     instantiate a new tabular drawer.
+///     class to instantiate a new tabular drawer.
 /// </remarks>
 public sealed class TabularDrawer
 {

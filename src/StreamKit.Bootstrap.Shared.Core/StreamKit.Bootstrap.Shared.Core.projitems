@@ -13,5 +13,6 @@
         <Compile Include="$(MSBuildThisFileDirectory)Bootstrap.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)BootstrapMod.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Corpus.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)StreamKitTargetProvider.cs" />
     </ItemGroup>
 </Project>

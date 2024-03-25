@@ -10,7 +10,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="$(MSBuildThisFileDirectory)FilePaths.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)IRimLogger.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)LogManager.cs" />
         <Compile Include="$(MSBuildThisFileDirectory)ModKit.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Settings\ClientSettings.cs"/>
         <Compile Include="$(MSBuildThisFileDirectory)Settings\CommandSettings.cs"/>

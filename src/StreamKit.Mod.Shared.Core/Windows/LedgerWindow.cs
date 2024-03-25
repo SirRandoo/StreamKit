@@ -10,6 +10,7 @@ using StreamKit.Mod.Shared.Extensions;
 using StreamKit.Mod.Shared.UX;
 using UnityEngine;
 using Verse;
+using Logger = NLog.Logger;
 
 namespace StreamKit.Mod.Shared.Core.Windows;
 
@@ -21,7 +22,7 @@ namespace StreamKit.Mod.Shared.Core.Windows;
 public class LedgerWindow : Window
 {
     private const float RowSplitPercentage = 0.35f;
-    private static readonly IRimLogger Logger = new RimLogger("streamkit.windows.ledger");
+    private static readonly Logger Logger = LogManager.Factory.GetCurrentClassLogger();
     private readonly QuickSearchWidget _searchWidget = new();
 
     private IReadOnlyList<ILedger> _dropdownItems = null!; // TODO: Ensure this points to all ledgers when ledger registry is implemented.
@@ -371,7 +372,7 @@ public class LedgerWindow : Window
             return;
         }
 
-        Logger.Error("Closing window as no ledger was provided to the ledger window. If this happens repeatedly, you should ask for help from the developer(s).");
+        Logger.Warn("Closing window as no ledger was provided to the ledger window. If this happens repeatedly, you should ask for help from the developer(s).");
 
         Close(false);
     }
