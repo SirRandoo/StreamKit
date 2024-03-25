@@ -25,7 +25,7 @@ using Verse;
 
 namespace StreamKit.Mod.Shared.UX;
 
-public class ButtonDrawer
+public static class ButtonDrawer
 {
     /// <summary>
     ///     Draws an interactable button over an input field.
