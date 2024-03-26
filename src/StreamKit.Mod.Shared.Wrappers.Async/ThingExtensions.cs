@@ -37,7 +37,7 @@ namespace StreamKit.Mod.Shared.Wrappers.Async;
 /// </remarks>
 public static class ThingExtensions
 {
-    /// <inheritdoc cref="ThingCompUtility.TryGetComp{T}" />
+    /// <inheritdoc cref="ThingCompUtility.TryGetComp{T}(Thing)" />
     public static async ValueTask<T> GetCompAsync<T>(this Thing thing) where T : ThingComp => await MainThreadExtensions.OnMainAsync(thing.TryGetComp<T>);
 
     /// <inheritdoc cref="QualityUtility.TryGetQuality" />
