@@ -61,6 +61,15 @@ table TraitDegree (fs_serializer) {
   stat_factors:[StatModifiers];
 }
 
+/// Represents a whole "trait."
+///
+/// Whole traits encompass multiple different "degrees," wherein each degree is
+/// a different subset of an encompassing trait along its spectrum. Some traits
+/// may not have multiple degrees, and may simply be a "singular" trait.
 table Trait {
+  /// The id of the trait.
   id:ProductId;
+
+  /// The various degrees of the trait.
+  degrees:[TraitDegree];
 }
