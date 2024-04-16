@@ -1,6 +1,6 @@
 <Project>
     <ItemGroup Condition="$(DefineConstants.Contains('STREAMKIT_MOD')) OR $(DefineConstants.Contains('STREAMKIT_BOOTSTRAP'))">
-        <PackageReference Include="Lib.Harmony" Version="2.3.3" />
+        <PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup Condition="$(DefineConstants.Contains('STREAMKIT_MOD')) OR $(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER'))">
-        <PackageReference Include="RimWorld.Logging.Api" Version="1.0.0"/>
+        <PackageReference Include="RimWorld.Logging.Api" Version="1.0.0" ExcludeAssets="runtime"/>
     </ItemGroup>
 
     <ItemGroup Condition="!$(DefineConstants.Contains('STREAMKIT_COMMON')) AND !$(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER'))">
@@ -36,7 +36,7 @@
         <PackageReference Condition="$(DefineConstants.Contains('STREAMKIT_SERVER'))" Include="Npgsql" Version="8.0.0"/>
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-        <PackageReference Include="PolySharp" Version="1.14.1"/>
+    <ItemGroup Condition="$(DefineConstants.Contains('STREAMKIT_MOD'))">
+        <PackageReference Include="PolySharp" Version="1.14.1" ExcludeAssets="runtime"/>
     </ItemGroup>
 </Project>
