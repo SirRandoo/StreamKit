@@ -13,7 +13,7 @@ namespace StreamKit.Common.Data.Abstractions;
 /// </summary>
 public interface IAssignableEntity
 {
-    IUser AssignedUser { get; init; }
-    byte[] PreviewImage { get; init; }
-    AssignableEntityType Type { get; init; }
+    IUser AssignedUser { get; set; }
+    byte[] PreviewImage { get; set; }
+    AssignableEntityType Type { get; set; }
 }

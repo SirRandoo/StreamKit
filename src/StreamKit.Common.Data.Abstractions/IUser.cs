@@ -43,7 +43,7 @@ public interface IUser : IIdentifiable
     /// <summary>
     ///     The platform the user was last seen on.
     /// </summary>
-    string Platform { get; init; }
+    string Platform { get; set; }
 
     /// <summary>
     ///     The date/time when the user was last seen in chat.
@@ -58,5 +58,5 @@ public interface IUser : IIdentifiable
     /// <summary>
     ///     The list of purchases the user has authorized.
     /// </summary>
-    List<ITransaction> Transactions { get; init; }
+    List<ITransaction> Transactions { get; set; }
 }

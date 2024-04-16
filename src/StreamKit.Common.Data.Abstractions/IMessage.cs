@@ -32,20 +32,20 @@ public interface IMessage
     /// <summary>
     ///     The unique id of the message on the platform.
     /// </summary>
-    string Id { get; init; }
+    string Id { get; set; }
 
     /// <summary>
     ///     The entity that authored the message on the platform.
     /// </summary>
-    IUser Author { get; init; }
+    IUser Author { get; set; }
 
     /// <summary>
     ///     The raw content that was authored on the platform.
     /// </summary>
-    string Content { get; init; }
+    string Content { get; set; }
 
     /// <summary>
     ///     The date/time the message was received by the system's connection.
     /// </summary>
-    DateTime ReceivedAt { get; init; }
+    DateTime ReceivedAt { get; set; }
 }

@@ -24,5 +24,5 @@ namespace StreamKit.Common.Data.Abstractions;
 
 public interface IPlatform : IIdentifiable
 {
-    byte[] IconData { get; init; }
+    byte[] IconData { get; set; }
 }

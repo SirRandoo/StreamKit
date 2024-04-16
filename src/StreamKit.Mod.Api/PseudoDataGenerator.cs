@@ -97,7 +97,7 @@ public sealed class PseudoDataGenerator
                     Karma = Randomizer.Short(),
                     Points = Randomizer.Int(),
                     LastSeen = Date.Past(),
-                    Transactions = [..GeneratePseudoTransactions(transactionCount)]
+                    Transactions = [..GeneratePseudoTransactions(transactionCount)],
                 }
             )
            .ToArray();
@@ -115,8 +115,14 @@ public sealed class PseudoDataGenerator
         return Randomizer.EnumValues<UserPrivileges>().Aggregate(UserPrivileges.None, (current, privilege) => current | privilege);
     }
 
-    private sealed record PseudoUser(string Id, string Platform) : IUser
+    private sealed class PseudoUser(string id, string platform) : IUser
     {
+        /// <inheritdoc />
+        public string Id { get; set; } = id;
+
+        /// <inheritdoc />
+        public string Platform { get; set; } = platform;
+
         /// <inheritdoc />
         public required string Name { get; set; }
 
@@ -133,34 +139,40 @@ public sealed class PseudoDataGenerator
         public UserPrivileges Privileges { get; set; } = UserPrivileges.None;
 
         /// <inheritdoc />
-        public List<ITransaction> Transactions { get; init; } = [];
+        public List<ITransaction> Transactions { get; set; } = [];
     }
 
-    private sealed record PseudoMessage(string Id, string Content) : IMessage
+    private sealed class PseudoMessage(string id, string content) : IMessage
     {
         /// <inheritdoc />
-        public required IUser Author { get; init; }
+        public string Id { get; set; } = id;
 
         /// <inheritdoc />
-        public DateTime ReceivedAt { get; init; } = DateTime.UtcNow;
+        public string Content { get; set; } = content;
+
+        /// <inheritdoc />
+        public required IUser Author { get; set; }
+
+        /// <inheritdoc />
+        public DateTime ReceivedAt { get; set; } = DateTime.UtcNow;
     }
 
-    private sealed record PseudoTransaction(string Id, string Name, string ProductId, DateTime OccurredAt) : ITransaction
+    private sealed class PseudoTransaction(string id, string name, string productId, DateTime occurredAt) : ITransaction
     {
         /// <inheritdoc />
-        public string Id { get; init; } = Id;
+        public string Id { get; set; } = id;
 
         /// <inheritdoc />
-        public string Name { get; set; } = Name;
+        public string Name { get; set; } = name;
 
         /// <inheritdoc />
-        public string ProductId { get; set; } = ProductId;
+        public string ProductId { get; set; } = productId;
 
         /// <inheritdoc />
         public Morality Morality { get; set; }
 
         /// <inheritdoc />
-        public DateTime OccurredAt { get; set; } = OccurredAt;
+        public DateTime OccurredAt { get; set; } = occurredAt;
 
         /// <inheritdoc />
         public long Amount { get; set; }
@@ -169,13 +181,16 @@ public sealed class PseudoDataGenerator
         public bool Refunded { get; set; }
     }
 
-    private sealed record PseudoLedger(string Id) : ILedger
+    private sealed class PseudoLedger(string id) : ILedger
     {
+        /// <inheritdoc />
+        public string Id { get; set; } = id;
+
         /// <inheritdoc />
         public required string Name { get; set; }
 
         /// <inheritdoc />
-        public required IRegistry<IUser> Data { get; init; }
+        public required IRegistry<IUser> Data { get; set; }
 
         /// <inheritdoc />
         public DateTime LastModified { get; set; }

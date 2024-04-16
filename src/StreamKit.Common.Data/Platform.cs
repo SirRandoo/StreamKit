@@ -24,7 +24,14 @@ using StreamKit.Common.Data.Abstractions;
 
 namespace StreamKit.Common.Data;
 
-public record Platform(string Id, byte[] IconData) : IPlatform
+public class Platform(string id, byte[] iconData) : IPlatform
 {
+    /// <inheritdoc />
+    public string Id { get; set; } = id;
+
+    /// <inheritdoc />
     public required string Name { get; set; }
+
+    /// <inheritdoc />
+    public byte[] IconData { get; set; } = iconData;
 }

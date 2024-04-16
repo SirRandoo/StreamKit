@@ -29,7 +29,7 @@ public interface ILedger : IIdentifiable
     /// <summary>
     ///     The viewers contained within the ledger.
     /// </summary>
-    IRegistry<IUser> Data { get; init; }
+    IRegistry<IUser> Data { get; set; }
 
     /// <summary>
     ///     The date and time the ledger was last modified.

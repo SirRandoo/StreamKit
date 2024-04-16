@@ -30,7 +30,7 @@ public interface IIdentifiable
     /// <summary>
     ///     The unique identifier that's used to identify associated information.
     /// </summary>
-    string Id { get; init; }
+    string Id { get; set; }
 
     /// <summary>
     ///     A human-readable string that's read by users in certain contexts.
