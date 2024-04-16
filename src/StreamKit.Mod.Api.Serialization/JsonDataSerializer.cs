@@ -29,7 +29,7 @@ using Ardalis.Result;
 
 namespace StreamKit.Mod.Api.Serialization;
 
-public class JsonDataSerializer(JsonSerializerOptions? serializerOptions) : IDataSerializer
+public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null) : IDataSerializer
 {
     /// <inheritdoc />
     public Result<T> Deserialize<T>(Stream stream)

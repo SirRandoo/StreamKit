@@ -34,9 +34,9 @@ namespace StreamKit.Mod.Shared.Core;
 public static class FilePaths
 {
     private static readonly Logger Logger = LogManager.Factory.GetCurrentClassLogger();
-    private static readonly string BaseDirectory = GetDirectory(GenFilePaths.SaveDataFolderPath, "StreamKit", true);
-    private static readonly string SettingsBase = GetDirectory(BaseDirectory, "settings", true);
-    private static readonly string DataBase = GetDirectory(BaseDirectory, "data", true);
+    private static readonly string BaseDirectory = GetDirectory(GenFilePaths.SaveDataFolderPath, "StreamKit");
+    private static readonly string SettingsBase = GetDirectory(BaseDirectory, "settings");
+    private static readonly string DataBase = GetDirectory(BaseDirectory, "data");
 
     /// <summary>
     ///     The path to the Sqlite3 database containing all the mod's data.
@@ -65,7 +65,7 @@ public static class FilePaths
     ///     the mod wasn't able to create the directory at the given location, only a message to RimWorld's
     ///     dev log will be emitted.
     /// </param>
-    public static string GetDirectory(string parent, string directory, bool ensureExists)
+    public static string GetDirectory(string parent, string directory, bool ensureExists = true)
     {
         string path = Path.Combine(parent, directory);
 
