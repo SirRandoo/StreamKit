@@ -40,4 +40,8 @@
         <Reference Condition="$(DefineConstants.Contains('STREAMKIT_MOD'))" Include="../Libs/Mono.Data.Sqlite.dll"/>
         <PackageReference Condition="$(DefineConstants.Contains('STREAMKIT_SERVER'))" Include="Npgsql" Version="8.0.0"/>
     </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+        <PackageReference Include="PolySharp" Version="1.14.1"/>
+    </ItemGroup>
 </Project>
