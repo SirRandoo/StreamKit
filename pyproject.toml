@@ -4,10 +4,10 @@ version = "0.1.0"
 description = ""
 authors = ["rando <8146689+SirRandoo@users.noreply.github.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
-pip = "^24.0"
 semver = "^3.0.2"
 rich-click = "^1.7.3"
 watchdog = "^4.0.0"
