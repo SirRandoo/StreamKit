@@ -25,7 +25,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Ardalis.Result;
+using Remora.Results;
 
 namespace StreamKit.Mod.Api.Serialization;
 
@@ -40,7 +40,7 @@ public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null)
         }
         catch (Exception e)
         {
-            return Result.Error("Could not deserialize json object from stream", e.ToString());
+            return new ExceptionError(e, "Could not deserialize json object from stream");
         }
     }
 
@@ -51,11 +51,11 @@ public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null)
         {
             JsonSerializer.Serialize(stream, data, serializerOptions);
 
-            return Result.Success();
+            return Result.Success;
         }
         catch (Exception e)
         {
-            return Result.Error("Could not serialize json object into stream.", e.ToString());
+            return new ExceptionError(e, "Could not serialize json object into stream.");
         }
     }
 
@@ -68,7 +68,7 @@ public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null)
         }
         catch (Exception e)
         {
-            return Result.Error("Could not deserialize json object from stream", e.ToString());
+            return new ExceptionError(e, "Could not deserialize json object from stream");
         }
     }
 
@@ -79,11 +79,11 @@ public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null)
         {
             await JsonSerializer.SerializeAsync(stream, data);
 
-            return Result.Success();
+            return Result.Success;
         }
         catch (Exception e)
         {
-            return Result.Error("Could not serialize json object into stream", e.ToString());
+            return new ExceptionError(e, "Could not serialize json object into stream");
         }
     }
 }

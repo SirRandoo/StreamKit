@@ -22,12 +22,7 @@
         <ProjectReference Include="..\StreamKit.Common.Communication\StreamKit.Common.Communication.csproj"/>
         <ProjectReference Include="..\StreamKit.Common.Data.Abstractions\StreamKit.Common.Data.Abstractions.csproj"/>
 
-        <!--
-        Ardalis.Results isn't updated past 7.1.0 since newer versions reference System.Text.Json directly, which applies an
-        indirect dependency against System.Threading.Tasks.Extensions. System.Threading.Tasks.Extensions includes a ValueTask
-        definition, which conflicts with the ValueTask definition in mscorlib.
-        -->
-        <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_WRAPPER'))" Include="Ardalis.Result" Version="7.1.0"/>
+        <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_WRAPPER'))" Include="Remora.Results" Version="7.4.1"/>
     </ItemGroup>
 
     <!--

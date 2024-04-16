@@ -24,7 +24,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
-using Ardalis.Result;
+using Remora.Results;
 using Tomlet;
 
 namespace StreamKit.Mod.Api.Serialization;
@@ -49,7 +49,7 @@ public class TomlDataSerializer : IDataSerializer
         }
         catch (Exception e)
         {
-            return Result.Error("Could not deserialize toml object from stream", e.ToString());
+            return new ExceptionError(e, "Could not deserialize toml object from stream");
         }
 
         try
@@ -58,7 +58,7 @@ public class TomlDataSerializer : IDataSerializer
         }
         catch (Exception e)
         {
-            return Result.Error("Could not deserialize toml object into instance of class.", e.ToString());
+            return new ExceptionError(e, "Could not deserialize toml object into instance of class.");
         }
     }
 
@@ -73,12 +73,12 @@ public class TomlDataSerializer : IDataSerializer
 
                 writer.Write(result);
 
-                return Result.Success();
+                return Result.Success;
             }
         }
         catch (Exception e)
         {
-            return Result.Error("Could not serialize toml object into stream", e.ToString());
+            return new ExceptionError(e, "Could not serialize toml object into stream");
         }
     }
 
@@ -96,7 +96,7 @@ public class TomlDataSerializer : IDataSerializer
         }
         catch (Exception e)
         {
-            return Result.Error("Could not deserialize toml object from stream", e.ToString());
+            return new ExceptionError(e, "Could not deserialize toml object from stream");
         }
 
         try
@@ -105,7 +105,7 @@ public class TomlDataSerializer : IDataSerializer
         }
         catch (Exception e)
         {
-            return Result.Error("Could not deserialize toml object into instance of class.", e.ToString());
+            return new ExceptionError(e, "Could not deserialize toml object into instance of class.");
         }
     }
 
@@ -120,12 +120,12 @@ public class TomlDataSerializer : IDataSerializer
 
                 await writer.WriteAsync(result);
 
-                return Result.Success();
+                return Result.Success;
             }
         }
         catch (Exception e)
         {
-            return Result.Error("Could not serialize toml object into stream", e.ToString());
+            return new ExceptionError(e, "Could not serialize toml object into stream");
         }
     }
 }

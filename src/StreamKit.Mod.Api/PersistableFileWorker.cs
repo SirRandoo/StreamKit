@@ -24,8 +24,8 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
-using Ardalis.Result;
 using ConcurrentCollections;
+using Remora.Results;
 
 namespace StreamKit.Mod.Api;
 
@@ -81,7 +81,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     {
         if (!File.Exists(path))
         {
-            return Result.NotFound($"The file at {path} was not found.");
+            return new NotFoundError($"The file at {path} was not found.");
         }
 
         try
@@ -102,7 +102,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
         {
             BlockSaving(path);
 
-            return Result.Error($"Could not load file at {path}.", e.ToString());
+            return new ExceptionError(e, $"Could not load file at {path}.");
         }
     }
 
@@ -114,7 +114,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     {
         if (!File.Exists(path))
         {
-            return Result.NotFound($"The file at {path} was not found.");
+            return new NotFoundError($"The file at {path} was not found.");
         }
 
         try
@@ -135,7 +135,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
         {
             BlockSaving(path);
 
-            return Result.Error($"Could not load file at {path}.", e.ToString());
+            return new ExceptionError(e, $"Could not load file at {path}.");
         }
     }
 
@@ -148,19 +148,19 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     {
         if (IsSavingBlocked(path))
         {
-            return Result.Forbidden();
+            return new InvalidOperationError();
         }
 
         Result<string> tempFileResult = GetTemporaryFile(path);
 
         if (!tempFileResult.IsSuccess)
         {
-            return Result.Error(tempFileResult.Value);
+            return Result.FromError(tempFileResult);
         }
 
         try
         {
-            using (var stream = new FileStream(tempFileResult.Value, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 4096, FileOptions.SequentialScan))
+            using (var stream = new FileStream(tempFileResult.Entity, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 4096, FileOptions.SequentialScan))
             {
                 Result result = DataSerializer.Serialize(stream, data);
 
@@ -174,7 +174,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
         }
         catch (Exception e)
         {
-            return Result.Error($"Could not save file at {path}.", e.ToString());
+            return new ExceptionError(e, $"Could not save file at {path}.");
         }
     }
 
@@ -187,20 +187,20 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     {
         if (IsSavingBlocked(path))
         {
-            return Result.Forbidden();
+            return new InvalidOperationError();
         }
 
         Result<string> tempFileResult = GetTemporaryFile(path);
 
         if (!tempFileResult.IsSuccess)
         {
-            return Result.Error(tempFileResult.Value);
+            return Result.FromError(tempFileResult);
         }
 
         try
         {
             using (var stream = new FileStream(
-                tempFileResult.Value,
+                tempFileResult.Entity,
                 FileMode.OpenOrCreate,
                 FileAccess.Write,
                 FileShare.Read,
@@ -220,7 +220,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
         }
         catch (Exception e)
         {
-            return Result.Error($"Could not load file at {path}.", e.ToString());
+            return new ExceptionError(e, $"Could not load file at {path}.");
         }
     }
 
@@ -230,7 +230,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
 
         if (string.IsNullOrEmpty(directory))
         {
-            return Result.Invalid([new ValidationError { ErrorMessage = "The path specified does not reside in a directory.", Severity = ValidationSeverity.Error }]);
+            return new InvalidOperationError("The path specified does not reside in a directory.");
         }
 
         string tempFileName = Path.GetRandomFileName();
@@ -242,7 +242,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     {
         if (!File.Exists(replacementFile))
         {
-            return Result.NotFound($"The file at {replacementFile} does not exist.");
+            return new NotFoundError($"The file at {replacementFile} does not exist.");
         }
 
         string fileExtension = Path.GetExtension(targetFile);
@@ -252,11 +252,11 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
         {
             File.Replace(replacementFile, targetFile, backupFilePath);
 
-            return Result.Success();
+            return Result.Success;
         }
         catch (Exception e)
         {
-            return Result.Error($"Could not replace file {targetFile} with {replacementFile}", e.ToString());
+            return new ExceptionError(e, $"Could not replace file {targetFile} with {replacementFile}");
         }
     }
 }
