@@ -4,8 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using RimWorld;
+using RimWorld.Logging.Api;
 using UnityEngine;
 using Verse;
+using Logger = NLog.Logger;
 
 namespace StreamKit.Bootstrap.Shared.Core;
 
@@ -13,22 +15,23 @@ namespace StreamKit.Bootstrap.Shared.Core;
 [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyleForMemberAccess")]
 internal static class Bootstrap
 {
+    private static readonly Logger Logger = LogManager.Instance.GetLogger("sirrandoo.streamkit", "StreamKit.Bootstrapper");
     private static readonly string? NativeExtension = GetNativeExtension();
     private static readonly XmlSerializer Serializer = new(typeof(Corpus));
     private static readonly List<string> SpecialFiles = [];
 
     static Bootstrap()
     {
+        Logger.Info("StreamKit is running on the platform '{Platform}'", UnityData.platform);
+
         if (string.IsNullOrEmpty(NativeExtension))
         {
-            Log.Error($"[StreamKit Bootstrapper] Bootstrap is running on an unsupported platform '{UnityData.platform.ToStringSafe()}'. Aborting...");
+            Logger.Fatal("'{Platform}' is an unsupported platform; Aborting initialization...", UnityData.platform);
 
             return;
         }
 
         Application.wantsToQuit += CleanNativeFiles;
-
-        Log.Message($"[StreamKit Bootstrapper] StreamKit is running on the platform '{UnityData.platform.ToStringSafe()}'.");
 
         foreach (ModContentPack mod in LoadedModManager.RunningMods)
         {
@@ -55,7 +58,8 @@ internal static class Bootstrap
             }
             catch (Exception e)
             {
-                Log.Error($"[StreamKit Bootstrapper] Could not clean file @ {file}. Any mod updates pending to this file will not go through.\n\n{e}");
+                Logger.Error(e, "Could not clean file @ {File}", file);
+                Logger.Warn("Any mod updates pending to {File} may not go through next relaunch", file);
             }
         }
 
@@ -64,13 +68,6 @@ internal static class Bootstrap
 
     private static void LoadContent(ModContentPack mod, string corpusPath)
     {
-        if (!File.Exists(corpusPath))
-        {
-            Log.Error($"[StreamKit Bootstrapper] {mod.Name} requested that content be loaded, but doesn't have a corpus file in their root directory. Aborting...");
-
-            return;
-        }
-
         Corpus? corpus;
 
         using (FileStream stream = File.Open(corpusPath, FileMode.Open, FileAccess.Read))
@@ -80,7 +77,7 @@ internal static class Bootstrap
 
         if (corpus is null)
         {
-            Log.Error($"[StreamKit Bootstrapper] Object within corpus file for {mod.Name} was malformed. Aborting...");
+            Logger.Error("Object within corpus file for {ModName} was malformed. Aborting...", mod.Name);
 
             return;
         }
@@ -102,7 +99,7 @@ internal static class Bootstrap
 
         if (!Directory.Exists(path))
         {
-            Log.Error($"[StreamKit Bootstrapper] The directory {path} doesn't exist, but was specified in {mod.Name}'s corpus. Aborting...");
+            Logger.Error("The directory {Path} doesn't exist, but was specified in {ModName}'s corpus. Aborting...", path, mod.Name);
 
             return;
         }
@@ -148,7 +145,7 @@ internal static class Bootstrap
         }
         catch (Exception e)
         {
-            Log.Error($"[StreamKit Bootstrapper] Could not copy {fileName} to {destinationPath} (from {resourcePath}). Things will not work correctly.\n\n{e}");
+            Logger.Error(e, "Could not copy {FileName} to {DestinationPath} (from {ResourcePath}). Things will not work correctly.", fileName, destinationPath, resourcePath);
         }
     }
 
@@ -172,7 +169,7 @@ internal static class Bootstrap
         }
         catch (Exception e)
         {
-            Log.Error($"[StreamKit Bootstrapper] Could not copy {fileName} to {destinationPath} (from {resourcePath}). Things will not work correctly.\n\n{e}");
+            Logger.Error(e, "Could not copy {FileName} to {DestinationPath} (from {ResourcePath}). Things will not work correctly.", fileName, destinationPath, resourcePath);
         }
     }
 

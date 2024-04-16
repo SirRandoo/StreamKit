@@ -13,7 +13,7 @@
         <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER')) AND !$(DefineConstants.Contains('STREAMKIT_COMMON'))" Include="System.Collections.Immutable" Version="8.0.0"/>
     </ItemGroup>
 
-    <ItemGroup Condition="!$(DefineConstants.Contains('STREAMKIT_COMMON'))">
+    <ItemGroup Condition="$(DefineConstants.Contains('STREAMKIT_MOD')) OR $(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER'))">
         <PackageReference Include="RimWorld.Logging.Api" Version="1.0.0"/>
     </ItemGroup>
 
