@@ -5,14 +5,6 @@
       <option name="SPACES_AROUND_KEY_VALUE_DELIMITER" value="true" />
       <option name="KEEP_BLANK_LINES" value="true" />
     </Properties>
-    <Python>
-      <option name="DICT_NEW_LINE_AFTER_LEFT_BRACE" value="true" />
-      <option name="DICT_NEW_LINE_BEFORE_RIGHT_BRACE" value="true" />
-      <option name="OPTIMIZE_IMPORTS_SORT_NAMES_IN_FROM_IMPORTS" value="true" />
-      <option name="OPTIMIZE_IMPORTS_JOIN_FROM_IMPORTS_WITH_SAME_SOURCE" value="true" />
-      <option name="OPTIMIZE_IMPORTS_CASE_INSENSITIVE_ORDER" value="true" />
-      <option name="FROM_IMPORT_PARENTHESES_FORCE_IF_MULTILINE" value="true" />
-    </Python>
     <yaml>
       <option name="SEQUENCE_ON_NEW_LINE" value="true" />
       <option name="BLOCK_MAPPING_ON_NEW_LINE" value="true" />
