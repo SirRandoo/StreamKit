@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Configurations>Debug;Release;Debug - Mod;Release - Mod</Configurations>
+        <Platforms>AnyCPU</Platforms>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj" />
+    </ItemGroup>
+</Project>
