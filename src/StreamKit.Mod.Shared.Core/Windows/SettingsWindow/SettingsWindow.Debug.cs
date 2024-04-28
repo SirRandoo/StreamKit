@@ -1,8 +1,16 @@
+#if DEBUG
+
+using System;
+using RimWorld;
+using StreamKit.Mod.Api;
+using StreamKit.Mod.Shared.UX;
+using UnityEngine;
+using Verse;
+
 namespace StreamKit.Mod.Shared.Core.Windows;
 
 public sealed partial class SettingsWindow
 {
-#if DEBUG
     private static readonly DebugWindow[] DebugWindows =
     [
         new DebugWindow("Open ledger window".MarkNotTranslated(), LedgerWindow.CreateDebugInstance),
@@ -46,5 +54,6 @@ public sealed partial class SettingsWindow
     }
 
     private sealed record DebugWindow(string Label, Func<Window> WindowFunc);
-#endif
 }
+
+#endif
