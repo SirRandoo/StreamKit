@@ -137,8 +137,10 @@ public class ProxySettingsWindow : Window
 
     public override void PreClose()
     {
-        base.PreClose();
+        Find.WindowStack.TryRemove(typeof(Dialog_ModSettings));
+
         _mod.WriteSettings();
+        base.PreClose();
     }
 
     private void DisplayMod(Verse.Mod handle)
