@@ -1,5 +1,8 @@
 import functools
+import logging
 import pathlib
+from typing import Type
+
 from watchdog.events import (
     FileSystemEventHandler,
     FileSystemEvent,
@@ -7,8 +10,6 @@ from watchdog.events import (
     FileDeletedEvent,
     FileModifiedEvent,
 )
-from typing import Type
-import logging
 
 from log import LogMessageType, LogMessageTyper
 
@@ -16,8 +17,8 @@ from log import LogMessageType, LogMessageTyper
 class LogRelayFileSystemEventHandler(FileSystemEventHandler):
     def __init__(self):
         self._cursor: int = 0
-        self._logger = logging.getLogger("rimworld")
         self._typer = LogMessageTyper()
+        self._logger = logging.getLogger("rimworld")
 
     @staticmethod
     def _is_log_file_event(
