@@ -9,12 +9,11 @@ public class ModKit : Verse.Mod
     public ModKit(ModContentPack content) : base(content)
     {
         Instance = this;
-        SettingsWindow = new SettingsWindow(this);
     }
 
     public static ModKit Instance { get; private set; } = null!;
 
-    internal SettingsWindow SettingsWindow { get; set; }
+    internal SettingsWindow SettingsWindow => new(this);
 
     /// <inheritdoc />
     public override string SettingsCategory() => Content.Name;
