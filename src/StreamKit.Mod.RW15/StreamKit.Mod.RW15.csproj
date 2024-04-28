@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-    </PropertyGroup>
+    <PropertyGroup></PropertyGroup>
     <ItemGroup>
-      <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4066" />
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4066" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj" />
+        <ProjectReference Include="..\StreamKit.Mod.Api.Serialization\StreamKit.Mod.Api.Serialization.csproj" />
+        <ProjectReference Include="..\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj" />
     </ItemGroup>
     <Import Project="..\StreamKit.Mod.Shared.Core\StreamKit.Mod.Shared.Core.projitems" Label="Shared" />
     <Import Project="..\StreamKit.Mod.Shared.UX\StreamKit.Mod.Shared.UX.projitems" Label="Shared" />

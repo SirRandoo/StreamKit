@@ -106,7 +106,7 @@ internal static class Bootstrap
 
         foreach (Resource resource in bundle.Resources)
         {
-            string resourceDir = Path.GetFullPath(Path.Combine(path, resource.Root));
+            string resourceDir = string.IsNullOrEmpty(resource.Root) ? Path.GetFullPath(path) : Path.GetFullPath(Path.Combine(path, resource.Root));
 
             switch (resource.Type)
             {
@@ -115,7 +115,10 @@ internal static class Bootstrap
 
                     break;
                 case ResourceType.Assembly:
-                    BootModLoader.LoadAssembly(mod, Path.Combine(path, resource.Root, $"{resource.Name}.dll"));
+                    BootModLoader.LoadAssembly(
+                        mod,
+                        string.IsNullOrEmpty(resource.Root) ? Path.Combine(path, $"{resource.Name}.dll") : Path.Combine(path, resource.Root, $"{resource.Name}.dll")
+                    );
 
                     break;
                 case ResourceType.NetStandardAssembly:
@@ -145,7 +148,13 @@ internal static class Bootstrap
         }
         catch (Exception e)
         {
-            Logger.Error(e, "Could not copy {FileName} to {DestinationPath} (from {ResourcePath}). Things will not work correctly.", fileName, destinationPath, resourcePath);
+            Logger.Error(
+                e,
+                "Could not copy {FileName} to {DestinationPath} (from {ResourcePath}). Things will not work correctly.",
+                fileName,
+                destinationPath,
+                resourcePath
+            );
         }
     }
 
@@ -169,7 +178,13 @@ internal static class Bootstrap
         }
         catch (Exception e)
         {
-            Logger.Error(e, "Could not copy {FileName} to {DestinationPath} (from {ResourcePath}). Things will not work correctly.", fileName, destinationPath, resourcePath);
+            Logger.Error(
+                e,
+                "Could not copy {FileName} to {DestinationPath} (from {ResourcePath}). Things will not work correctly.",
+                fileName,
+                destinationPath,
+                resourcePath
+            );
         }
     }
 

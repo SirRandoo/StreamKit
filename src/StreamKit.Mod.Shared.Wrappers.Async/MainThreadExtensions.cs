@@ -39,27 +39,26 @@ public static class MainThreadExtensions
         MainThreadScheduler
     );
 
-    public static async ValueTask<T> OnMainAsync<T>(this Func<T> func) =>
-        await new ValueTask<T>(MainThreadFactory.StartNew(func, TaskCreationOptions.RunContinuationsAsynchronously));
+    public static async Task<T> OnMainAsync<T>(this Func<T> func) => await MainThreadFactory.StartNew(func, TaskCreationOptions.RunContinuationsAsynchronously);
 
-    public static async ValueTask<T> OnMainAsync<T, T1>(this Func<T1, T> func, T1 arg1)
+    public static async Task<T> OnMainAsync<T, T1>(this Func<T1, T> func, T1 arg1)
     {
         return await MainThreadFactory.StartNew(() => func(arg1), TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
-    public static async ValueTask<T> OnMainAsync<T, T1, T2>(this Func<T1, T2, T> func, T1 arg1, T2 arg2)
+    public static async Task<T> OnMainAsync<T, T1, T2>(this Func<T1, T2, T> func, T1 arg1, T2 arg2)
     {
-        return await new ValueTask<T>(MainThreadFactory.StartNew(() => func(arg1, arg2), TaskCreationOptions.RunContinuationsAsynchronously));
+        return await MainThreadFactory.StartNew(() => func(arg1, arg2), TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
-    public static async ValueTask<T> OnMainAsync<T, T1, T2, T3>(this Func<T1, T2, T3, T> func, T1 arg1, T2 arg2, T3 arg3)
+    public static async Task<T> OnMainAsync<T, T1, T2, T3>(this Func<T1, T2, T3, T> func, T1 arg1, T2 arg2, T3 arg3)
     {
-        return await new ValueTask<T>(MainThreadFactory.StartNew(() => func(arg1, arg2, arg3), TaskCreationOptions.RunContinuationsAsynchronously));
+        return await MainThreadFactory.StartNew(() => func(arg1, arg2, arg3), TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
-    public static async ValueTask<T> OnMainAsync<T, T1, T2, T3, T4>(this Func<T1, T2, T3, T4, T> func, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+    public static async Task<T> OnMainAsync<T, T1, T2, T3, T4>(this Func<T1, T2, T3, T4, T> func, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
     {
-        return await new ValueTask<T>(MainThreadFactory.StartNew(() => func(arg1, arg2, arg3, arg4), TaskCreationOptions.RunContinuationsAsynchronously));
+        return await MainThreadFactory.StartNew(() => func(arg1, arg2, arg3, arg4), TaskCreationOptions.RunContinuationsAsynchronously);
     }
 
     public static async Task OnMainAsync(this Action func)

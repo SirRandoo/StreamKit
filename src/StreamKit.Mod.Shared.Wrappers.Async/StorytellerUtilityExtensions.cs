@@ -37,7 +37,7 @@ namespace StreamKit.Mod.Shared.Wrappers.Async;
 public static class StorytellerUtilityExtensions
 {
     /// <inheritdoc cref="StorytellerUtility.DefaultParmsNow" />
-    public static async ValueTask<IncidentParms> DefaultParmsNowAsync(IncidentCategoryDef category, IIncidentTarget target) =>
+    public static async Task<IncidentParms> DefaultParmsNowAsync(IncidentCategoryDef category, IIncidentTarget target) =>
         await MainThreadExtensions.OnMainAsync(StorytellerUtility.DefaultParmsNow, category, target);
 
     /// <inheritdoc cref="StorytellerUtility.DefaultThreatPointsNow" />

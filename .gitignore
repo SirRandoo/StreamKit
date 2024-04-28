@@ -739,3 +739,6 @@ $RECYCLE.BIN/
 *.deb
 *.rpm
 *.txz
+
+
+Common/[Ll]ibraries/

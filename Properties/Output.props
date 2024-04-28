@@ -1,7 +1,6 @@
 <Project>
     <PropertyGroup>
         <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     </PropertyGroup>
 
@@ -12,12 +11,12 @@
     <Choose>
         <When Condition="$(DefineConstants.Contains('STREAMKIT_BOOTSTRAP'))">
             <PropertyGroup>
-                <OutputPath>$(_ReleasesRootDir)\Bootstrap\$(_RimWorldVersion)\Assemblies</OutputPath>
+                <OutputPath>$(_ReleasesRootDir)\Bootstrap\$(_RimWorldVersion)\Assemblies\</OutputPath>
             </PropertyGroup>
         </When>
         <When Condition="$(DefineConstants.Contains('STREAMKIT_RIMWORLD'))">
             <PropertyGroup>
-                <OutputPath>$(_ReleasesRootDir)\Core\$(_RimWorldVersion)\Assemblies</OutputPath>
+                <OutputPath>$(_ReleasesRootDir)\Core\$(_RimWorldVersion)\Assemblies\</OutputPath>
             </PropertyGroup>
         </When>
     </Choose>

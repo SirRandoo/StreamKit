@@ -6,46 +6,42 @@
         <!--            <Resource Type="Dll" Name="lua54" Root="lua54"/>-->
         <!--            <Resource Type="Dll" Name="sqlite3" Root="Sqlite3.Interop"/>-->
         <!--        </ResourceBundle>-->
-        <ResourceBundle Root="Releases/Shared">
-            <Resource Type="Assembly" Name="Mono.Data.Sqlite" Root="Assemblies" />
+        <ResourceBundle Root="Common/Libraries">
+            <Resource Type="NetStandardAssembly" Name="netstandard" />
 
-            <Resource Type="Assembly" Name="Bogus" Root="Assemblies" />
-            <Resource Type="Assembly" Name="Dapper" Root="Assemblies" />
-            <Resource Type="Assembly" Name="Remora.Results" Root="Assemblies" />
-            <Resource Type="Assembly" Name="Samboy063.Tomlet" Root="Assemblies" />
-            <Resource Type="Assembly" Name="ConcurrentHashSet" Root="Assemblies" />
-            <Resource Type="Assembly" Name="System.ValueTuple" Root="Assemblies" />
-            <Resource Type="Assembly" Name="System.Numerics.Vectors" Root="Assemblies" />
+            <Resource Type="Assembly" Name="Mono.Data.Sqlite" />
 
-            <Resource Type="Assembly" Name="System.Buffers" Root="Assemblies" />
+            <Resource Type="Assembly" Name="Bogus" />
+            <Resource Type="Assembly" Name="Dapper" />
+            <Resource Type="Assembly" Name="Remora.Results" />
+            <Resource Type="Assembly" Name="Tomlet" />
+            <Resource Type="Assembly" Name="ConcurrentHashSet" />
+            <Resource Type="Assembly" Name="System.ValueTuple" />
+            <Resource Type="Assembly" Name="System.Numerics.Vectors" />
 
-            <Resource Type="Assembly" Name="System.Runtime.CompilerServices.Unsafe" Root="Assemblies" />
-            <Resource Type="Assembly" Name="System.Threading.Tasks.Extensions" Root="Assemblies" />
+            <Resource Type="Assembly" Name="System.Buffers" />
 
-            <Resource Type="Assembly" Name="Microsoft.Bcl.AsyncInterfaces" Root="Assemblies" />
+            <Resource Type="Assembly" Name="System.Runtime.CompilerServices.Unsafe" />
+            <Resource Type="Assembly" Name="System.Threading.Tasks.Extensions" />
 
-            <Resource Type="Assembly" Name="System.Text.Encodings.Web" Root="Assemblies" />
+            <Resource Type="Assembly" Name="Microsoft.Bcl.AsyncInterfaces" />
 
-            <Resource Type="Assembly" Name="System.Memory" Root="Assemblies" />
+            <Resource Type="Assembly" Name="System.Text.Encodings.Web" />
 
-            <Resource Type="Assembly" Name="System.Text.Json" Root="Assemblies" />
-            <Resource Type="Assembly" Name="System.Collections.Immutable" Root="Assemblies" />
+            <Resource Type="Assembly" Name="System.Memory" />
+
+            <Resource Type="Assembly" Name="System.Text.Json" />
+            <Resource Type="Assembly" Name="System.Collections.Immutable" />
+
+            <Resource Type="Assembly" Name="StreamKit.Common.Data.Abstractions" />
+            <Resource Type="Assembly" Name="StreamKit.Common.Communication" />
+            <Resource Type="Assembly" Name="StreamKit.Common.Data" />
+            <Resource Type="Assembly" Name="StreamKit.Mod.Api" />
+            <Resource Type="Assembly" Name="StreamKit.Mod.Api.Serialization" />
         </ResourceBundle>
 
         <ResourceBundle Root="Releases/Core" Versioned="true">
-            <Resource Type="Assembly" Name="StreamKit.Common.Data.Abstractions" Root="Assemblies" />
-            <Resource Type="Assembly" Name="StreamKit.Common.Communication" Root="Assemblies" />
-
-            <Resource Type="Assembly" Name="StreamKit.Mod.Async.Wrappers" Root="Assemblies" />
-            <Resource Type="Assembly" Name="StreamKit.Mod.Async.Incidents" Root="Assemblies" />
-            <Resource Type="Assembly" Name="StreamKit.Data.Abstractions" Root="Assemblies" />
-            <Resource Type="Assembly" Name="StreamKit.Mod.Api.Extensions" Root="Assemblies" />
-
-            <Resource Type="Assembly" Name="StreamKit.Mod.Api" Root="Assemblies" />
-            <Resource Type="Assembly" Name="StreamKit.Data.Products" Root="Assemblies" />
-
-            <Resource Type="Assembly" Name="StreamKit.Mod.RW14" Root="Assemblies" />
-            <Resource Type="Assembly" Name="StreamKit.Mod.RW15" Root="Assemblies" />
+            <Resource Type="Assembly" Name="StreamKit.Mod" Root="Assemblies" />
         </ResourceBundle>
     </Resources>
 </Corpus>

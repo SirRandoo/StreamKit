@@ -23,7 +23,7 @@
 
     <!-- Package Information -->
     <PropertyGroup>
-        <InformationalVersion>0.0.0.0</InformationalVersion>
+        <Version>0.1.0</Version>
         <GeneratePackageOnBuild Condition="'$(OutputType)' == 'Library'">true</GeneratePackageOnBuild>
     </PropertyGroup>
 </Project>

@@ -2,6 +2,10 @@
 <loadFolders>
     <v1.4>
         <li>Common</li>
-        <li>Releases/Bootstrap</li>
+        <li>Releases/Bootstrap/1.4</li>
     </v1.4>
+    <v1.5>
+        <li>Common</li>
+        <li>Releases/Bootstrap/1.5</li>
+    </v1.5>
 </loadFolders>

@@ -69,7 +69,7 @@ public static class PawnExtensions
     }
 
     /// <inheritdoc cref="PawnRelationUtility.GetRelations" />
-    public static async ValueTask<List<PawnRelationDef>> GetRelationsAsync(this Pawn pawn, Pawn other)
+    public static async Task<List<PawnRelationDef>> GetRelationsAsync(this Pawn pawn, Pawn other)
     {
         return await MainThreadExtensions.OnMainAsync(GetRelations, pawn, other);
 
