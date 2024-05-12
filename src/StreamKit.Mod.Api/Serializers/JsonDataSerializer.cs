@@ -27,7 +27,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Remora.Results;
 
-namespace StreamKit.Mod.Api.Serialization;
+namespace StreamKit.Mod.Api;
 
 public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null) : IDataSerializer
 {

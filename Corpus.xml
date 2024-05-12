@@ -8,6 +8,18 @@
         <!--        </ResourceBundle>-->
         <ResourceBundle Root="Common/Libraries">
             <Resource Type="NetStandardAssembly" Name="netstandard" />
+            <Resource Type="NetStandardAssembly" Name="FlatSharp.Runtime" />
+
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core" />
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Enums" />
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Interfaces" />
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Models" />
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Helix" />
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Helix.Models" />
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.Communication" />
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.EventSub.Core" />
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.EventSub.Websockets" />
+            <Resource Type="NetStandardAssembly" Name="TwitchLib.PubSub" />
 
             <Resource Type="Assembly" Name="Mono.Data.Sqlite" />
 
@@ -38,6 +50,7 @@
             <Resource Type="Assembly" Name="StreamKit.Common.Data" />
             <Resource Type="Assembly" Name="StreamKit.Mod.Api" />
             <Resource Type="Assembly" Name="StreamKit.Mod.Api.Serialization" />
+            <Resource Type="Assembly" Name="StreamKit.Mod.Integration.Twitch" />
         </ResourceBundle>
 
         <ResourceBundle Root="Releases/Core" Versioned="true">

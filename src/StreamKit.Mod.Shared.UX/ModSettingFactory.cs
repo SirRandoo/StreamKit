@@ -28,19 +28,19 @@ using HarmonyLib;
 using NLog;
 using StreamKit.Mod.Api;
 using StreamKit.Mod.Api.Attributes;
+using StreamKit.Mod.Shared.Core;
 using Verse;
 using DescriptionAttribute = StreamKit.Mod.Api.Attributes.DescriptionAttribute;
-using LogManager = StreamKit.Mod.Shared.Core.LogManager;
 
 namespace StreamKit.Mod.Shared.UX;
 
 public static class ModSettingFactory
 {
-    private static readonly Logger Logger = LogManager.Factory.GetCurrentClassLogger();
+    private static readonly Logger Logger = KitLogManager.GetLogger("StreamKit.Factories.ModSettings");
 
-    public static IReadOnlyList<ModSettingDrawer> FromInstance<T>(T instance) where T : class, IComponentSettings
+    public static IReadOnlyList<ModSettingDrawer> FromInstance(object instance)
     {
-        PropertyInfo[] properties = typeof(T).GetProperties();
+        PropertyInfo[] properties = instance.GetType().GetProperties();
         var settings = new List<ModSettingDrawer>();
 
         for (var i = 0; i < properties.Length; i++)
@@ -60,7 +60,7 @@ public static class ModSettingFactory
         return settings;
     }
 
-    public static ModSettingDrawer FromProperty<T>(T instance, PropertyInfo property) where T : class, IComponentSettings
+    public static ModSettingDrawer FromProperty(object instance, PropertyInfo property)
     {
         string? label = GetSettingLabel(property);
         string? description = GetSettingDescription(property);

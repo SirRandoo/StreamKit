@@ -43,6 +43,11 @@ public interface ISettingsProvider : IIdentifiable
     bool TryLoadSettings(string path, [NotNullWhen(true)] out IComponentSettings? settings);
 
     /// <summary>
+    ///     Returns the default settings for the associated component.
+    /// </summary>
+    IComponentSettings GenerateDefaultSettings();
+
+    /// <summary>
     ///     Tries to save the component's settings from the file path on disk.
     /// </summary>
     /// <param name="path">

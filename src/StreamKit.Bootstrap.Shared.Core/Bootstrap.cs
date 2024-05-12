@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using System.Xml.Serialization;
 using RimWorld;
-using RimWorld.Logging.Api;
 using UnityEngine;
 using Verse;
 using Logger = NLog.Logger;
@@ -15,7 +15,7 @@ namespace StreamKit.Bootstrap.Shared.Core;
 [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyleForMemberAccess")]
 internal static class Bootstrap
 {
-    private static readonly Logger Logger = LogManager.Instance.GetLogger("sirrandoo.streamkit", "StreamKit.Bootstrapper");
+    private static readonly Logger Logger = KitLogManager.Instance.GetLogger("StreamKit.Bootstrapper");
     private static readonly string? NativeExtension = GetNativeExtension();
     private static readonly XmlSerializer Serializer = new(typeof(Corpus));
     private static readonly List<string> SpecialFiles = [];
@@ -104,6 +104,8 @@ internal static class Bootstrap
             return;
         }
 
+        var assemblyCandidates = new List<Assembly>();
+
         foreach (Resource resource in bundle.Resources)
         {
             string resourceDir = string.IsNullOrEmpty(resource.Root) ? Path.GetFullPath(path) : Path.GetFullPath(Path.Combine(path, resource.Root));
@@ -115,16 +117,49 @@ internal static class Bootstrap
 
                     break;
                 case ResourceType.Assembly:
-                    BootModLoader.LoadAssembly(
+                    Assembly? assembly = BootModLoader.LoadAssembly(
                         mod,
                         string.IsNullOrEmpty(resource.Root) ? Path.Combine(path, $"{resource.Name}.dll") : Path.Combine(path, resource.Root, $"{resource.Name}.dll")
                     );
+
+                    if (assembly == null)
+                    {
+                        break;
+                    }
+
+                    assemblyCandidates.Add(assembly);
 
                     break;
                 case ResourceType.NetStandardAssembly:
                     CopyStandardManagedFile(resource, resourceDir);
 
                     break;
+            }
+        }
+
+        if (assemblyCandidates.Count <= 0)
+        {
+            return;
+        }
+
+        foreach (Assembly assembly in assemblyCandidates)
+        {
+            try
+            {
+                BootModLoader.InstantiateModClasses(mod, assembly);
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, "Encountered one or more errors while instantiating mod classes for assembly {Assembly} from {ModName}", assembly.GetName(), mod.PackageId);
+            }
+
+            try
+            {
+                BootModLoader.RunStaticConstructors(assembly);
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, "Encounter one or more errors while running static constructors for assembly {Assembly} from {ModName}", assembly.GetName(), mod.PackageId);
             }
         }
     }

@@ -1,5 +1,4 @@
 using JetBrains.Annotations;
-using RimWorld.Logging.Api;
 using UnityEngine;
 using Verse;
 
@@ -15,9 +14,9 @@ internal class BootstrapMod : Mod
     public BootstrapMod(ModContentPack content) : base(content)
     {
         Instance = this;
-
-        LogManager.Instance.AddTargetProvider(new StreamKitTargetProvider());
     }
+
+    public static BootstrapMod Instance { get; private set; } = null!;
 
     /// <inheritdoc />
     public override string? SettingsCategory()
@@ -31,8 +30,6 @@ internal class BootstrapMod : Mod
 
         return null;
     }
-
-    public static BootstrapMod Instance { get; private set; } = null!;
 
     /// <inheritdoc />
     public override void DoSettingsWindowContents(Rect inRect)

@@ -20,19 +20,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
+using System.Reflection;
+using HarmonyLib;
 using NLog;
 
-namespace StreamKit.Mod.Shared.Core;
+namespace StreamKit.Mod.Api;
 
-public static class LogManager
+public static class KitLogManager
 {
-    private static readonly Lazy<LogFactory> InternalFactoryInstance = new Lazy<LogFactory>(GetFactory);
+    private static readonly PropertyInfo InstancePropertyInfo = AccessTools.Property("StreamKit.Bootstrap.Shared.Core.KitLogManager:Instance");
+    private static readonly MethodInfo GetLoggerMethodInfo = AccessTools.Method("StreamKit.Bootstrap.Shared.Core.KitLogManager:GetLogger");
+    private static readonly AccessTools.FieldRef<object, LogFactory> FactoryFieldInfo = AccessTools.FieldRefAccess<LogFactory>("StreamKit.Bootstrap.Shared.Core.KitLogManager:_factory");
 
-    public static LogFactory Factory => InternalFactoryInstance.Value;
-
-    private static LogFactory GetFactory()
+    public static LogFactory Factory
     {
-        return RimWorld.Logging.Api.LogManager.Instance.GetFactory("sirrandoo.streamkit");
+        get
+        {
+            object? instance = InstancePropertyInfo.GetMethod.Invoke(null, []);
+
+            return FactoryFieldInfo(instance);
+        }
+    }
+
+    public static Logger GetLogger(string name)
+    {
+        object? instance = InstancePropertyInfo.GetMethod.Invoke(null, []);
+
+        return (Logger)GetLoggerMethodInfo.Invoke(instance, [name]);
     }
 }

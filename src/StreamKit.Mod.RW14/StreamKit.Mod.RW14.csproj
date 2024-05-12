@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <ProjectReference Include="..\StreamKit.Mod.Api.Serialization\StreamKit.Mod.Api.Serialization.csproj" />
         <ProjectReference Include="..\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj" />
+        <ProjectReference Include="..\StreamKit.Mod.Integration.Twitch\StreamKit.Mod.Integration.Twitch.csproj" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Krafs.Rimworld.Ref" Version="1.4.3901" />

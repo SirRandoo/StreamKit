@@ -4,8 +4,8 @@
         <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4085" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\StreamKit.Mod.Api.Serialization\StreamKit.Mod.Api.Serialization.csproj" />
         <ProjectReference Include="..\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj" />
+        <ProjectReference Include="..\StreamKit.Mod.Integration.Twitch\StreamKit.Mod.Integration.Twitch.csproj" />
     </ItemGroup>
     <Import Project="..\StreamKit.Mod.Shared.Core\StreamKit.Mod.Shared.Core.projitems" Label="Shared" />
     <Import Project="..\StreamKit.Mod.Shared.UX\StreamKit.Mod.Shared.UX.projitems" Label="Shared" />

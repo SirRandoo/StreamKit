@@ -1,29 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using StreamKit.Common.Data.Abstractions;
-// using TwitchLib.Client.Models;
+using TwitchLib.EventSub.Core.Models.Chat;
+using TwitchLib.EventSub.Core.SubscriptionTypes.Channel;
 
 namespace StreamKit.Mod.Integration.Twitch;
 
+// TODO: The transcriber currently creates a new user for every chat message that gets transcribed.
+//       The transcriber should instead use a system within StreamKit to fetch a user for the Twitch
+//       platform, or create one if they don't exist, then return an updated version of said user.
+//       Alternatively, the transcriber can generate a new user for every message, then replace the
+//       user within said StreamKit system?
+
+// TODO: The transcriber contains specialized classes for representing Twitch content.
+//       These could potentially be extracted into the common classes within StreamKit,
+//       since there's little to no reason for dataclasses to contain platform specific
+//       information in a system that can't properly access it without breaking the
+//       system's abstractions.
+
 internal static class TwitchTranscriber
 {
-    // public static IMessage TranscribeMessage(ChatMessage message) => new TwitchMessage
-    // {
-    //     Id = message.Id,
-    //     Author = new TwitchUser { Id = message.UserId, Name = message.Username, LastSeen = DateTime.UtcNow, Privileges = TranscribeBadges(message.BadgeInfo) },
-    //     Content = message.Message,
-    //     ReceivedAt = DateTime.UtcNow
-    // };
+    private const string TwitchPlatformId = "streamkit.platform.twitch";
 
-    private static UserPrivileges TranscribeBadges(List<KeyValuePair<string, string>> badges)
+    public static IMessage TranscribeMessage(ChannelChatMessage message) => new TwitchMessage
+    {
+        Id = message.MessageId,
+        Author = new TwitchUser
+        {
+            Id = message.ChatterUserId,
+            Name = message.ChatterUserName,
+            LastSeen = DateTime.UtcNow,
+            Privileges = TranscribeBadges(message.Badges),
+            Platform = TwitchPlatformId
+        },
+        Content = message.Message.Text,
+        ReceivedAt = DateTime.UtcNow
+    };
+
+    private static UserPrivileges TranscribeBadges(params ChatBadge[] badges)
     {
         var root = UserPrivileges.None;
 
-        foreach (KeyValuePair<string, string> pair in badges)
+        foreach (ChatBadge badge in badges)
         {
-            string badge = pair.Key;
-
-            switch (badge)
+            switch (badge.Id)
             {
                 case "moderator":
                     root |= UserPrivileges.Moderator;
@@ -50,13 +70,13 @@ internal static class TwitchTranscriber
     private sealed class TwitchMessage : IMessage
     {
         /// <inheritdoc />
-        public string Id { get; set; }
+        public string Id { get; set; } = null!;
 
         /// <inheritdoc />
-        public IUser Author { get; set; }
+        public IUser Author { get; set; } = null!;
 
         /// <inheritdoc />
-        public string Content { get; set; }
+        public string Content { get; set; } = null!;
 
         /// <inheritdoc />
         public DateTime ReceivedAt { get; set; }
@@ -65,10 +85,10 @@ internal static class TwitchTranscriber
     private sealed class TwitchUser : IUser
     {
         /// <inheritdoc />
-        public string Id { get; set; }
+        public string Id { get; set; } = null!;
 
         /// <inheritdoc />
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <inheritdoc />
         public long Points { get; set; }
@@ -77,7 +97,7 @@ internal static class TwitchTranscriber
         public short Karma { get; set; }
 
         /// <inheritdoc />
-        public string Platform { get; set; }
+        public string Platform { get; set; } = null!;
 
         /// <inheritdoc />
         public DateTime LastSeen { get; set; }
@@ -86,6 +106,6 @@ internal static class TwitchTranscriber
         public UserPrivileges Privileges { get; set; }
 
         /// <inheritdoc />
-        public List<ITransaction> Transactions { get; set; }
+        public List<ITransaction> Transactions { get; set; } = null!;
     }
 }

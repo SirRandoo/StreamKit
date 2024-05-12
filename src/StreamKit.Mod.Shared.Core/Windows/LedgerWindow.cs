@@ -22,7 +22,7 @@ namespace StreamKit.Mod.Shared.Core.Windows;
 public class LedgerWindow : Window
 {
     private const float RowSplitPercentage = 0.35f;
-    private static readonly Logger Logger = LogManager.Factory.GetCurrentClassLogger();
+    private static readonly Logger Logger = KitLogManager.GetLogger("StreamKit.Windows.Ledger");
     private readonly QuickSearchWidget _searchWidget = new();
 
     private IReadOnlyList<ILedger> _dropdownItems = null!; // TODO: Ensure this points to all ledgers when ledger registry is implemented.
@@ -138,11 +138,11 @@ public class LedgerWindow : Window
             // TODO: Draw viewer's platform icon when platforms are implemented.
             LabelDrawer.Draw(lineRegion, viewer.Name);
 
-            #if RW_14
-                Texture2D deleteBtnTexture = TexButton.DeleteX;
-            #else
-                Texture2D deleteBtnTexture = TexButton.Delete;
-            #endif
+#if RW_14
+            Texture2D deleteBtnTexture = TexButton.DeleteX;
+#else
+            Texture2D deleteBtnTexture = TexButton.Delete;
+#endif
 
             if (ButtonDrawer.DrawFieldButton(lineRegion, deleteBtnTexture, "Deletes the viewer's information from the ledger.".MarkNotTranslated()))
             {

@@ -4,8 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using HarmonyLib;
+using NLog;
 using Verse;
 
 namespace StreamKit.Bootstrap.Shared.Core;
@@ -14,6 +14,8 @@ namespace StreamKit.Bootstrap.Shared.Core;
 [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyleForMemberAccess")]
 public static class BootModLoader
 {
+    private static readonly Logger Logger = KitLogManager.Instance.GetLogger("StreamKit.Bootstrapper.Loader");
+
     private static readonly Dictionary<Type, Mod> RunningModClassesField =
         AccessTools.StaticFieldRefAccess<Dictionary<Type, Mod>>("Verse.LoadedModManager:runningModClasses");
 
@@ -32,7 +34,7 @@ public static class BootModLoader
     {
         if (!File.Exists(path))
         {
-            Log.Error($"[StreamKit Bootstrapper] Could not load non-existent assembly at path {path} ; Aborting...");
+            Logger.Error("Could not load non-existent assembly at path {Path} ; Aborting...", path);
 
             return null;
         }
@@ -49,41 +51,13 @@ public static class BootModLoader
         }
         catch (Exception e)
         {
-            Log.Error($"[StreamKit Bootstrap] Could not load assembly @ {path}\n\n{e}");
+            Logger.Error(e, "Could not load assembly @ {Path}", path);
 
             return null;
         }
 
         AssemblyIsUsableMethod(pack.assemblies, assembly);
         pack.assemblies.loadedAssemblies.Add(assembly);
-
-        try
-        {
-            InstantiateModClasses(pack, assembly);
-        }
-        catch (ReflectionTypeLoadException e)
-        {
-            var builder = new StringBuilder();
-
-            for (var i = 0; i < e.LoaderExceptions.Length; i++)
-            {
-                builder.Append(e.LoaderExceptions[i]).Append("\n\n");
-            }
-
-            if (builder.Length > 0)
-            {
-                builder.Insert(0, $"Encountered one or more errors while instantiating mod classes for {pack.Name} ({pack.PackageId}) in assembly {assembly.GetName()}:\n");
-            }
-        }
-
-        try
-        {
-            RunStaticConstructors(assembly);
-        }
-        catch (Exception e)
-        {
-            Log.Error($"[StreamKit Bootstrapper] Encountered an error while running static constructors for {pack.Name}'s assembly @ {path}\n\n{e.InnerException ?? e}");
-        }
 
         return assembly;
     }
@@ -93,8 +67,7 @@ public static class BootModLoader
     ///     <see cref="StaticConstructorOnStartup" /> in an assembly.
     /// </summary>
     /// <param name="assembly">
-    ///     An assembly with types annotated with
-    ///     <see cref="StaticConstructorOnStartup" />.
+    ///     An assembly with types annotated with <see cref="StaticConstructorOnStartup" />.
     /// </param>
     public static void RunStaticConstructors(Assembly assembly)
     {
@@ -112,35 +85,16 @@ public static class BootModLoader
         }
         catch (ReflectionTypeLoadException e)
         {
-            var stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine($"ReflectionTypeLoadException getting types in assembly {assembly.GetName().Name}: {e}");
-            stringBuilder.AppendLine();
-            stringBuilder.AppendLine("Loader exceptions:");
-
-            if (e.LoaderExceptions != null)
-            {
-                Exception[] loaderExceptions = e.LoaderExceptions;
-
-                foreach (Exception ex2 in loaderExceptions)
-                {
-                    stringBuilder.AppendLine("   => " + ex2);
-                }
-            }
-
-            Log.Error(stringBuilder.Insert(0, "[StreamKit Bootstrapper] ").ToString());
+            Logger.Error(e, "Encountered an error getting types in assembly {Name}", assembly.GetName().Name);
         }
     }
 
     /// <summary>
-    ///     Instantiates <see cref="Mod" /> classes, and adds them to an
-    ///     internal field in RimWorld's <see cref="LoadedModManager" />
-    ///     class.
+    ///     Instantiates <see cref="Mod" /> classes, and adds them to an internal field in RimWorld's
+    ///     <see cref="LoadedModManager" /> class.
     /// </summary>
     /// <param name="mod">The mod the assembly belongs to.</param>
-    /// <param name="assembly">
-    ///     The assembly being indexed for
-    ///     <see cref="Mod" /> classes.
-    /// </param>
+    /// <param name="assembly">The assembly being indexed for <see cref="Mod" /> classes.</param>
     public static void InstantiateModClasses(ModContentPack mod, Assembly assembly)
     {
         foreach (Type type in assembly.GetTypes())
@@ -154,7 +108,7 @@ public static class BootModLoader
             }
             catch (Exception e)
             {
-                Log.Error($"[StreamKit Bootstrapper] Could not instantiate {type.FullDescription()}\n\n{e}");
+                Logger.Error(e, "Could not instantiate {Type}", type.FullDescription());
             }
         }
     }

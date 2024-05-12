@@ -20,30 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-using System.IO;
-using NLog.Config;
-using NLog.Targets;
-using NLog.Targets.Wrappers;
-using RimWorld.Logging.Api;
-using Verse;
+using System.Data;
 
-namespace StreamKit.Bootstrap.Shared.Core;
+namespace StreamKit.Mod.Api;
 
-public class StreamKitTargetProvider : ITargetProvider
+public abstract class Component(string id, string name) : IComponent
 {
-    public Target? Get(string packageId, LoggingConfiguration config)
+    /// <inheritdoc />
+    public string Id
     {
-        if (!BootstrapMod.Instance.Content.PackageId.Equals(packageId, StringComparison.Ordinal))
-        {
-            return null;
-        }
-
-        var target = new FileTarget("StreamKit.File");
-        target.Layout = "${time} [${level:uppercase=true}][Thread ${threadid}] (${logger}) :: ${message:withexception=true}";
-        target.FileName = Path.Combine(GenFilePaths.SaveDataFolderPath, "StreamKit", "streamkit.log");
-        target.DeleteOldFileOnStartup = true;
-
-        return new AsyncTargetWrapper(target);
+        get => id;
+        set => throw new ReadOnlyException("Cannot modify the component id.");
     }
+
+    /// <inheritdoc />
+    public string Name { get; set; } = name;
+
+    /// <inheritdoc />
+    public IComponentSettings? Settings { get; set; }
+
+    /// <inheritdoc />
+    public abstract ISettingsProvider SettingsProvider { get; }
 }

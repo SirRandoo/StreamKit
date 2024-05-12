@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 using Remora.Results;
 using Tomlet;
 
-namespace StreamKit.Mod.Api.Serialization;
+namespace StreamKit.Mod.Api;
 
 /// <summary>
 ///     An implementation of a <see cref="IDataSerializer" /> for

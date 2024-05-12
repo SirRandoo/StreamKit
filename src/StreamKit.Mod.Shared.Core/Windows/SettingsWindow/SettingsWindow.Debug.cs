@@ -15,7 +15,8 @@ public sealed partial class SettingsWindow
     [
         new DebugWindow("Open ledger window".MarkNotTranslated(), LedgerWindow.CreateDebugInstance),
         new DebugWindow("Open transaction history window".MarkNotTranslated(), TransactionHistoryDialog.CreateDebugInstance),
-        new DebugWindow("Open runtime flag window".MarkNotTranslated(), RuntimeFlagWindow.CreateInstance)
+        new DebugWindow("Open runtime flag window".MarkNotTranslated(), RuntimeFlagWindow.CreateInstance),
+        new DebugWindow("Open platforms window".MarkNotTranslated(), PlatformsWindow.CreateDebugInstance)
     ];
 
     private static void DrawDebugWindowColumn(Rect region)

@@ -9,29 +9,29 @@
         <Import_RootNamespace>StreamKit.Mod.Shared.Core</Import_RootNamespace>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="$(MSBuildThisFileDirectory)FilePaths.cs"/>
-    <Compile Include="$(MSBuildThisFileDirectory)LogManager.cs" />
-        <Compile Include="$(MSBuildThisFileDirectory)ModKit.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\ClientSettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\CommandSettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\MoralitySettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\PawnSettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\PointDecaySettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\PointSettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\PointTierSettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\PollSettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\StoreSettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Settings\TwitchSettings.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\EntryDialogs\IntEntryDialog.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\EntryDialogs\LongEntryDialog.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\EntryDialogs\NumberEntryDialog.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\EntryDialogs\ShortEntryDialog.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\LedgerWindow.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\PawnQueueWindow.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\RuntimeFlagWindow.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\ProxySettingsWindow.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\SettingsWindow\SettingsWindow.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\SettingsWindow\SettingsWindow.Debug.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Windows\TransactionHistoryDialog.cs"/>
+    <Compile Include="$(MSBuildThisFileDirectory)ComponentSettingsHandler.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)FilePaths.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)ModKit.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Settings\ClientSettings.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Settings\CommandSettings.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Settings\MoralitySettings.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Settings\PawnSettings.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Settings\PointDecaySettings.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Settings\PointSettings.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Settings\PointTierSettings.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Settings\PollSettings.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Settings\StoreSettings.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\EntryDialogs\IntEntryDialog.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\EntryDialogs\LongEntryDialog.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\EntryDialogs\NumberEntryDialog.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\EntryDialogs\ShortEntryDialog.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\LedgerWindow.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\PawnQueueWindow.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\PlatformsWindow.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\RuntimeFlagWindow.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\ProxySettingsWindow.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\SettingsWindow\SettingsWindow.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\SettingsWindow\SettingsWindow.Debug.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Windows\TransactionHistoryDialog.cs" />
     </ItemGroup>
 </Project>

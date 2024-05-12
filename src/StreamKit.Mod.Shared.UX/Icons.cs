@@ -30,10 +30,12 @@ public static class Icons
 {
     public static readonly Texture2D Bug = ContentFinder<Texture2D>.Get("Icons/Bug");
     public static readonly Texture2D Code = ContentFinder<Texture2D>.Get("Icons/Code");
+    public static readonly Texture2D Cube = ContentFinder<Texture2D>.Get("Icons/Cube");
     public static readonly Texture2D Dove = ContentFinder<Texture2D>.Get("Icons/Dove");
     public static readonly Texture2D Plus = ContentFinder<Texture2D>.Get("Icons/Plus");
     public static readonly Texture2D Minus = ContentFinder<Texture2D>.Get("Icons/Minus");
     public static readonly Texture2D Store = ContentFinder<Texture2D>.Get("Icons/Store");
+    public static readonly Texture2D Video = ContentFinder<Texture2D>.Get("Icons/Video");
     public static readonly Texture2D People = ContentFinder<Texture2D>.Get("Icons/People");
     public static readonly Texture2D AngleUp = ContentFinder<Texture2D>.Get("Icons/AngleUp");
     public static readonly Texture2D Message = ContentFinder<Texture2D>.Get("Icons/Message");

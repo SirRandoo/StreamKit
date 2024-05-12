@@ -37,8 +37,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "StreamKit.Mod.Shared.Wrappe
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "StreamKit.Mod.Shared.Extensions", "src\StreamKit.Mod.Shared.Extensions\StreamKit.Mod.Shared.Extensions.shproj", "{099C9CDB-F08C-4ACF-B2D8-49B2B958A36E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Mod.Api.Serialization", "src\StreamKit.Mod.Api.Serialization\StreamKit.Mod.Api.Serialization.csproj", "{D8DEA955-59F3-4F4C-B547-6E354BAAB0EC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Common.Data.Extensions", "src\StreamKit.Common.Data.Extensions\StreamKit.Common.Data.Extensions.csproj", "{C077A9F7-3166-443B-987E-720CD203063D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Common.Data", "src\StreamKit.Common.Data\StreamKit.Common.Data.csproj", "{F5DC1487-073F-4215-A040-B0016108267C}"
@@ -62,8 +60,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integrations", "Integration
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamKit.Mod.Integration.Twitch", "src\StreamKit.Mod.Integration.Twitch\StreamKit.Mod.Integration.Twitch.csproj", "{23E1A142-9E83-4E21-80F8-7F7B4B48E09D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{8CBD2438-FB03-4421-834B-819438B55A4B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,10 +82,6 @@ Global
 		{FA0F49EF-82CC-4EAB-878F-9DBC771717A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA0F49EF-82CC-4EAB-878F-9DBC771717A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA0F49EF-82CC-4EAB-878F-9DBC771717A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8DEA955-59F3-4F4C-B547-6E354BAAB0EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8DEA955-59F3-4F4C-B547-6E354BAAB0EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8DEA955-59F3-4F4C-B547-6E354BAAB0EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8DEA955-59F3-4F4C-B547-6E354BAAB0EC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C077A9F7-3166-443B-987E-720CD203063D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C077A9F7-3166-443B-987E-720CD203063D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C077A9F7-3166-443B-987E-720CD203063D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -128,7 +120,6 @@ Global
 		{B0DCBDDF-DFAD-4093-AEA7-EE90275B1BC8} = {2939AC05-D062-44EC-BF3D-8E8C7EA42988}
 		{8431EEF4-737B-4EC9-BA91-28C37AAE85D5} = {2939AC05-D062-44EC-BF3D-8E8C7EA42988}
 		{099C9CDB-F08C-4ACF-B2D8-49B2B958A36E} = {2939AC05-D062-44EC-BF3D-8E8C7EA42988}
-		{D8DEA955-59F3-4F4C-B547-6E354BAAB0EC} = {2939AC05-D062-44EC-BF3D-8E8C7EA42988}
 		{C077A9F7-3166-443B-987E-720CD203063D} = {3D3E59E6-848C-4480-8747-0EA14D191EE4}
 		{F5DC1487-073F-4215-A040-B0016108267C} = {3D3E59E6-848C-4480-8747-0EA14D191EE4}
 		{7E5B51FB-EE85-40A1-8497-BE0BD559DFB6} = {B3DBE926-65EA-4605-A2B4-43AB5E3427F1}

@@ -33,7 +33,7 @@ namespace StreamKit.Mod.Shared.Core;
 /// </summary>
 public static class FilePaths
 {
-    private static readonly Logger Logger = LogManager.Factory.GetCurrentClassLogger();
+    private static readonly Logger Logger = KitLogManager.GetLogger("StreamKit.FilePaths");
     private static readonly string BaseDirectory = GetDirectory(GenFilePaths.SaveDataFolderPath, "StreamKit");
     private static readonly string SettingsBase = GetDirectory(BaseDirectory, "settings");
     private static readonly string DataBase = GetDirectory(BaseDirectory, "data");

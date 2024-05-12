@@ -53,4 +53,12 @@ public static class Vector2Extensions
 
         return ref vector;
     }
+
+    public static ref Vector2 AtZero(this ref Vector2 vector)
+    {
+        vector.x = 0;
+        vector.y = 0;
+
+        return ref vector;
+    }
 }

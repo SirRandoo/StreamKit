@@ -9,10 +9,11 @@
         <Import_RootNamespace>StreamKit.Bootstrap.Shared.Core</Import_RootNamespace>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="$(MSBuildThisFileDirectory)BootModLoader.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Bootstrap.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)BootstrapMod.cs"/>
-        <Compile Include="$(MSBuildThisFileDirectory)Corpus.cs"/>
-    <Compile Include="$(MSBuildThisFileDirectory)StreamKitTargetProvider.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)BootModLoader.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Bootstrap.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)BootstrapMod.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)Corpus.cs" />
+        <Compile Include="$(MSBuildThisFileDirectory)KitLogManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayerLogTarget.cs" />
     </ItemGroup>
 </Project>

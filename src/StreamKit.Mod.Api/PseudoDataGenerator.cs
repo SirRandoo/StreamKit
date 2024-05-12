@@ -41,10 +41,11 @@ public sealed class PseudoDataGenerator
 
     private static readonly string[] ProductTypes = ["ITEM", "EVENT", "PAWN", "TRAIT", "BACKSTORY"];
 
-    private static readonly IRegistry<IPlatform> Platforms = new FrozenRegistry<IPlatform>(
+    public static readonly IRegistry<IPlatform> Platforms = new FrozenRegistry<IPlatform>(
         [
-            new Platform("platforms.debug.twitch", []) { Name = "Twitch (DEBUG)" }, new Platform("platforms.debug.trovo", []) { Name = "Trovo (DEBUG)" },
-            new Platform("platforms.debug.kick", []) { Name = "Kick (DEBUG)" }
+            new Platform("streamkit.platforms.twitch.debug", []) { Name = "Twitch (DEBUG)" },
+            new Platform("streamkit.platforms.trovo.debug", []) { Name = "Trovo (DEBUG)" },
+            new Platform("streamkit.platforms.kick.debug", []) { Name = "Kick (DEBUG)" }
         ]
     );
 
@@ -97,7 +98,7 @@ public sealed class PseudoDataGenerator
                     Karma = Randomizer.Short(),
                     Points = Randomizer.Int(),
                     LastSeen = Date.Past(),
-                    Transactions = [..GeneratePseudoTransactions(transactionCount)],
+                    Transactions = [..GeneratePseudoTransactions(transactionCount)]
                 }
             )
            .ToArray();
