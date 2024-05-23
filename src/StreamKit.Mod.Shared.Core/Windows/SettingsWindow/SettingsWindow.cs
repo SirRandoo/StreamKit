@@ -164,6 +164,25 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
     {
         (Rect labelRegion, Rect fieldRegion) = region.Split();
 
+        if (setting.Experimental)
+        {
+            Rect warningIconRegion = LayoutHelper.IconRect(labelRegion.x, labelRegion.y, labelRegion.height, labelRegion.height, 6f);
+
+            labelRegion.SetX(labelRegion.x + labelRegion.height);
+            labelRegion.SetWidth(labelRegion.width - labelRegion.height);
+
+            IconDrawer.DrawIcon(warningIconRegion, Icons.TriangleExclamation, DescriptionDrawer.ExperimentalTextColor);
+
+            if (Mouse.IsOver(warningIconRegion))
+            {
+                // TODO: This allocates a new string every draw frame while the mouse is hovered over the icon.
+                //       This should be cached since it's unlikely users will ever change the game's current language,
+                //       but in the event they do, the mod can hook into the game's translations system to detect
+                //       language changes.
+                TooltipHandler.TipRegion(warningIconRegion, DescriptionDrawer.ExperimentalNoticeText.ColorTagged(DescriptionDrawer.ExperimentalTextColor));
+            }
+        }
+
         LabelDrawer.Draw(labelRegion, setting.Label);
         setting.Drawer.Draw(ref fieldRegion);
     }
@@ -210,12 +229,10 @@ public sealed partial class SettingsWindow : ProxySettingsWindow
             var descriptionRegion = new Rect(0f, yPosition, descriptionSize.x, descriptionSize.y);
             yPosition += descriptionRegion.height;
 
-            if (!descriptionRegion.IsVisible(viewport, scrollPosition))
+            if (descriptionRegion.IsVisible(viewport, scrollPosition))
             {
-                continue;
+                DescriptionDrawer.DrawDescription(descriptionRegion, setting.Description!);
             }
-
-            DescriptionDrawer.DrawDescription(descriptionRegion, setting.Description!);
         }
 
         GUI.EndScrollView();

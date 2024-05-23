@@ -28,6 +28,7 @@ public class PawnSettings : IComponentSettings
     ///     Whether pawns claimed by viewers vacation from the colony when their viewer isn't active in
     ///     chat.
     /// </summary>
+    [Experimental]
     [Label("Enable pawn vacationing")]
     [Description("Whether pawns will 'take a vacation' from the colony when their viewer isn't active in chat.")]
     public bool Vacationing { get; set; } = true;

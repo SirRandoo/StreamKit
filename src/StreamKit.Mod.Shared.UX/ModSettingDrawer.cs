@@ -12,4 +12,7 @@ namespace StreamKit.Mod.Shared.UX;
 ///     The optional description of the setting used to provide more information about what the setting
 ///     is to the user.
 /// </param>
-public record ModSettingDrawer(string Label, ITypeDrawer Drawer, int Order, string? Description = null);
+/// <param name="Experimental">
+///     Whether the setting is considered experimental by the system(s) that used it.
+/// </param>
+public record ModSettingDrawer(string Label, ITypeDrawer Drawer, int Order, string? Description = null, bool Experimental = false);

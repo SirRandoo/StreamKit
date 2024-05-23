@@ -41,6 +41,7 @@ public class PollSettings : IComponentSettings
     ///     Whether mod will attempt to use the platform's native polling instead of using a chat-based
     ///     poll.
     /// </summary>
+    [Experimental]
     [Label("Prefer native polls")]
     [Description("If enabled, the mod will prefer creating polls on supported platforms instead of using a display in-game.")]
     public bool PreferNativePolls { get; set; }

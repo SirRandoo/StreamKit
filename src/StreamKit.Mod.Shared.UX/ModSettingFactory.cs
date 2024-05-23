@@ -64,11 +64,12 @@ public static class ModSettingFactory
     {
         string? label = GetSettingLabel(property);
         string? description = GetSettingDescription(property);
+        bool isExperimental = property.HasAttribute<ExperimentalAttribute>();
 
         int order = property.TryGetAttribute(out OrderAttribute orderAttribute) ? orderAttribute.Order : 0;
         ITypeDrawer drawer = GetTypeDrawer(property, instance);
 
-        return new ModSettingDrawer(label, drawer, order, description);
+        return new ModSettingDrawer(label, drawer, order, description, isExperimental);
     }
 
     private static string? GetSettingDescription(MemberInfo property)
