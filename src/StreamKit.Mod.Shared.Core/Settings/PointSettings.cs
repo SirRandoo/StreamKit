@@ -38,14 +38,14 @@ public class PointSettings : IComponentSettings
     ///     </list>
     /// </summary>
     [Label("Starting balance")]
-    [System.ComponentModel.Description("The amount of points viewers will start with when they first interact with the mod, or their data is otherwise reset.")]
+    [Description("The amount of points viewers will start with when they first interact with the mod, or their data is otherwise reset.")]
     public int StartingBalance { get; set; } = 100;
 
     /// <summary>
     ///     Whether the mod is currently distributing wealth to viewers.
     /// </summary>
     [Label("Distribute points periodically")]
-    [System.ComponentModel.Description("Whether the mod is distributing points on a regular, user defined, interval.")]
+    [Description("Whether the mod is distributing points on a regular, user defined, interval.")]
     public bool IsDistributing { get; set; } = true;
 
     /// <summary>
