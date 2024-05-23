@@ -18,5 +18,9 @@
             <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
             <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
         </li>
+        <li>
+            <packageId>sirrandoo.logging</packageId>
+            <displayName>RimWorld.Logging</displayName>
+        </li>
     </modDependencies>
 </ModMetaData>
