@@ -1,0 +1,22 @@
+{
+  // The user's unique id. This is unique across within a document collection.
+  "id": "User UUID",
+
+  // The list of products the user has available. Each entry in this list is an
+  // object that contains six properties: id, name, source, cost, and karma.
+  //             id : The unique id of the product.
+  //           cost : The cost of the product, in points.
+  //          karma : The karma type of the product.
+  "products": [
+    {
+      "id": "Pemmican",
+      "cost": 100,
+      "karma": "neutral"
+    },
+    {
+      "id": "PackagedSurvivalMeal",
+      "cost": 100,
+      "karma": "neutral"
+    }
+  ]
+}

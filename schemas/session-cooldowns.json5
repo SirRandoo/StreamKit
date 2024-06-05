@@ -1,0 +1,29 @@
+{
+  // The session's unique id.
+
+  "id": "Session UUID",
+
+  // Houses information about any cooldowns active for the given session.
+  "cooldowns": {
+    // Each sub-object in the cooldowns object is keyed to the given
+    // interaction's id. In this example, "com.example.event" is the id of an
+    // example event interaction.
+    "com.example.event": {
+      // Represents a "global" cooldown for a given interaction. If an
+      // interaction contains an active global cooldown, the value of this
+      // property will be the timestamp of when the interaction is available to
+      // all users again.
+      "global_expires_on": "Date+Time the event is usable again",
+
+      // An object for housing "user" cooldowns for a given interaction. User
+      // interactions differ from "global" cooldowns in that they only affect
+      // one given user.
+      "user_expires_on": {
+        // Each entry in the user cooldowns object is a timestamp of when the
+        // interaction will be available to the user again, keyed to the user's
+        // unique id.
+        "User UUID": "Date+Time the event is usable again for the user"
+      }
+    }
+  },
+}
