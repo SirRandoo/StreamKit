@@ -24,8 +24,8 @@ using System;
 
 namespace StreamKit.Mod.Api.Attributes;
 
-[AttributeUsage(AttributeTargets.All, Inherited = false)]
-public sealed class LabelAttribute(string text, bool isKey = false) : Attribute
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+public sealed class LabelAttribute(string text, bool isKey = true, string? color = null) : Attribute
 {
     /// <summary>
     ///     The text of the label.
@@ -36,4 +36,13 @@ public sealed class LabelAttribute(string text, bool isKey = false) : Attribute
     ///     Whether the text given was a translation key instead of raw text.
     /// </summary>
     public bool IsKey { get; } = isKey;
+
+    /// <summary>
+    ///     The color of the text.
+    /// </summary>
+    /// <remarks>
+    ///     Internally, any system that utilizes this property should surround the label's
+    ///     <see cref="Text" /> with XHTML color tags.
+    /// </remarks>
+    public string? TextColor { get; } = color;
 }

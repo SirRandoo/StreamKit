@@ -27,13 +27,11 @@ table Chunk (fs_serializer) {
   image:[ubyte];
 
   /// The position of the chunk within the game.
-  ///
-  /// TODO: Consider dropping this to a IntVec2 since there's only two axies.
-  position:IntVec3;
+  position:IntVec2;
 
   /// The top-left cell of the chunk.
-  top_left_cell:IntVec3;
+  top_left_cell:IntVec2;
 
   /// The bottom-right cell of the chunk.
-  bottom_right_cell:IntVec3;
+  bottom_right_cell:IntVec2;
 }

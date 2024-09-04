@@ -94,7 +94,7 @@ public sealed class PseudoDataGenerator
                 _ => (IUser)new PseudoUser(Guid.NewGuid().ToString(), Randomizer.CollectionItem(Platforms.AllRegistrants).Id)
                 {
                     Name = Internet.UserName(),
-                    Privileges = GetRandomPrivileges(),
+                    Roles = GetRandomPrivileges(),
                     Karma = Randomizer.Short(),
                     Points = Randomizer.Int(),
                     LastSeen = Date.Past(),
@@ -111,9 +111,9 @@ public sealed class PseudoDataGenerator
            .ToArray();
     }
 
-    private UserPrivileges GetRandomPrivileges()
+    private UserRoles GetRandomPrivileges()
     {
-        return Randomizer.EnumValues<UserPrivileges>().Aggregate(UserPrivileges.None, (current, privilege) => current | privilege);
+        return Randomizer.EnumValues<UserRoles>().Aggregate(UserRoles.None, (current, privilege) => current | privilege);
     }
 
     private sealed class PseudoUser(string id, string platform) : IUser
@@ -137,7 +137,7 @@ public sealed class PseudoDataGenerator
         public DateTime LastSeen { get; set; } = DateTime.UtcNow;
 
         /// <inheritdoc />
-        public UserPrivileges Privileges { get; set; } = UserPrivileges.None;
+        public UserRoles Roles { get; set; } = UserRoles.None;
 
         /// <inheritdoc />
         public List<ITransaction> Transactions { get; set; } = [];

@@ -26,6 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using NLog;
 using Remora.Results;
+using StreamKit.Mod.Shared.Logging;
 
 namespace StreamKit.Mod.Api;
 

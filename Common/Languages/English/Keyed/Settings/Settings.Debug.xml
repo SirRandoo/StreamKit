@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Settings.DebugActions.OpenLedgerWindow>Open ledger window</StreamKit.Settings.DebugActions.OpenLedgerWindow>
+    <StreamKit.Settings.DebugActions.OpenPlatformsWindow>Open platforms window</StreamKit.Settings.DebugActions.OpenPlatformsWindow>
+    <StreamKit.Settings.DebugActions.OpenRuntimeFlagsWindow>Open runtime flags window</StreamKit.Settings.DebugActions.OpenRuntimeFlagsWindow>
+    <StreamKit.Settings.DebugActions.OpenTransactionHistoryWindow>Open transaction history window</StreamKit.Settings.DebugActions.OpenTransactionHistoryWindow>
+</LanguageData>

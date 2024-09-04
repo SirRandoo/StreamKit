@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Settings.Tabs.Client>Client</StreamKit.Settings.Tabs.Client>
+    <StreamKit.Settings.Tabs.Tooltips.Client>A collection of settings that affects how the mod displays information to you.</StreamKit.Settings.Tabs.Tooltips.Client>
+
+    <StreamKit.Settings.Tabs.Commands>Commands</StreamKit.Settings.Tabs.Commands>
+    <StreamKit.Settings.Tabs.Tooltips.Commands>A collection of settings that affects how the mod's command system functions.</StreamKit.Settings.Tabs.Tooltips.Commands>
+
+    <StreamKit.Settings.Tabs.Morality>Morality</StreamKit.Settings.Tabs.Morality>
+    <StreamKit.Settings.Tabs.Tooltips.Morality>A collection of settings that affects how the mod's morality system functions.</StreamKit.Settings.Tabs.Tooltips.Morality>
+
+    <StreamKit.Settings.Tabs.Pawns>Pawns</StreamKit.Settings.Tabs.Pawns>
+    <StreamKit.Settings.Tabs.Tooltips.Pawns>A collection of settings that affects how the mod's pawn system functions.</StreamKit.Settings.Tabs.Tooltips.Pawns>
+
+    <StreamKit.Settings.Tabs.Points>Points</StreamKit.Settings.Tabs.Points>
+    <StreamKit.Settings.Tabs.Tooltips.Points>A collection of settings that affects how the mod's point system functions.</StreamKit.Settings.Tabs.Tooltips.Points>
+
+    <StreamKit.Settings.Tabs.Poll>Poll</StreamKit.Settings.Tabs.Poll>
+    <StreamKit.Settings.Tabs.Tooltips.Poll>A collection of settings that affect how the mod's polling system functions.</StreamKit.Settings.Tabs.Tooltips.Poll>
+
+    <StreamKit.Settings.Tabs.Store>Store</StreamKit.Settings.Tabs.Store>
+    <StreamKit.Settings.Tabs.Tooltips.Store>A collection of settings that affects how the mod's store functions.</StreamKit.Settings.Tabs.Tooltips.Store>
+
+    <StreamKit.Settings.Tabs.Debug>Debug</StreamKit.Settings.Tabs.Debug>
+    <StreamKit.Settings.Tabs.Tooltips.Debug>A collectino of interesting content for debugging the mod.</StreamKit.Settings.Tabs.Tooltips.Debug>
+</LanguageData>

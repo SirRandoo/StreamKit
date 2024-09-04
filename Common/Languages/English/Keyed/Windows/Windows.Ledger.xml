@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Windows.Ledger.Text.LastSeen>Last seen: {0}</StreamKit.Windows.Ledger.Text.LastSeen>
+    <StreamKit.Windows.Ledger.Text.LastSeenDays>{0} days ago.</StreamKit.Windows.Ledger.Text.LastSeenDays>
+    <StreamKit.Windows.Ledger.Text.LastSeenHours>{0} hours ago.</StreamKit.Windows.Ledger.Text.LastSeenHours>
+    <StreamKit.Windows.Ledger.Text.LastSeenMinutes>{0} minutes ago.</StreamKit.Windows.Ledger.Text.LastSeenMinutes>
+    <StreamKit.Windows.Ledger.Text.LastSeenSeconds>{0} seconds ago.</StreamKit.Windows.Ledger.Text.LastSeenSeconds>
+    <StreamKit.Windows.Ledger.Headers.CurrentLedger>Current ledger:</StreamKit.Windows.Ledger.Headers.CurrentLedger>
+    <StreamKit.Windows.Ledger.Buttons.ViewTransactions>View transactions</StreamKit.Windows.Ledger.Buttons.ViewTransactions>
+    <StreamKit.Windows.Ledger.Tooltips.DeleteViewer>Deletes the viewer's information from the ledger.</StreamKit.Windows.Ledger.Tooltips.DeleteViewer>
+    <StreamKit.Windows.Ledger.Tooltips.AddViewerKarma>Click to add karma to the viewer's current karma.</StreamKit.Windows.Ledger.Tooltips.AddViewerKarma>
+    <StreamKit.Windows.Ledger.Tooltips.AddViewerPoints>Click to add points to the viewer's current balance.</StreamKit.Windows.Ledger.Tooltips.AddViewerPoints>
+    <StreamKit.Windows.Ledger.Tooltips.RemoveViewerKarma>Click to remove karma from the viewer's current karma.</StreamKit.Windows.Ledger.Tooltips.RemoveViewerKarma>
+    <StreamKit.Windows.Ledger.Tooltips.RemoveViewerPoints>Click to remove points from the viewer's current balance.</StreamKit.Windows.Ledger.Tooltips.RemoveViewerPoints>
+</LanguageData>

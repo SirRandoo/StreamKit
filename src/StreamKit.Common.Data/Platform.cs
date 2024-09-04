@@ -34,4 +34,7 @@ public class Platform(string id, byte[] iconData) : IPlatform
 
     /// <inheritdoc />
     public byte[] IconData { get; set; } = iconData;
+
+    /// <inheritdoc />
+    public PlatformFeatures Features => PlatformFeatures.None;
 }

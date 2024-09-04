@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Settings.Pages.Pawn.Pool>Whether the pawn pool is enabled</StreamKit.Settings.Pages.Pawn.Pool>
+    <StreamKit.Settings.Pages.Pawn.Descriptions.Pool>The pawn pool system enters unclaimed pawns into a pool which viewers can subsequently claim.</StreamKit.Settings.Pages.Pawn.Descriptions.Pool>
+
+    <StreamKit.Settings.Pages.Pawn.PoolRestrictions>Pawn pool restrictions</StreamKit.Settings.Pages.Pawn.PoolRestrictions>
+    <StreamKit.Settings.Pages.Pawn.Descriptions.PoolRestrictions>Restricts who can claim a pawn from the pawn pool by their user types. The checkboxes to the right indicate which user type can claim a pawn from the pool. For instance, if only 'subscriber' is checked, only people who have an active subscription may claim a pawn from the pool. If two user types are checked, any user that matches either type may claim a pawn from the pool.</StreamKit.Settings.Pages.Pawn.Descriptions.PoolRestrictions>
+
+    <StreamKit.Settings.Pages.Pawn.Vacationing>Whether pawns can take a vacation</StreamKit.Settings.Pages.Pawn.Vacationing>
+    <StreamKit.Settings.Pages.Pawn.Descriptions.Vacationing>When enabled, viewers who have stopped interacting with the mod will have their pawns go on vacation. You probably don't want to know where. If a pawn is injured, they will not go on vacation until they are fully healed.</StreamKit.Settings.Pages.Pawn.Descriptions.Vacationing>
+
+    <StreamKit.Settings.Pages.Pawn.OverworkedPawns>Total number of overworked pawns</StreamKit.Settings.Pages.Pawn.OverworkedPawns>
+    <StreamKit.Settings.Pages.Pawn.Descriptions.OverworkedPawns>The number of pawns that you will always have on standby if everyone in your chat is afk. Due to limitations in RimWorld, the minimum will always be 1.</StreamKit.Settings.Pages.Pawn.Descriptions.OverworkedPawns>
+
+    <StreamKit.Settings.Pages.Pawn.EmergencyWorkCrisis>Whether vacationing pawns will be called back in during crises</StreamKit.Settings.Pages.Pawn.EmergencyWorkCrisis>
+    <StreamKit.Settings.Pages.Pawn.Descriptions.EmergencyWorkCrisis>When enabled, any pawns on vacation will be called back into work during crisis, like a raid. If a pawn is injured during a crisis, they will remain in the colony until fully healed.</StreamKit.Settings.Pages.Pawn.Descriptions.EmergencyWorkCrisis>
+</LanguageData>

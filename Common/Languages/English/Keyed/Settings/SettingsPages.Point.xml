@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Settings.Pages.Points.InfinitePoints>Unlimited points</StreamKit.Settings.Pages.Points.InfinitePoints>
+    <StreamKit.Settings.Pages.Points.Descriptions.InfinitePoints>Whether viewer will have an unlimited amount of points. This is generally not recommended.</StreamKit.Settings.Pages.Points.Descriptions.InfinitePoints>
+
+    <StreamKit.Settings.Pages.Points.DistributePoints>Distribute points</StreamKit.Settings.Pages.Points.DistributePoints>
+    <StreamKit.Settings.Pages.Points.Descriptions.DistributePoints>Whether viewers periodically earn points for interacting with the mod.</StreamKit.Settings.Pages.Points.Descriptions.DistributePoints>
+
+    <StreamKit.Settings.Pages.Points.StartingBalance>Starting balance</StreamKit.Settings.Pages.Points.StartingBalance>
+    <StreamKit.Settings.Pages.Points.Descriptions.StartingBalance>The amount of points viewers will start off with when they first interact with the mod, or their data is reset.</StreamKit.Settings.Pages.Points.Descriptions.StartingBalance>
+
+    <StreamKit.Settings.Pages.Points.RewardInterval>Reward interval</StreamKit.Settings.Pages.Points.RewardInterval>
+    <StreamKit.Settings.Pages.Points.Descriptions.RewardInterval>The amount of time that must pass by before viewers will receive points.</StreamKit.Settings.Pages.Points.Descriptions.RewardInterval>
+
+    <StreamKit.Settings.Pages.Points.RewardAmount>Reward amount</StreamKit.Settings.Pages.Points.RewardAmount>
+    <StreamKit.Settings.Pages.Points.Descriptions.RewardAmount>The amount of points viewers will receive when points are distributed by the mod.</StreamKit.Settings.Pages.Points.Descriptions.RewardAmount>
+
+    <StreamKit.Settings.Pages.Points.RequireParticipation>Require participation</StreamKit.Settings.Pages.Points.RequireParticipation>
+    <StreamKit.Settings.Pages.Points.Descriptions.RequireParticipation>Whether viewers will have to interact with the mod, at least once, in order to receive points at the end of a distribution cycle.</StreamKit.Settings.Pages.Points.Descriptions.RequireParticipation>
+
+    <StreamKit.Settings.Pages.Points.PointDecay>Point decay</StreamKit.Settings.Pages.Points.PointDecay>
+    <StreamKit.Settings.Pages.Points.Descriptions.PointDecay>Whether the balances of inactive viewers will slowly decay as they remain inactive.</StreamKit.Settings.Pages.Points.Descriptions.PointDecay>
+
+    <StreamKit.Settings.Pages.Points.DecayPeriod>Decay period</StreamKit.Settings.Pages.Points.DecayPeriod>
+    <StreamKit.Settings.Pages.Points.Descriptions.DecayPeriod>The period of time that must pass before a viewer's income will start to decay.</StreamKit.Settings.Pages.Points.Descriptions.DecayPeriod>
+
+    <StreamKit.Settings.Pages.Points.DecayPercentage>Decay percentage</StreamKit.Settings.Pages.Points.DecayPercentage>
+    <StreamKit.Settings.Pages.Points.Descriptions.DecayPercentage>A percentage indicating the amount of points a viewer will lose when they aren't actively participating in chat. This setting does work in-tandem with a fixed decay amount.</StreamKit.Settings.Pages.Points.Descriptions.DecayPercentage>
+
+    <StreamKit.Settings.Pages.Points.FixedDecayAmount>Fixed decay amount</StreamKit.Settings.Pages.Points.FixedDecayAmount>
+    <StreamKit.Settings.Pages.Points.Descriptions.FixedDecayAmount>A fixed amount of points viewers will ose when they aren't actively participating in chat. This setting does work in-tandem with a decay percentage.</StreamKit.Settings.Pages.Points.Descriptions.FixedDecayAmount>
+
+    <StreamKit.Settings.Pages.Points.PointTiers>Point tiers</StreamKit.Settings.Pages.Points.PointTiers>
+    <StreamKit.Settings.Pages.Points.Descriptions.PointTiers>Whether point distribution will be broken up into tiers viewers slowly progress through as they interact with the mod.</StreamKit.Settings.Pages.Points.Descriptions.PointTiers>
+
+    <StreamKit.Settings.Pages.Points.Rewards>Rewards</StreamKit.Settings.Pages.Points.Rewards>
+    <StreamKit.Settings.Pages.Points.Descriptions.Rewards>Whether viewers will receive special rewards for interacting with the mod.</StreamKit.Settings.Pages.Points.Descriptions.Rewards>
+</LanguageData>

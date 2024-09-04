@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Dialogs.Transactions.TransactionId>Transaction id: {0}</StreamKit.Dialogs.Transactions.TransactionId>
+    <StreamKit.Dialogs.Transactions.TransactionDescription>{0} purchased {1} for {2} points on {3}</StreamKit.Dialogs.Transactions.TransactionDescription>
+    <StreamKit.Dialogs.Transactions.TransactionRefunded>{0} was refunded to {1}.</StreamKit.Dialogs.Transactions.TransactionRefunded>
+    <StreamKit.Dialogs.Transactions.PurchaseHistory>{0}'s purchase history</StreamKit.Dialogs.Transactions.PurchaseHistory>
+</LanguageData>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Settings.Pages.Morality.KarmaSystem>Whether to enable the karma system</StreamKit.Settings.Pages.Morality.KarmaSystem>
+    <StreamKit.Settings.Pages.Morality.Descriptions.KarmaSystem>The karma system is a system that provides immediate consequences for viewers by limited their income. Viewers will have to then purchase more helpful events in order to repay the karmic debt they've accrued.</StreamKit.Settings.Pages.Morality.Descriptions.KarmaSystem>
+
+    <StreamKit.Settings.Pages.Morality.StartingKarma>Starting karma</StreamKit.Settings.Pages.Morality.StartingKarma>
+    <StreamKit.Settings.Pages.Morality.Descriptions.StartingKarma>The amount of karma viewers will start off when they first interact with the mod, or their data is reset.</StreamKit.Settings.Pages.Morality.Descriptions.StartingKarma>
+
+    <StreamKit.Settings.Pages.Morality.KarmaRange>Karma range</StreamKit.Settings.Pages.Morality.KarmaRange>
+    <StreamKit.Settings.Pages.Morality.Descriptions.KarmaRange>A range indicating the upper and lower bounds a viewer's karma can be.</StreamKit.Settings.Pages.Morality.Descriptions.KarmaRange>
+
+    <StreamKit.Settings.Pages.Morality.ReputationSystem>Whether reputation system is enabled</StreamKit.Settings.Pages.Morality.ReputationSystem>
+    <StreamKit.Settings.Pages.Morality.Descriptions.ReputationSystem>Whether the reputation system, a system for providing long-term consequences for harmful events viewers may purchase, is enabled.</StreamKit.Settings.Pages.Morality.Descriptions.ReputationSystem>
+</LanguageData>

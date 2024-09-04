@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Tables.Transactions.Tooltips.TransactionId>Transaction id: {0}</StreamKit.Tables.Transactions.Tooltips.TransactionId>
+    <StreamKit.Tables.Transactions.Tooltips.PurchasedOn>Purchased on: {0}</StreamKit.Tables.Transactions.Tooltips.PurchasedOn>
+    <StreamKit.Tables.Transactions.Tooltips.Refunded>This transactions was refunded to the viewer.</StreamKit.Tables.Transactions.Tooltips.Refunded>
+
+    <StreamKit.Tables.Transactions.Headers.Name>Name</StreamKit.Tables.Transactions.Headers.Name>
+    <StreamKit.Tables.Transactions.Headers.Type>Type</StreamKit.Tables.Transactions.Headers.Type>
+    <StreamKit.Tables.Transactions.Headers.Amount>Amount</StreamKit.Tables.Transactions.Headers.Amount>
+</LanguageData>

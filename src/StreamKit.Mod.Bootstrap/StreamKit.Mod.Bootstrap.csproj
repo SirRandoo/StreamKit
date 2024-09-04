@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="NLog" />
+        <PackageReference Include="PolySharp" ExcludeAssets="runtime" />
+        <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" />
+        <PackageReference Include="Krafs.Rimworld.Ref" ExcludeAssets="runtime" />
+        <PackageReference Include="NetEscapades.EnumGenerators" ExcludeAssets="runtime" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\StreamKit.Mod.Shared\StreamKit.Mod.Shared.csproj" ExcludeAssets="runtime" />
+    </ItemGroup>
+</Project>

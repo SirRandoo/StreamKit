@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Settings.Pages.Command.Prefix>Command prefix</StreamKit.Settings.Pages.Command.Prefix>
+    <StreamKit.Settings.Pages.Command.Descriptions.Prefix>One or more characters that must be present at the start of a message in chat in order for the mod to recognize it as a command.</StreamKit.Settings.Pages.Command.Descriptions.Prefix>
+
+    <StreamKit.Settings.Pages.Command.Emoji>Use emojis in command responses</StreamKit.Settings.Pages.Command.Emoji>
+    <StreamKit.Settings.Pages.Command.Descriptions.Emoji>When enabled, the mod will use emojis in place of some text that can be represented as one or more emojis. Disabling this may cause information to be omitted from some command responses.</StreamKit.Settings.Pages.Command.Descriptions.Emoji>
+</LanguageData>

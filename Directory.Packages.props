@@ -1,42 +1,47 @@
 <Project>
-    <ItemGroup Condition="$(DefineConstants.Contains('STREAMKIT_MOD')) OR $(DefineConstants.Contains('STREAMKIT_BOOTSTRAP'))">
-        <PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime"/>
-    </ItemGroup>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
 
+    <!-- RimWorld Related Packages -->
     <ItemGroup>
-        <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_SERVER'))" Include="PolySharp" Version="1.14.1"/>
-        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta08" PrivateAssets="all" ExcludeAssets="runtime"/>
-
-        <!--
-        System.Collections.Immutable is removed from the bootstrapper project since it's not needed.
-        -->
-        <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER')) AND !$(DefineConstants.Contains('STREAMKIT_COMMON'))" Include="System.Collections.Immutable" Version="8.0.0"/>
+        <PackageVersion Include="NLog" Version="5.3.2" ExcludeAssets="runtime" />
+        <PackageVersion Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime" />
+        <PackageVersion Include="Krafs.Rimworld.Ref" Version="1.5.4104" ExcludeAssets="runtime" />
+        <PackageVersion Include="RimWorld.MultiplayerAPI" Version="0.5.0" ExcludeAssets="runtime" />
     </ItemGroup>
 
-    <ItemGroup Condition="$(DefineConstants.Contains('STREAMKIT_MOD')) OR $(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER'))">
-        <PackageReference Include="RimWorld.Logging.Api" Version="1.0.0" ExcludeAssets="runtime"/>
+    <!-- Database Packages -->
+    <ItemGroup>
+        <PackageVersion Include="Npgsql" Version="8.0.3" />
+        <PackageVersion Include="Dapper" Version="2.1.35" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
+    </ItemGroup>
+
+    <!-- Data Format Packages -->
+    <ItemGroup>
+        <PackageVersion Include="Samboy063.Tomlet" Version="5.3.1" />
+        <PackageVersion Include="System.Text.Json" Version="8.0.4" />
+    </ItemGroup>
+
+    <!-- Generator Packages -->
+    <ItemGroup>
+        <PackageVersion Include="PolySharp" Version="1.14.1" />
+        <PackageVersion Include="NetEscapades.EnumGenerators" Version="1.0.0-beta09" />
+    </ItemGroup>
+
+    <!-- Misc Packages -->
+    <ItemGroup>
+        <PackageVersion Include="Remora.Results" Version="7.4.1" />
     </ItemGroup>
 
     <ItemGroup Condition="!$(DefineConstants.Contains('STREAMKIT_COMMON')) AND !$(DefineConstants.Contains('STREAMKIT_BOOTSTRAPPER'))">
-        <ProjectReference Include="..\StreamKit.Common.Data\StreamKit.Common.Data.csproj"/>
-        <ProjectReference Include="..\StreamKit.Common.Communication\StreamKit.Common.Communication.csproj"/>
-        <ProjectReference Include="..\StreamKit.Common.Data.Abstractions\StreamKit.Common.Data.Abstractions.csproj"/>
-
-        <PackageReference Condition="!$(DefineConstants.Contains('STREAMKIT_WRAPPER'))" Include="Remora.Results" Version="7.4.1"/>
+        <ProjectReference Include="..\StreamKit.Common.Data\StreamKit.Common.Data.csproj" />
+        <ProjectReference Include="..\StreamKit.Common.Communication\StreamKit.Common.Communication.csproj" />
+        <ProjectReference Include="..\StreamKit.Common.Data.Abstractions\StreamKit.Common.Data.Abstractions.csproj" />
     </ItemGroup>
 
-    <!--
-    Depending on whether we're on a server project, or mod project, we'll use a relational database
-    that's appropriate for the system the project will be operating on, but all projects that require
-    a relational database will use Dapper for interacting with the database.
-    -->
     <ItemGroup Condition="$(DefineConstants.Contains('ENABLE_SQL'))">
-        <PackageReference Include="Dapper" Version="2.1.28"/>
-        <Reference Condition="$(DefineConstants.Contains('STREAMKIT_MOD'))" Include="../Libs/Mono.Data.Sqlite.dll"/>
-        <PackageReference Condition="$(DefineConstants.Contains('STREAMKIT_SERVER'))" Include="Npgsql" Version="8.0.0"/>
-    </ItemGroup>
-
-    <ItemGroup Condition="$(DefineConstants.Contains('STREAMKIT_MOD'))">
-        <PackageReference Include="PolySharp" Version="1.14.1" ExcludeAssets="runtime"/>
+        <Reference Condition="$(DefineConstants.Contains('STREAMKIT_MOD'))" Include="../Libs/Mono.Data.Sqlite.dll" />
     </ItemGroup>
 </Project>

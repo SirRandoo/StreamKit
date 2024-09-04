@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Settings.Pages.Store.Link>Store link</StreamKit.Settings.Pages.Store.Link>
+    <StreamKit.Settings.Pages.Store.Descriptions.Link>The link to the store where viewers can see what's available for purchase.</StreamKit.Settings.Pages.Store.Descriptions.Link>
+
+    <StreamKit.Settings.Pages.Store.MinimumPurchasePrice>Minimum purchase price</StreamKit.Settings.Pages.Store.MinimumPurchasePrice>
+    <StreamKit.Settings.Pages.Store.Descriptions.MinimumPurchasePrice>The minimum amount of points viewers have to spend before the store will accept an order.</StreamKit.Settings.Pages.Store.Descriptions.MinimumPurchasePrice>
+
+    <StreamKit.Settings.Pages.Store.PurchaseConfirmations>Send purchase confirmations</StreamKit.Settings.Pages.Store.PurchaseConfirmations>
+    <StreamKit.Settings.Pages.Store.Descriptions.PurchaseConfirmations>When enabled, all purchases will send a confirmation message in chat stating the product purchased and the price paid.</StreamKit.Settings.Pages.Store.Descriptions.PurchaseConfirmations>
+
+    <StreamKit.Settings.Pages.Store.PurchaseBuildings>Allow viewers to purchase buildings</StreamKit.Settings.Pages.Store.PurchaseBuildings>
+    <StreamKit.Settings.Pages.Store.Descriptions.PurchaseBuildings>When enabled, viewers will be able to purchase buildings, as well as any other 'minifiable' things.</StreamKit.Settings.Pages.Store.Descriptions.PurchaseBuildings>
+</LanguageData>

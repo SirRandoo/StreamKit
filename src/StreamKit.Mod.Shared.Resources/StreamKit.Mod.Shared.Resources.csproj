@@ -1,0 +1,77 @@
+﻿<Project Sdk="Microsoft.Build.NoTargets/3.7.56">
+    <PropertyGroup>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Link Include="..\..\Common\Textures\**" />
+        <Link Include="..\..\Common\Languages\**" />
+        <Link Update="..\..\Common\Languages\English\Keyed\InputErrors.xml">
+          <Link>Keyed\InputErrors.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Tables.Transactions.xml">
+          <Link>Keyed\Tables.Transactions.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Dialogs.Transactions.xml">
+          <Link>Keyed\Dialogs.Transactions.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Dialogs.Ledger.xml">
+          <Link>Keyed\Dialogs.Ledger.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Common.Text.xml">
+          <Link>Keyed\Common.Text.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Dialogs\Ledger.xml">
+          <Link>Keyed\Dialogs\Ledger.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\SettingsTabs.xml">
+          <Link>Keyed\SettingsTabs.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings.Debug.xml">
+          <Link>Keyed\Settings.Debug.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\SettingPages.Client.xml">
+          <Link>Keyed\Settings\SettingPages.Client.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\SettingsPages.Command.xml">
+          <Link>Keyed\Settings\SettingsPages.Command.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\SettingsPages.Morality.xml">
+          <Link>Keyed\Settings\SettingsPages.Morality.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\SettingsPages.Pawn.xml">
+          <Link>Keyed\Settings\SettingsPages.Pawn.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\SettingsPages.Point.xml">
+          <Link>Keyed\Settings\SettingsPages.Point.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\SettingsPages.Poll.xml">
+          <Link>Keyed\Settings\SettingsPages.Poll.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\SettingsPages.Store.xml">
+          <Link>Keyed\Settings\SettingsPages.Store.xml</Link>
+        </Link>
+        <Link Remove="..\..\Common\Textures\Icons\**" />
+        <Link Update="..\..\Common\Languages\English\Keyed\Tables\Tables.Transactions.xml">
+          <Link>Keyed\Tables\Transactions.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Windows\Windows.Transactions.xml">
+          <Link>Keyed\Windows\Windows.Transactions.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\Settings.Debug.xml">
+          <Link>Keyed\Settings\Settings.Debug.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\SettingsTabs.xml">
+          <Link>Keyed\Settings\SettingsTabs.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Common\Common.Text.xml">
+          <Link>Keyed\Common\Common.Text.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Settings\Settings.Platform.xml">
+          <Link>Keyed\Settings\Settings.Platform.xml</Link>
+        </Link>
+        <Link Update="..\..\Common\Languages\English\Keyed\Errors\Errors.Input.xml">
+          <Link>Keyed\Errors\Errors.Input.xml</Link>
+        </Link>
+    </ItemGroup>
+</Project>

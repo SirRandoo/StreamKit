@@ -53,7 +53,7 @@ public interface IUser : IIdentifiable
     /// <summary>
     ///     The user's privileges within the chat.
     /// </summary>
-    UserPrivileges Privileges { get; set; }
+    UserRoles Roles { get; set; }
 
     /// <summary>
     ///     The list of purchases the user has authorized.

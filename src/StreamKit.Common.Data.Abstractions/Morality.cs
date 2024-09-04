@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Diagnostics.CodeAnalysis;
 using NetEscapades.EnumGenerators;
 
 namespace StreamKit.Common.Data.Abstractions;
@@ -29,6 +30,7 @@ namespace StreamKit.Common.Data.Abstractions;
 ///     flag.
 /// </summary>
 [EnumExtensions]
+[SuppressMessage("ReSharper", "GrammarMistakeInComment")]
 public enum Morality
 {
     /// <summary>

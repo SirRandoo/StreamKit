@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="NLog" />
+        <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" />
+        <PackageReference Include="Krafs.Rimworld.Ref" ExcludeAssets="runtime" />
+    </ItemGroup>
+</Project>

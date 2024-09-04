@@ -1,9 +1,9 @@
 /*
     The various types of sources that can provide content to the game. They're
-    all fairly self-explanatory, with the exception of "base." "Base" content
-    is content that originated from the core of RimWorld, that is RimWorld
-    without any expansions or mods active. The other two properly describe the
-    other content sources that can exist.
+    all fairly self-explanatory, except for "base." "Base" content is content
+    that originated from the core of RimWorld, that is RimWorld without any
+    expansions or mods active. The other two properly describe the other
+    content sources that can exist.
  */
 CREATE TYPE ContentSourceType AS ENUM ('base', 'mod', 'expansion');
 

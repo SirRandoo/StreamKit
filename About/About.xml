@@ -7,8 +7,7 @@
     <description>A mod for RimWorld that provides chat integration between various streaming platform, like Twitch.</description>
 
     <supportedVersions>
-      <li>1.4</li>
-      <li>1.5</li>
+        <li>1.5</li>
     </supportedVersions>
 
     <modDependencies>
@@ -19,8 +18,9 @@
             <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
         </li>
         <li>
-            <packageId>sirrandoo.logging</packageId>
-            <displayName>RimWorld.Logging</displayName>
+            <packageId>com.sirrandoo.ux</packageId>
+            <displayName>SirRandoo.UX</displayName>
+            <downloadUrl>https://github.com/sirrandoo/sirrandoo.ux/releases/latest</downloadUrl>
         </li>
     </modDependencies>
 </ModMetaData>

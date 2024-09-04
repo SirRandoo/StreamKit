@@ -25,9 +25,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NLog;
 using StreamKit.Common.Data.Abstractions;
-using StreamKit.Mod.Api;
-using TwitchLib.Api.Core.Enums;
-using TwitchLib.Api.Helix;
+using StreamKit.Mod.Shared.Logging;
 using TwitchLib.EventSub.Websockets;
 using TwitchLib.EventSub.Websockets.Core.EventArgs;
 using TwitchLib.EventSub.Websockets.Core.EventArgs.Channel;
@@ -47,10 +45,11 @@ namespace StreamKit.Mod.Integration.Twitch;
 
 public class TwitchClient
 {
+    private const string EventSubBroadcasterIdKey = "broadcaster_user_id";
+
     private static readonly Logger Logger = KitLogManager.GetLogger("StreamKit.Integrations.Twitch");
 
     private readonly EventSubWebsocketClient _eventSubClient = new();
-    private readonly Helix _helixApi = new();
 
     private readonly ExpirableList<string> _seenMessageIds = new(TimeSpan.FromMinutes(10));
 
@@ -205,11 +204,11 @@ public class TwitchClient
     private async Task SubscribeToChannelMessagesAsync()
     {
         await SubscribeAsync(
-            "channel.chat.message",
-            "1",
+            EventSubChatMessage.Id,
+            EventSubChatMessage.Version,
             new Dictionary<string, string>
             {
-                ["broadcaster_user_id"] = "123", // FIXME: Replace with broadcaster's user id.
+                [EventSubBroadcasterIdKey] = "123", // FIXME: Replace with broadcaster's user id.
                 ["user_id"] = "321" // FIXME: Replace with the user id for the token given.
             }
         );
@@ -218,11 +217,11 @@ public class TwitchClient
     private async Task SubscribeToSubscriptionsAsync()
     {
         await SubscribeAsync(
-            "channel.subscribe",
-            "1",
+            EventSubSubscription.Id,
+            EventSubSubscription.Version,
             new Dictionary<string, string>
             {
-                ["broadcaster_user_id"] = "123" // FIXME: Replace with broadcaster's user id.
+                [EventSubBroadcasterIdKey] = "123" // FIXME: Replace with broadcaster's user id.
             }
         );
     }
@@ -230,11 +229,11 @@ public class TwitchClient
     private async Task SubscribeToGiftSubscriptionsAsync()
     {
         await SubscribeAsync(
-            "channel.subscription.gift",
-            "1",
+            EventSubSubscriptionGift.Id,
+            EventSubSubscriptionGift.Version,
             new Dictionary<string, string>
             {
-                ["broadcaster_user_id"] = "123" // FIXME: Replace with broadcaster's user id.
+                [EventSubBroadcasterIdKey] = "123" // FIXME: Replace with broadcaster's user id.
             }
         );
     }
@@ -242,11 +241,11 @@ public class TwitchClient
     private async Task SubscribeToCheersAsync()
     {
         await SubscribeAsync(
-            "channel.cheer",
-            "1",
+            EventSubChannelCheer.Id,
+            EventSubChannelCheer.Version,
             new Dictionary<string, string>
             {
-                ["broadcaster_user_id"] = "123" // FIXME: Replace with broadcaster's user id.
+                [EventSubBroadcasterIdKey] = "123" // FIXME: Replace with broadcaster's user id.
             }
         );
     }
@@ -254,11 +253,11 @@ public class TwitchClient
     private async Task SubscribeToRaidsAsync()
     {
         await SubscribeAsync(
-            "channel.raid",
-            "1",
+            EventSubRaid.Id,
+            EventSubRaid.Version,
             new Dictionary<string, string>
             {
-                ["to_broadcaster_user_id"] = "123" // FIXME: Replace with broadcaster's user id.
+                [EventSubBroadcasterIdKey] = "123" // FIXME: Replace with broadcaster's user id.
             }
         );
     }
@@ -266,11 +265,11 @@ public class TwitchClient
     private async Task SubscribeToCustomRewardRedemptionsAsync()
     {
         await SubscribeAsync(
-            "channel.channel_points_custom_reward_redemption.add",
-            "1",
+            EventSubCustomRewardRedemption.Id,
+            EventSubCustomRewardRedemption.Version,
             new Dictionary<string, string>
             {
-                ["broadcaster_user_id"] = "123" // FIXME: Replace with broadcaster's user id.
+                [EventSubBroadcasterIdKey] = "123" // FIXME: Replace with broadcaster's user id.
             }
         );
     }
@@ -278,11 +277,11 @@ public class TwitchClient
     private async Task SubscribeToPollEnd()
     {
         await SubscribeAsync(
-            "channel.poll.end",
-            "1",
+            EventSubChannelPollEnd.Id,
+            EventSubChannelPollEnd.Version,
             new Dictionary<string, string>
             {
-                ["broadcaster_user_id"] = "123" // FIXME: Replace with broadcaster's user id.
+                [EventSubBroadcasterIdKey] = "123" // FIXME: Replace with broadcaster's user id.
             }
         );
     }
@@ -290,6 +289,48 @@ public class TwitchClient
     private async Task SubscribeAsync(string type, string version, Dictionary<string, string> condition)
     {
         // FIXME: Insert token into this call.
-        await _helixApi.EventSub.CreateEventSubSubscriptionAsync(type, version, condition, EventSubTransportMethod.Websocket, _eventSubClient.SessionId);
+        // await _helixApi.EventSub.CreateEventSubSubscriptionAsync(type, version, condition, EventSubTransportMethod.Websocket, _eventSubClient.SessionId);
+    }
+
+    private static class EventSubChatMessage
+    {
+        public const string Id = "channel.chat.message";
+        public const string Version = "1";
+    }
+
+    private static class EventSubSubscription
+    {
+        public const string Id = "channel.subscribe";
+        public const string Version = "1";
+    }
+
+    private static class EventSubSubscriptionGift
+    {
+        public const string Id = "channel.subscription.gift";
+        public const string Version = "1";
+    }
+
+    private static class EventSubChannelPollEnd
+    {
+        public const string Id = "channel.poll.end";
+        public const string Version = "1";
+    }
+
+    private static class EventSubCustomRewardRedemption
+    {
+        public const string Id = "channel.channel_points_custom_reward_redemption.add";
+        public const string Version = "1";
+    }
+
+    private static class EventSubRaid
+    {
+        public const string Id = "channel.raid";
+        public const string Version = "1";
+    }
+
+    private static class EventSubChannelCheer
+    {
+        public const string Id = "channel.cheer";
+        public const string Version = "1";
     }
 }

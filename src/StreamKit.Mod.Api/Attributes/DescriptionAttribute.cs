@@ -24,7 +24,7 @@ using System;
 
 namespace StreamKit.Mod.Api.Attributes;
 
-[AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
 public sealed class DescriptionAttribute(string text, bool inline = true, bool isKey = false) : Attribute
 {
     /// <summary>

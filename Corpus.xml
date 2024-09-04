@@ -1,60 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Corpus>
     <Resources>
-        <!--        <ResourceBundle Root="Releases/native" Versioned="false">-->
+        <!--        <ResourceBundle Root="Common/Native" Versioned="false">-->
         <!--            <Resource Type="Dll" Name="git" Root="git"/>-->
         <!--            <Resource Type="Dll" Name="lua54" Root="lua54"/>-->
         <!--            <Resource Type="Dll" Name="sqlite3" Root="Sqlite3.Interop"/>-->
         <!--        </ResourceBundle>-->
         <ResourceBundle Root="Common/Libraries">
-            <Resource Type="NetStandardAssembly" Name="netstandard" />
-            <Resource Type="NetStandardAssembly" Name="FlatSharp.Runtime" />
+            <Resource Type="NetStandardAssembly" Name="netstandard" Optional="false" />
+            <Resource Type="NetStandardAssembly" Name="FlatSharp.Runtime" Optional="false" />
+            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.DependencyInjection" Optional="false" />
+            <Resource Type="NetStandardAssembly"
+                    Name="Microsoft.Extensions.DependencyInjection.Abstractions"
+                    Optional="false" />
+            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Logging" Optional="false" />
+            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Logging.Abstractions" Optional="false" />
+            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Options" Optional="false" />
+            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Primitives" Optional="false" />
+            <Resource Type="NetStandardAssembly" Name="System.Diagnostics.DiagnosticSource" Optional="false" />
+            <Resource Type="NetStandardAssembly" Name="Mono.Data.Sqlite" Optional="false" />
 
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core" />
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Enums" />
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Interfaces" />
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Models" />
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Helix" />
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Helix.Models" />
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.Communication" />
+            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core" /> -->
+            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Enums" /> -->
+            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Interfaces" /> -->
+            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Models" /> -->
+            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Helix" /> -->
+            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Helix.Models" /> -->
+            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Communication" /> -->
             <Resource Type="NetStandardAssembly" Name="TwitchLib.EventSub.Core" />
             <Resource Type="NetStandardAssembly" Name="TwitchLib.EventSub.Websockets" />
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.PubSub" />
 
-            <Resource Type="Assembly" Name="Mono.Data.Sqlite" />
+            <Resource Type="Assembly" Name="Bogus" Optional="true" />
+            <Resource Type="Assembly" Name="Dapper" Optional="false" />
+            <Resource Type="Assembly" Name="Remora.Results" Optional="false" />
+            <Resource Type="Assembly" Name="Tomlet" Optional="false" />
+            <Resource Type="Assembly" Name="ConcurrentCollections" Optional="false" />
+            <Resource Type="Assembly" Name="System.ValueTuple" Optional="false" />
+            <Resource Type="Assembly" Name="System.Numerics.Vectors" Optional="false" />
 
-            <Resource Type="Assembly" Name="Bogus" />
-            <Resource Type="Assembly" Name="Dapper" />
-            <Resource Type="Assembly" Name="Remora.Results" />
-            <Resource Type="Assembly" Name="Tomlet" />
-            <Resource Type="Assembly" Name="ConcurrentHashSet" />
-            <Resource Type="Assembly" Name="System.ValueTuple" />
-            <Resource Type="Assembly" Name="System.Numerics.Vectors" />
+            <Resource Type="Assembly" Name="System.Buffers" Optional="false" />
 
-            <Resource Type="Assembly" Name="System.Buffers" />
+            <Resource Type="Assembly" Name="System.Runtime.CompilerServices.Unsafe" Optional="false" />
+            <Resource Type="Assembly" Name="System.Threading.Tasks.Extensions" Optional="false" />
 
-            <Resource Type="Assembly" Name="System.Runtime.CompilerServices.Unsafe" />
-            <Resource Type="Assembly" Name="System.Threading.Tasks.Extensions" />
+            <Resource Type="Assembly" Name="Microsoft.Bcl.AsyncInterfaces" Optional="false" />
 
-            <Resource Type="Assembly" Name="Microsoft.Bcl.AsyncInterfaces" />
+            <Resource Type="Assembly" Name="System.Text.Encodings.Web" Optional="false" />
 
-            <Resource Type="Assembly" Name="System.Text.Encodings.Web" />
+            <Resource Type="Assembly" Name="System.Memory" Optional="false" />
 
-            <Resource Type="Assembly" Name="System.Memory" />
+            <Resource Type="Assembly" Name="System.Text.Json" Optional="false" />
+            <Resource Type="Assembly" Name="System.Collections.Immutable" Optional="false" />
 
-            <Resource Type="Assembly" Name="System.Text.Json" />
-            <Resource Type="Assembly" Name="System.Collections.Immutable" />
-
-            <Resource Type="Assembly" Name="StreamKit.Common.Data.Abstractions" />
-            <Resource Type="Assembly" Name="StreamKit.Common.Communication" />
-            <Resource Type="Assembly" Name="StreamKit.Common.Data" />
-            <Resource Type="Assembly" Name="StreamKit.Mod.Api" />
-            <Resource Type="Assembly" Name="StreamKit.Mod.Api.Serialization" />
-            <Resource Type="Assembly" Name="StreamKit.Mod.Integration.Twitch" />
+            <Resource Type="Assembly" Name="StreamKit.Common.Data.Abstractions" Optional="false" />
+            <Resource Type="Assembly" Name="StreamKit.Common.Communication" Optional="false" />
+            <Resource Type="Assembly" Name="StreamKit.Common.Data" Optional="false" />
+            <!--             <Resource Type="Assembly" Name="StreamKit.Mod.Integration.Twitch" /> -->
         </ResourceBundle>
 
         <ResourceBundle Root="Releases/Core" Versioned="true">
-            <Resource Type="Assembly" Name="StreamKit.Mod" Root="Assemblies" />
+            <Resource Type="Assembly" Name="StreamKit.Mod.Api" Optional="false" />
+            <Resource Type="Assembly" Name="StreamKit.Mod.Core" Optional="false" />
         </ResourceBundle>
     </Resources>
 </Corpus>

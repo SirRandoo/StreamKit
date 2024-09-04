@@ -26,6 +26,7 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using NLog;
+using StreamKit.Mod.Shared.Logging;
 
 namespace StreamKit.Mod.Api;
 
@@ -126,15 +127,7 @@ internal static class DomainIndexer
             return true;
         }
 
-        foreach (ConstructorInfo constructor in type.GetConstructors())
-        {
-            if (Array.Exists(constructor.GetParameters(), parameter => !parameter.HasDefaultValue))
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return Array.TrueForAll(type.GetConstructors(), constructor => !Array.Exists(constructor.GetParameters(), parameter => !parameter.HasDefaultValue));
     }
 
     private static T? CreateInstance<T>(Type type) where T : class

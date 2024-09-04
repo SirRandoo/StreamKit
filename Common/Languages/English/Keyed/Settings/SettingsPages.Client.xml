@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Settings.Pages.Client.GizmoPuff>Gizmo puff</StreamKit.Settings.Pages.Client.GizmoPuff>
+    <StreamKit.Settings.Pages.Client.Descriptions.GizmoPuff>When enabled, the interactive gizmo will display a small puff of smoke whenever it materializes an item.</StreamKit.Settings.Pages.Client.Descriptions.GizmoPuff>
+</LanguageData>

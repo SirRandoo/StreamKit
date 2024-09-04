@@ -30,35 +30,35 @@ internal static class TwitchTranscriber
             Id = message.ChatterUserId,
             Name = message.ChatterUserName,
             LastSeen = DateTime.UtcNow,
-            Privileges = TranscribeBadges(message.Badges),
+            Roles = TranscribeBadges(message.Badges),
             Platform = TwitchPlatformId
         },
         Content = message.Message.Text,
         ReceivedAt = DateTime.UtcNow
     };
 
-    private static UserPrivileges TranscribeBadges(params ChatBadge[] badges)
+    private static UserRoles TranscribeBadges(params ChatBadge[] badges)
     {
-        var root = UserPrivileges.None;
+        var root = UserRoles.None;
 
         foreach (ChatBadge badge in badges)
         {
             switch (badge.Id)
             {
                 case "moderator":
-                    root |= UserPrivileges.Moderator;
+                    root |= UserRoles.Moderator;
 
                     break;
                 case "vip":
-                    root |= UserPrivileges.Vip;
+                    root |= UserRoles.Vip;
 
                     break;
                 case "subscriber":
-                    root |= UserPrivileges.Subscriber;
+                    root |= UserRoles.Subscriber;
 
                     break;
                 case "broadcaster":
-                    root |= UserPrivileges.Moderator | UserPrivileges.Subscriber | UserPrivileges.Vip;
+                    root |= UserRoles.Moderator | UserRoles.Subscriber | UserRoles.Vip;
 
                     return root;
             }
@@ -103,7 +103,7 @@ internal static class TwitchTranscriber
         public DateTime LastSeen { get; set; }
 
         /// <inheritdoc />
-        public UserPrivileges Privileges { get; set; }
+        public UserRoles Roles { get; set; }
 
         /// <inheritdoc />
         public List<ITransaction> Transactions { get; set; } = null!;

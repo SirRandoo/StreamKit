@@ -6,15 +6,15 @@ namespace StreamKit.Common.Data.Abstractions;
 /// </summary>
 /// <param name="minimum">The lower bound of the range.</param>
 /// <param name="maximum">The upper bound of the range.</param>
-public struct ShortRange(short minimum = short.MinValue, short maximum = short.MaxValue)
+public class ShortRange(short minimum = short.MinValue, short maximum = short.MaxValue)
 {
     /// <summary>
     ///     The lower bound of the range.
     /// </summary>
-    public short Minimum = minimum;
+    public short Minimum { get; set; } = minimum;
 
     /// <summary>
     ///     The upper bound of the range.
     /// </summary>
-    public short Maximum = maximum;
+    public short Maximum { get; set; } = maximum;
 }

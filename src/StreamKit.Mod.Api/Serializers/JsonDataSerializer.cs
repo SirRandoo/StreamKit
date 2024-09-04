@@ -29,6 +29,11 @@ using Remora.Results;
 
 namespace StreamKit.Mod.Api;
 
+/// <summary>
+///     Represents a wrapper class around System.Text.Json's <see cref="JsonSerializer" /> that wraps
+///     exceptions in a <see cref="ExceptionError" /> instance.
+/// </summary>
+/// <param name="serializerOptions">The optional serializer options for the <see cref="JsonSerializer"/>.</param>
 public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null) : IDataSerializer
 {
     /// <inheritdoc />

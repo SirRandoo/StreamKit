@@ -20,9 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+
 namespace StreamKit.Common.Data.Abstractions;
+
+[Flags]
+public enum PlatformFeatures
+{
+    None = 0,
+    Polls = 1,
+    Raids = 2,
+    Redemptions = 4,
+    Extensions = 8,
+    Predicions = 16,
+    Subscriptions = 32,
+    GiftSubscriptions = 64
+}
 
 public interface IPlatform : IIdentifiable
 {
     byte[] IconData { get; set; }
+    PlatformFeatures Features { get; }
 }

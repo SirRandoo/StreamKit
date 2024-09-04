@@ -20,7 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Collections.Immutable;
+using System;
+using System.Collections.Generic;
 using ConcurrentCollections;
 using StreamKit.Mod.Api.Attributes;
 
@@ -37,14 +38,26 @@ public static class RuntimeConfig
     /// <summary>
     ///     Returns all flags currently set within the config.
     /// </summary>
-    public static ImmutableArray<string> AllFlags => [..Flags];
+    public static IReadOnlyList<string> AllFlags => [..Flags];
+
+    public static event EventHandler<RuntimeFlagChangedEventArgs>? RuntimeFlagChanged;
 
     /// <summary>
     ///     Sets a flag within the config.
     /// </summary>
     /// <param name="flag">The flag to set.</param>
     /// <returns>Whether the flag was added to the config.</returns>
-    public static bool SetFlag(string flag) => Flags.Add(flag);
+    public static bool SetFlag(string flag)
+    {
+        bool added = Flags.Add(flag);
+
+        if (added)
+        {
+            OnRuntimeFlagChanged(new RuntimeFlagChangedEventArgs { Flag = flag, Active = true });
+        }
+
+        return added;
+    }
 
     /// <summary>
     ///     Returns whether a flag is currently set within the config.
@@ -57,14 +70,39 @@ public static class RuntimeConfig
     /// </summary>
     /// <param name="flag">The flag to unset.</param>
     /// <returns>Whether the flag was removed from the config.</returns>
-    public static bool UnsetFlag(string flag) => Flags.TryRemove(flag);
+    public static bool UnsetFlag(string flag)
+    {
+        bool removed = Flags.TryRemove(flag);
+
+        if (removed)
+        {
+            OnRuntimeFlagChanged(new RuntimeFlagChangedEventArgs { Flag = flag, Active = false });
+        }
+
+        return removed;
+    }
 
     /// <summary>
     ///     Toggles a flag within the config.
     /// </summary>
-    /// <param name="flag">THe flag to toggle.</param>
+    /// <param name="flag">The flag to toggle.</param>
     /// <returns>Whether the flag was toggled.</returns>
-    public static bool ToggleFlag(string flag) => Flags.Contains(flag) ? Flags.TryRemove(flag) : Flags.Add(flag);
+    public static bool ToggleFlag(string flag)
+    {
+        bool changed = Flags.Contains(flag) ? Flags.TryRemove(flag) : Flags.Add(flag);
+
+        if (changed)
+        {
+            OnRuntimeFlagChanged(new RuntimeFlagChangedEventArgs { Flag = flag, Active = changed });
+        }
+
+        return changed;
+    }
+
+    private static void OnRuntimeFlagChanged(RuntimeFlagChangedEventArgs e)
+    {
+        RuntimeFlagChanged?.Invoke(null, e);
+    }
 
     /// <summary>
     ///     A container class that houses all flags that are supported by the mod.
@@ -72,11 +110,20 @@ public static class RuntimeConfig
     public static class RuntimeFlags
     {
         [Experimental]
-        [Description("Whether checkboxes throughout the mod's menus should be replaced by toggle sliders.")]
-        [Description("Toggle sliders are a type of input that can represent 'off' and 'on', where either is represented on the left and right of the slider.")]
-        [Description("A toggle slider is is typically used on the web and in mobile apps to represent a setting users can enable or disable.")]
-        [Description("The act of enabling or disabling a setting plays a small animation where a dot slides from one side to the other.")]
-        [Description("Toggling this flag will require you to reopen some menus, like the mod's settings menu.")]
-        public const string ToggleSliders = "ui.input.sliders";
+        [Description("Whether to disable Harmony's, the RimWorld mod's, stacktrace caching.")]
+        [Description("This flag should be active if you're actively experiencing a problem, since Harmony may remove important information from errors.")]
+        public const string DisableHarmonyStacktraceCaching = "dev.harmony.exception.cache.disable";
+
+        [Experimental]
+        [Description("Whether to disable Harmony, the RimWorld mod's, stacktrace enhancing.")]
+        [Description("If this flag isn't active, Harmony will adjust errors with patch information.")]
+        [Description("This flag should be active if you're actively experiencing a problem, since Harmony may remove important information from errors.")]
+        public const string DisableHarmonyStacktraceEnhancing = "dev.harmony.exception.prettifier.disable";
     }
+}
+
+public class RuntimeFlagChangedEventArgs : EventArgs
+{
+    public bool Active { get; init; }
+    public required string Flag { get; init; }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Errors.Input.ValueNaN>The value entered is not a valid number.</StreamKit.Errors.Input.ValueNaN>
+    <StreamKit.Errors.Input.ValueOutOfRange>The value entered must be between {0} and {1}</StreamKit.Errors.Input.ValueOutOfRange>
+    <StreamKit.Errors.Input.ValueTooHigh>The value entered must be less than or equal to {0}</StreamKit.Errors.Input.ValueTooHigh>
+    <StreamKit.Errors.Input.ValueTooLow>The value entered must be greater than or equal to {0}</StreamKit.Errors.Input.ValueTooLow>
+</LanguageData>

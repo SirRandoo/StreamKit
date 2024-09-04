@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Common.Text.Type>Type</StreamKit.Common.Text.Type>
+    <StreamKit.Common.Text.Karma>Karma</StreamKit.Common.Text.Karma>
+    <StreamKit.Common.Text.Amount>Amount</StreamKit.Common.Text.Amount>
+    <StreamKit.Common.Text.Cancel>Cancel</StreamKit.Common.Text.Cancel>
+    <StreamKit.Common.Text.Balance>Balance</StreamKit.Common.Text.Balance>
+    <StreamKit.Common.Text.Confirm>Confirm</StreamKit.Common.Text.Confirm>
+    <StreamKit.Common.Text.Username>Username</StreamKit.Common.Text.Username>
+
+    <StreamKit.Common.Text.Vip>Vip</StreamKit.Common.Text.Vip>
+    <StreamKit.Common.Text.Moderator>Moderator</StreamKit.Common.Text.Moderator>
+    <StreamKit.Common.Text.Subscriber>Subscriber</StreamKit.Common.Text.Subscriber>
+</LanguageData>

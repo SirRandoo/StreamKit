@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <StreamKit.Settings.Pages.Poll.Duration>Duration</StreamKit.Settings.Pages.Poll.Duration>
+    <StreamKit.Settings.Pages.Poll.Descriptions.Duration>The amount of time viewers have to cast their votes on any polls within the mod.</StreamKit.Settings.Pages.Poll.Descriptions.Duration>
+
+    <StreamKit.Settings.Pages.Poll.MaximumOptions>Maximum options</StreamKit.Settings.Pages.Poll.MaximumOptions>
+    <StreamKit.Settings.Pages.Poll.Descriptions.MaximumOptions>The maximum number of options that can be present in any given poll.</StreamKit.Settings.Pages.Poll.Descriptions.MaximumOptions>
+
+    <StreamKit.Settings.Pages.Poll.NativePolls>Prefer native polls</StreamKit.Settings.Pages.Poll.NativePolls>
+    <StreamKit.Settings.Pages.Poll.Descriptions.NativePolls>If enabled, the mod will prefer creating native polls on supported platforms instead of using an in-game display.</StreamKit.Settings.Pages.Poll.Descriptions.NativePolls>
+
+    <StreamKit.Settings.Pages.Poll.ShowPollDialog>Show poll dialog</StreamKit.Settings.Pages.Poll.ShowPollDialog>
+    <StreamKit.Settings.Pages.Poll.Descriptions.ShowPollDialog>When enabled. the mod will display a window for the active poll, if any. This setting is ignored if 'native polls' is enabled.</StreamKit.Settings.Pages.Poll.Descriptions.ShowPollDialog>
+
+    <StreamKit.Settings.Pages.Poll.UseLargeText>Use larger text in the poll dialog</StreamKit.Settings.Pages.Poll.UseLargeText>
+    <StreamKit.Settings.Pages.Poll.Descriptions.UseLargeText>When enabled, a larger text will be used in the poll dialog. This setting can be useful for streamers.</StreamKit.Settings.Pages.Poll.Descriptions.UseLargeText>
+
+    <StreamKit.Settings.Pages.Poll.AnimatedVotes>Animated votes</StreamKit.Settings.Pages.Poll.AnimatedVotes>
+    <StreamKit.Settings.Pages.Poll.Descriptions.AnimatedVotes>When enabled, the poll dialog will animate the votes as they are casted.</StreamKit.Settings.Pages.Poll.Descriptions.AnimatedVotes>
+
+    <StreamKit.Settings.Pages.Poll.GenerateRandomPolls>Generate random polls</StreamKit.Settings.Pages.Poll.GenerateRandomPolls>
+    <StreamKit.Settings.Pages.Poll.Descriptions.GenerateRandomPolls>When enabled, the mod will generate random polls from the game's interval event list, including events added by other mods.</StreamKit.Settings.Pages.Poll.Descriptions.GenerateRandomPolls>
+
+    <StreamKit.Settings.Pages.Poll.OptionsInChat>Options in chat</StreamKit.Settings.Pages.Poll.OptionsInChat>
+    <StreamKit.Settings.Pages.Poll.Descriptions.OptionsInChat>When enabled, the mod will send poll options in chat alongside the number viewers may put in chat to vote for said option.</StreamKit.Settings.Pages.Poll.Descriptions.OptionsInChat>
+</LanguageData>

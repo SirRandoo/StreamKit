@@ -1,11 +1,28 @@
 <Project>
     <PropertyGroup>
+        <RimWorldVersion>1.5.4104</RimWorldVersion>
+        <RimVersionMajorMinor>$([System.Version]::Parse($(RimWorldVersion)).ToString(2))</RimVersionMajorMinor>
+    </PropertyGroup>
+
+    <Choose>
+        <When Condition="'$([System.Version]::Parse($(RimWorldVersion)).Revision' != ''">
+            <PropertyGroup>
+                <RimRefVersionString>$(RimWorldVersion).*</RimRefVersionString>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <RimRefVersionString>$(RimWorldVersion)</RimRefVersionString>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
+
+    <PropertyGroup>
         <_IsModProject>$(MSBuildProjectName.Contains('Mod'))</_IsModProject>
         <_IsCommonProject>$(MSBuildProjectName.Contains('Common'))</_IsCommonProject>
         <_IsServerProject>$(MSBuildProjectName.Contains('Server'))</_IsServerProject>
         <_IsWrapperProject>$(MSBuildProjectName.Contains('Wrapper'))</_IsWrapperProject>
         <_IsBootstrapProject>$(MSBuildProjectName.Contains('Bootstrap'))</_IsBootstrapProject>
-        <_IsRimWorldProject>$([System.Text.RegularExpressions.Regex]::IsMatch("$(MSBuildProjectName)", "(\w+.?)?RW\d+$"))</_IsRimWorldProject>
     </PropertyGroup>
 
     <Choose>
@@ -35,17 +52,11 @@
         <DefineConstants>$(DefineConstants);STREAMKIT_WRAPPER</DefineConstants>
     </PropertyGroup>
 
-    <PropertyGroup Condition="$(_IsRimWorldProject)">
-        <_RimWorldVersionSegments>$([System.Text.RegularExpressions.Regex]::Match("$(MSBuildProjectName)", "(?:\w+.?)([0-9])([0-9])([0-9]*)$").Groups)</_RimWorldVersionSegments>
-        <_RimWorldMajorSegment>$(_RimWorldVersionSegments.Split(';')[1])</_RimWorldMajorSegment>
-        <_RimWorldMinorSegment>$(_RimWorldVersionSegments.Split(';')[2])</_RimWorldMinorSegment>
-        <_RimWorldBuildSegment Condition="$(_RimWorldVersionSegments.Split(';').Length) &gt; 3">$(_RimWorldVersionSegments.Split(';')[3])</_RimWorldBuildSegment>
-
-        <_RimWorldMajorMinorVersion>$(_RimWorldMajorSegment).$(_RimWorldMinorSegment)</_RimWorldMajorMinorVersion>
+    <PropertyGroup Condition="$(_IsModProject)">
         <_RimWorldVersion Condition="'$(_RimWorldBuildSegment)' == ''">$(_RimWorldMajorMinorVersion)</_RimWorldVersion>
         <_RimWorldVersion Condition="'$(_RimWorldBuildSegment)' != ''">$(_RimWorldMajorMinorVersion).$(_RimWorldBuildSegment)</_RimWorldVersion>
-        <_RimWorldVersionTransformed>$(_RimWorldVersion.Replace('.', ''))</_RimWorldVersionTransformed>
-        <_RimWorldMajorMinorVersionTransformed>$(_RimWorldMajorMinorVersion.Replace('.', ''))</_RimWorldMajorMinorVersionTransformed>
+        <_RimWorldVersionTransformed>$(RimWorldVersion.Replace('.', ''))</_RimWorldVersionTransformed>
+        <_RimWorldMajorMinorVersionTransformed>$(RimVersionMajorMinor.Replace('.', ''))</_RimWorldMajorMinorVersionTransformed>
 
         <DefineConstants>$(DefineConstants);RW_$(_RimWorldVersionTransformed);RW_$(_RimWorldVersionTransformed)_OR_LOWER</DefineConstants>
         <DefineConstants>$(DefineConstants);STREAMKIT_RIMWORLD;RW_$(_RimWorldMajorMinorVersionTransformed);RW_$(_RimWorldMajorMinorVersionTransformed)_OR_LOWER</DefineConstants>

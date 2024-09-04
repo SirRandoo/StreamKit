@@ -35,7 +35,7 @@ CREATE TABLE Products
     /*
         The category of the product.
 
-        A product may be apart of a category, but it may also be uncategorized,
+        A product may be a part of a category, but it may also be uncategorized,
         as in the case of pawns, traits, or adulthood and childhood products.
      */
     product_category  TEXT NULL,

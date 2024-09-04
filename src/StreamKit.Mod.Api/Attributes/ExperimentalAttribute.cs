@@ -28,7 +28,7 @@ namespace StreamKit.Mod.Api.Attributes;
 ///     An attribute used to indicate to certain systems that the attributed setting is considered
 ///     "experimental."
 /// </summary>
-[AttributeUsage(AttributeTargets.All, Inherited = false)]
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 public sealed class ExperimentalAttribute : Attribute
 {
 }

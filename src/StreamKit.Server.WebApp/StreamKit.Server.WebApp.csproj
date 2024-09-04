@@ -8,9 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore.Server" Version="2.62.0" />
-        <PackageReference Include="Grpc.AspNetCore.Server.ClientFactory" Version="2.62.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.4" />
+        <PackageReference Include="Dapper" />
+        <PackageReference Include="Grpc.AspNetCore.Server.ClientFactory" Version="2.63.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" />
+        <PackageReference Include="Npgsql" />
     </ItemGroup>
 
     <ItemGroup>
@@ -21,6 +23,15 @@
         </Content>
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageVersion Update="Microsoft.AspNetCore.SpaProxy" Version="8.0.7" />
+      <PackageVersion Update="Grpc.AspNetCore.Server.ClientFactory" Version="2.64.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\StreamKit.Common.Data.Abstractions\StreamKit.Common.Data.Abstractions.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
