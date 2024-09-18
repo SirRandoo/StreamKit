@@ -1,0 +1,32 @@
+#top, #left, #right, #bottom {
+  background: var(--immersive-window-border-color);
+  position: fixed;
+}
+
+#left, #right {
+  top: 0;
+  bottom: 0;
+  width: var(--standard-border-width);
+}
+
+#left {
+  left: 0;
+}
+
+#right {
+  right: 0;
+}
+
+#top, #bottom {
+  left: 0;
+  right: 0;
+  height: var(--standard-border-width);
+}
+
+#top {
+  top: 0;
+}
+
+#bottom {
+  bottom: 0;
+}
