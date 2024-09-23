@@ -1,20 +1,15 @@
 <header>
-  <nav>
-    <div class="immersive-nav">
-      <a [routerLink]="['/']" class="immersive-header immersive-content">StreamKit</a>
-      <ul class="immersive-nav-items">
-        <li>
-          <a [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/']" class="immersive-state-button immersive-content"
-             routerLinkActive="active">Home</a>
-        </li>
-        <li>
-          <a [routerLink]="['/counter']" class="immersive-state-button immersive-content" routerLinkActive="active">Counter</a>
-        </li>
-        <li>
-          <a [routerLink]="['/fetch-data']" class="immersive-state-button immersive-content" routerLinkActive="active">Fetch
-            data</a>
-        </li>
-      </ul>
-    </div>
+  <nav class="immersive-content stealth-link">
+    <a [routerLink]="['/']" class="immersive-header">StreamKit</a>
+    <ul class="immersive-nav-items">
+      <li>
+        <a [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/']"
+           class="immersive-state-button"
+           routerLinkActive="active">Home</a>
+      </li>
+      <li>
+        <a [routerLink]="['/settings']" class="immersive-state-button" routerLinkActive="active">Settings</a>
+      </li>
+    </ul>
   </nav>
 </header>

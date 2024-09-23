@@ -1,0 +1,13 @@
+<app-immersive-form-row>
+  <label for="{{id()}}">{{ label() }}</label>
+  <input [(ngModel)]="contents"
+         [attr.placeholder]="hasPlaceholder ? placeholder() : undefined"
+         class="immersive-number-field"
+         id="{{id()}}"
+         spellcheck="true"
+         type="number">
+</app-immersive-form-row>
+
+@if(hasDescription) {
+  <app-immersive-description [content]="String(description())" />
+}

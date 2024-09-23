@@ -129,11 +129,69 @@
               "buildOptimizer": true
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "immersive-reality": {
+      "projectType": "library",
+      "root": "projects/immersive-reality",
+      "sourceRoot": "projects/immersive-reality/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/immersive-reality/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/immersive-reality/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/immersive-reality/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/immersive-reality/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/immersive-reality/**/*.ts",
+              "projects/immersive-reality/**/*.html"
+            ],
+            "eslintConfig": "projects/immersive-reality/eslint.config.js"
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ],
+    "cache": {
+      "enabled": true
+    }
   }
 }

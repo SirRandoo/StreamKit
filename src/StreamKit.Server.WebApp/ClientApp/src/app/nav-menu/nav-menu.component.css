@@ -1,0 +1,15 @@
+.immersive-nav-items {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+
+  li {
+    display: inline-flex;
+  }
+
+  li:nth-child(even) {
+    padding-left: var(--standard-nav-item-padding);
+    padding-right: var(--standard-nav-item-padding);
+  }
+}

@@ -1,0 +1,8 @@
+<input [(ngModel)]="checked" [attr.checked]="checked()"
+       class="immersive-checkbox"
+       id="{{id()}}" type="checkbox">
+<label for="{{id()}}">{{ label() }}</label>
+
+@if (hasDescription) {
+  <app-immersive-description [content]="String(description())" />
+}

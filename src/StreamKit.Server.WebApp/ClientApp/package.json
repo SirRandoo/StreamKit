@@ -10,7 +10,8 @@
     "build": "ng build",
     "build:ssr": "ng run StreamKit.Server.WebApp:server:dev",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^18.2.3",
     "@angular/platform-server": "^18.2.3",
     "@angular/router": "^18.2.3",
+    "@ng-select/ng-select": "^13.8.1",
     "@popperjs/core": "^2.11.8",
     "jquery": "^3.6.4",
     "oidc-client": "^1.11.5",
@@ -38,13 +40,17 @@
     "@types/jasmine": "~4.3.1",
     "@types/jasminewd2": "~2.0.10",
     "@types/node": "^18.16.3",
+    "angular-eslint": "18.3.1",
+    "eslint": "^9.9.1",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^2.0.0",
-    "typescript": "~5.5.4"
+    "ng-packagr": "^18.2.0",
+    "typescript": "~5.5.4",
+    "typescript-eslint": "8.2.0"
   },
   "overrides": {
     "autoprefixer": "10.4.5",

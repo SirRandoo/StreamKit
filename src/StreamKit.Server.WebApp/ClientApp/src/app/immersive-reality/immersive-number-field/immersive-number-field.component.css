@@ -1,0 +1,10 @@
+.immersive-number-field {
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  height: 22px;
+  color: white;
+  max-width: 25%;
+  border-color: var(--immersive-text-field-border-color);
+  background-color: var(--immersive-text-field-background-color);
+}

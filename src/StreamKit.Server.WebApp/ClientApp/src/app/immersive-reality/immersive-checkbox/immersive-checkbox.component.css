@@ -1,0 +1,27 @@
+:root {
+  --immersive-checkbox-size: 16px;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  background: url("/assets/x-mark.png") no-repeat right center;
+  background-size: contain;
+  height: var(--immersive-checkbox-size);
+  display: inline-block;
+  padding: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+input[type="checkbox"]:checked + label {
+  background: url("/assets/check.png") no-repeat right center;
+  background-size: contain;
+  height: var(--immersive-checkbox-size);
+  display: inline-block;
+  padding: 0;
+  width: 100%;
+  z-index: 100;
+}

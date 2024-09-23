@@ -1,0 +1,13 @@
+.immersive-button {
+  background-color: var(--immersive-button-inner-color);
+  border-left-color: var(--immersive-button-indent-color);
+  border-bottom-color: var(--immersive-button-indent-color);
+  border-top-color: var(--immersive-button-outdent-color);
+  border-right-color: var(--immersive-button-outdent-color);
+
+  border-style: solid;
+  border-width: 4px;
+
+  padding: 0.4rem;
+  text-decoration: none;
+}

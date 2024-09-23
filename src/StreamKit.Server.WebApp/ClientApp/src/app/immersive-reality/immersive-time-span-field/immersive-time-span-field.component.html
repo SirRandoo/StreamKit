@@ -1,0 +1,22 @@
+<app-immersive-form-row>
+  <label for="{{id()}}">{{ label() }}</label>
+
+  <div class="immersive-time-span-combo-wombo">
+    <input [(ngModel)]="contents"
+           [attr.placeholder]="hasPlaceholder ? placeholder() : undefined"
+           class="immersive-time-span-field"
+           id="{{id()}}"
+           spellcheck="true"
+           type="text">
+    <select class="immersive-time-span-dropdown" #dropdown (change)="processSelection(dropdown.value)">
+      <option>Seconds</option>
+      <option>Minutes</option>
+      <option>Hours</option>
+      <option>Days</option>
+    </select>
+  </div>
+</app-immersive-form-row>
+
+@if(hasDescription) {
+  <app-immersive-description [content]="String(description())" />
+}

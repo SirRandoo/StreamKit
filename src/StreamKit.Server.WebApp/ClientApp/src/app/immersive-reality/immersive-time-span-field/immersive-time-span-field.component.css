@@ -1,0 +1,43 @@
+:root {
+  --immersive-dropdown-background-color: rgba(255, 255, 255, 1);
+}
+
+.immersive-time-span-combo-wombo {
+  max-width: 30%;
+  text-align: right;
+  position: relative;
+
+  input {
+    position: relative;
+    max-width: 35%;
+  }
+
+  select {
+    position: relative;
+    max-width: 50%;
+  }
+}
+
+.immersive-time-span-field {
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  height: 22px;
+  color: white;
+  border-color: var(--immersive-text-field-border-color);
+  background-color: var(--immersive-text-field-background-color);
+}
+
+.immersive-time-span-dropdown {
+  border-style: solid;
+  border-width: 1px;
+  height: 26px;
+  color: white;
+  border-color: var(--immersive-text-field-border-color);
+  background-color: rgba(255, 255, 255, 0.1);
+
+  option {
+    color: white;
+    background-color: var(--immersive-text-field-background-color);
+  }
+}

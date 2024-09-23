@@ -1,0 +1,11 @@
+.immersive-form-row {
+  margin: 0;
+  padding: 0;
+  min-height: var(--standard-line-height);
+  max-height: calc(var(--standard-line-height) * 1.25);
+
+  width: 100%;
+  align-items: center;
+  display: inline-flex;
+  justify-content: space-between;
+}
