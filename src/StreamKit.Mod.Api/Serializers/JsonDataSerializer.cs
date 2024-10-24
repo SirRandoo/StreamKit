@@ -24,8 +24,10 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Remora.Results;
+using NLog;
+using StreamKit.Mod.Shared.Logging;
 
 namespace StreamKit.Mod.Api;
 
@@ -33,11 +35,19 @@ namespace StreamKit.Mod.Api;
 ///     Represents a wrapper class around System.Text.Json's <see cref="JsonSerializer" /> that wraps
 ///     exceptions in a <see cref="ExceptionError" /> instance.
 /// </summary>
-/// <param name="serializerOptions">The optional serializer options for the <see cref="JsonSerializer"/>.</param>
+/// <param name="serializerOptions">
+///     The optional serializer options for the
+///     <see cref="JsonSerializer" />.
+/// </param>
 public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null) : IDataSerializer
 {
+    private static readonly Logger Logger = KitLogManager.GetLogger<JsonDataSerializer>();
+    private static readonly Lazy<JsonDataSerializer> DefaultSerializer = new(CreateDefaultInstance);
+
+    public static JsonDataSerializer Default => DefaultSerializer.Value;
+
     /// <inheritdoc />
-    public Result<T> Deserialize<T>(Stream stream)
+    public T? Deserialize<T>(Stream stream)
     {
         try
         {
@@ -45,27 +55,27 @@ public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null)
         }
         catch (Exception e)
         {
-            return new ExceptionError(e, "Could not deserialize json object from stream");
+            Logger.Error(e, "Error deserializing json object from stream");
+
+            return default;
         }
     }
 
     /// <inheritdoc />
-    public Result Serialize<T>(Stream stream, [DisallowNull] T data)
+    public void Serialize<T>(Stream stream, [DisallowNull] T data)
     {
         try
         {
             JsonSerializer.Serialize(stream, data, serializerOptions);
-
-            return Result.Success;
         }
         catch (Exception e)
         {
-            return new ExceptionError(e, "Could not serialize json object into stream.");
+            Logger.Error(e, "Error serializing json object into stream");
         }
     }
 
     /// <inheritdoc />
-    public async Task<Result<T>> DeserializeAsync<T>(Stream stream)
+    public async Task<T?> DeserializeAsync<T>(Stream stream)
     {
         try
         {
@@ -73,22 +83,33 @@ public class JsonDataSerializer(JsonSerializerOptions? serializerOptions = null)
         }
         catch (Exception e)
         {
-            return new ExceptionError(e, "Could not deserialize json object from stream");
+            Logger.Error(e, "Error deserializing json object from stream");
+
+            return default;
         }
     }
 
     /// <inheritdoc />
-    public async Task<Result> SerializeAsync<T>(Stream stream, [DisallowNull] T data)
+    public async Task SerializeAsync<T>(Stream stream, [DisallowNull] T data)
     {
         try
         {
             await JsonSerializer.SerializeAsync(stream, data);
-
-            return Result.Success;
         }
         catch (Exception e)
         {
-            return new ExceptionError(e, "Could not serialize json object into stream");
+            Logger.Error(e, "Error serializing json object into stream");
         }
     }
+
+    private static JsonDataSerializer CreateDefaultInstance() => new(
+        new JsonSerializerOptions(JsonSerializerDefaults.General)
+        {
+            NumberHandling = JsonNumberHandling.Strict,
+            ReadCommentHandling = JsonCommentHandling.Skip,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            AllowTrailingCommas = true,
+            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
+        }
+    );
 }

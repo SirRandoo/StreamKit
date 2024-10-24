@@ -40,6 +40,9 @@ public static class RuntimeConfig
     /// </summary>
     public static IReadOnlyList<string> AllFlags => [..Flags];
 
+    /// <summary>
+    ///     Raised when a flag is (un)set.
+    /// </summary>
     public static event EventHandler<RuntimeFlagChangedEventArgs>? RuntimeFlagChanged;
 
     /// <summary>

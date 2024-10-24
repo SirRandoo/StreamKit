@@ -21,11 +21,10 @@
 // SOFTWARE.
 
 using RimWorld;
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Extensions;
-using SirRandoo.UX.Helpers;
-using StreamKit.Common.Data.Abstractions;
 using StreamKit.Mod.Core.Settings;
+using StreamKit.Shared;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 
@@ -70,7 +69,7 @@ public class PawnSettingsPage : SettingsPage
     private void DrawPawnPoolingSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.PawnPool);
@@ -93,23 +92,15 @@ public class PawnSettingsPage : SettingsPage
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.PawnPoolRestrictions);
         listing.DrawDescription(KitTranslations.PawnPoolRestrictionsDescription);
 
-        fieldRegion.SetHeight(Text.SmallFontHeight);
+        fieldRegion.height = Text.SmallFontHeight;
 
         CheckboxDrawer.DrawCheckbox(fieldRegion, KitTranslations.CommonTextVip, ref isVip, TextAnchor.MiddleRight);
 
-        CheckboxDrawer.DrawCheckbox(
-            RectExtensions.Shift(ref fieldRegion, Direction8Way.South, 0f),
-            KitTranslations.CommonTextSubscriber,
-            ref isSubscriber,
-            TextAnchor.MiddleRight
-        );
+        fieldRegion = fieldRegion.Shift(Direction8Way.South, 0f);
+        CheckboxDrawer.DrawCheckbox(fieldRegion, KitTranslations.CommonTextSubscriber, ref isSubscriber, TextAnchor.MiddleRight);
 
-        CheckboxDrawer.DrawCheckbox(
-            RectExtensions.Shift(ref fieldRegion, Direction8Way.South, 0f),
-            KitTranslations.CommonTextModerator,
-            ref isModerator,
-            TextAnchor.MiddleRight
-        );
+        fieldRegion.Shift(Direction8Way.South, 0f);
+        CheckboxDrawer.DrawCheckbox(fieldRegion, KitTranslations.CommonTextModerator, ref isModerator, TextAnchor.MiddleRight);
 
         GUI.color = Color.white;
 
@@ -136,7 +127,7 @@ public class PawnSettingsPage : SettingsPage
     private void DrawPawnVacationingSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.PawnVacationing);
@@ -165,7 +156,7 @@ public class PawnSettingsPage : SettingsPage
     private void DrawEmergencyWorkCrisisSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.EmergencyWorkCrisis);

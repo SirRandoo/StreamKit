@@ -1,31 +1,35 @@
 ﻿<Project>
-    <Import Project="Properties/Metadata.props"/>
-    <Import Project="Properties/Constants.props"/>
-
     <!-- Language Metadata -->
     <PropertyGroup>
         <Nullable>enable</Nullable>
         <OutputType>Library</OutputType>
         <LangVersion>preview</LangVersion>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     </PropertyGroup>
 
-    <Choose>
-        <When Condition="$(DefineConstants.Contains('STREAMKIT_SERVER'))">
-            <PropertyGroup>
-                <TargetFrameworks>net8.0</TargetFrameworks>
-            </PropertyGroup>
-        </When>
-        <When Condition="$(DefineConstants.Contains('STREAMKIT_COMMON'))">
-            <PropertyGroup>
-                <TargetFrameworks>net48;net8.0</TargetFrameworks>
-            </PropertyGroup>
-        </When>
-        <Otherwise>
-            <PropertyGroup>
-                <TargetFrameworks>net48</TargetFrameworks>
-            </PropertyGroup>
-        </Otherwise>
-    </Choose>
+    <!-- Licensing -->
+    <PropertyGroup>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+    </PropertyGroup>
 
-    <Import Project="Properties/Output.props"/>
+    <!-- Product Information -->
+    <PropertyGroup>
+        <Product>StreamKit</Product>
+        <Authors>SirRandoo</Authors>
+        <Copyright>Copyright (c) $([System.DateTime]::Now.ToString("yyyy")) SirRandoo</Copyright>
+        <Description>A component of "StreamKit", a services for the game "RimWorld" that provides allows viewers to affect the game with digital currency they accumulate passively.</Description>
+
+        <!-- Urls -->
+        <RepositoryUrl>https://github.com/sirrandoo/StreamKit</RepositoryUrl>
+        <PackageProjectUrl>https://docs.sirrandoo.com/streamkit</PackageProjectUrl>
+
+        <!-- Misc -->
+        <RepositoryType>git</RepositoryType>
+    </PropertyGroup>
+
+    <!-- Package Information -->
+    <PropertyGroup>
+        <Version>0.1.0</Version>
+    </PropertyGroup>
 </Project>

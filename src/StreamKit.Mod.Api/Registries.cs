@@ -20,7 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using StreamKit.Common.Data.Abstractions;
+using StreamKit.Shared.Interfaces;
+using StreamKit.Shared.Registries;
 
 namespace StreamKit.Mod.Api;
 
@@ -35,6 +36,7 @@ public static class Registries
     public static readonly IRegistry<IProduct> PawnRegistry = new SynchronisedRegistry<IProduct>();
     public static readonly IRegistry<IProduct> EventRegistry = new SynchronisedRegistry<IProduct>();
 
-    public static readonly IRegistry<IPlatform> PlatformRegistry = new MutableRegistry<IPlatform>(DomainIndexer.IndexFor<IPlatform>());
-    public static readonly IRegistry<IComponent> ComponentRegistry = new MutableRegistry<IComponent>(DomainIndexer.IndexFor<IComponent>());
+    public static readonly IRegistry<ILedger> LedgerRegistry = MutableRegistry<ILedger>.CreateInstance([]);
+    public static readonly IReadOnlyRegistry<IPlatform> PlatformRegistry = FrozenRegistry<IPlatform>.CreateInstance(DomainIndexer.IndexFor<IPlatform>());
+    public static readonly IReadOnlyRegistry<IComponent> ComponentRegistry = FrozenRegistry<IComponent>.CreateInstance(DomainIndexer.IndexFor<IComponent>());
 }

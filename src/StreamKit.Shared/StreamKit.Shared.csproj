@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Runtime properties -->
+    <PropertyGroup>
+        <TargetFrameworks>net48;net8.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <!-- NuGet properties -->
+    <PropertyGroup>
+        <Description>Houses code shared between the web server and the mod ("StreamKit," a mod for the game "RimWorld").</Description>
+    </PropertyGroup>
+    
+    <!-- Package references -->
+    <ItemGroup>
+        <PackageReference Include="PolySharp" />
+        <PackageReference Include="System.Text.Json" />
+        <PackageReference Include="ConcurrentHashSet" />
+        <PackageReference Include="NetEscapades.EnumGenerators" />
+        <PackageReference Include="Microsoft.Extensions.Logging" />
+        <PackageReference Include="System.Collections.Immutable" />
+        <PackageReference Include="JetBrains.Annotations" PrivateAssets="all"/>
+    </ItemGroup>
+</Project>

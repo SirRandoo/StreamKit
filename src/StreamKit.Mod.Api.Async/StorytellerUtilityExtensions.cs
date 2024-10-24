@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using RimWorld;
 
 namespace StreamKit.Mod.Api.Async;
@@ -34,6 +35,7 @@ namespace StreamKit.Mod.Api.Async;
 ///     with care as RimWorld was not designed with asynchronous code in
 ///     mind.
 /// </remarks>
+[PublicAPI]
 public static class StorytellerUtilityExtensions
 {
     /// <inheritdoc cref="StorytellerUtility.DefaultParmsNow" />

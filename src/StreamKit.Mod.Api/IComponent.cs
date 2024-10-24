@@ -20,24 +20,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using StreamKit.Common.Data.Abstractions;
+using StreamKit.Shared.Interfaces;
 
 namespace StreamKit.Mod.Api;
 
-/// <summary>
-///     Identifies a modular piece of the mod.
-/// </summary>
+/// <summary>Identifies a modular piece of the mod.</summary>
 public interface IComponent : IIdentifiable
 {
     /// <summary>
-    ///     A <see cref="IComponentSettings" /> implementation that houses the settings that were loaded
-    ///     from the <see cref="SettingsProvider" />.
+    ///     A <see cref="IComponentSettings" /> implementation that houses the settings that were
+    ///     loaded from the <see cref="SettingsProvider" />.
     /// </summary>
     IComponentSettings? Settings { get; set; }
 
     /// <summary>
-    ///     A <see cref="ISettingsProvider" /> implementation responsible for managing settings for the
-    ///     component.
+    ///     A <see cref="ISettingsProvider" /> implementation responsible for managing settings for
+    ///     the component.
     /// </summary>
-    ISettingsProvider SettingsProvider { get; }
+    ISettingsProvider<IComponentSettings> SettingsProvider { get; }
 }

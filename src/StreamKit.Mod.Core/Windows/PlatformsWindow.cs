@@ -22,15 +22,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using RimWorld;
-using SirRandoo.UX;
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Extensions;
-using SirRandoo.UX.Helpers;
-using StreamKit.Common.Data.Abstractions;
 using StreamKit.Mod.Api;
 using StreamKit.Mod.Shared.Logging;
+using StreamKit.Shared.Interfaces;
+using StreamKit.UX;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 using Logger = NLog.Logger;
@@ -75,14 +73,14 @@ public class PlatformsWindow : Window
         GUI.BeginGroup(inRect);
 
         GUI.BeginGroup(platformListRegion);
-        DrawPlatformOverview(GenUI.AtZero(platformListRegion));
+        DrawPlatformOverview(platformListRegion.AtZero());
         GUI.EndGroup();
 
         GUI.BeginGroup(contentRegion);
 
         if (_platform != null)
         {
-            DrawPlatformPanel(GenUI.AtZero(contentRegion));
+            DrawPlatformPanel(contentRegion.AtZero());
         }
 
         GUI.EndGroup();
@@ -94,16 +92,16 @@ public class PlatformsWindow : Window
     {
         var searchRegion = new Rect(0f, 0f, region.width, UiConstants.LineHeight);
         var listRegion = new Rect(0f, UiConstants.LineHeight + 10f, region.width, region.height - UiConstants.LineHeight - 10f);
-        Rect innerListRegion = GenUI.ContractedBy(listRegion, 5f);
+        Rect innerListRegion = listRegion.ContractedBy(5f);
 
         GUI.BeginGroup(searchRegion);
-        _searchWidget.OnGUI(GenUI.AtZero(searchRegion), FilterPlatformList);
+        _searchWidget.OnGUI(searchRegion.AtZero(), FilterPlatformList);
         GUI.EndGroup();
 
         Widgets.DrawMenuSection(listRegion);
 
         GUI.BeginGroup(innerListRegion);
-        DrawPlatformList(GenUI.AtZero(innerListRegion));
+        DrawPlatformList(innerListRegion.AtZero());
         GUI.EndGroup();
     }
 
@@ -210,7 +208,7 @@ public class PlatformsWindow : Window
         Logger.Info("Creating debug instance of the 'platforms window'...");
 
         var iconMap = new Dictionary<string, Texture2D>();
-        IList<IPlatform> platforms = PseudoDataGenerator.Platforms.AllRegistrants;
+        IReadOnlyList<IPlatform> platforms = PseudoDataGenerator.Platforms.AllRegistrants;
 
         for (var index = 0; index < platforms.Count; index++)
         {
@@ -219,13 +217,7 @@ public class PlatformsWindow : Window
             iconMap.Add(platform.Id, GetIconFor(platform.Id));
         }
 
-        return new PlatformsWindow
-        {
-            _isDebugInstance = true,
-            _workingList = new ReadOnlyCollection<IPlatform>(platforms),
-            _platforms = new ReadOnlyCollection<IPlatform>(platforms),
-            _platformIcons = iconMap
-        };
+        return new PlatformsWindow { _isDebugInstance = true, _workingList = platforms, _platforms = platforms, _platformIcons = iconMap };
     }
 
     private static Texture2D GetIconFor(string platformId)

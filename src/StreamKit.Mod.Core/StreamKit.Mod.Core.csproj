@@ -1,18 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Krafs.Rimworld.Ref" ExcludeAssets="runtime" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\..\SirRandoo.UX\src\SirRandoo.UX\SirRandoo.UX.csproj" />
         <ProjectReference Include="..\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj" />
         <ProjectReference Include="..\StreamKit.Mod.Shared\StreamKit.Mod.Shared.csproj" ExcludeAssets="runtime" />
+        <ProjectReference Include="..\StreamKit.Shared\StreamKit.Shared.csproj" />
+        <ProjectReference Include="..\StreamKit.UX\StreamKit.UX.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="UX\TableDrawer.Builder.cs">
-        <DependentUpon>TableDrawer.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Windows\SettingsWindow.Debug.cs">
-        <DependentUpon>SettingsWindow.cs</DependentUpon>
-      </Compile>
+        <Compile Update="UX\TableDrawer.Builder.cs">
+            <DependentUpon>TableDrawer.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Windows\SettingsWindow.Debug.cs">
+            <DependentUpon>SettingsWindow.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>

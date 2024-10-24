@@ -47,11 +47,6 @@ public static class KitLogManager
         var factory = new LogFactory();
         var config = new LoggingConfiguration();
 
-        var playerLogTarget = new PlayerLogTarget();
-        playerLogTarget.Layout = Layout;
-        config.AddTarget(playerLogTarget);
-        config.AddRule(LogLevel.Warn, LogLevel.Fatal, playerLogTarget);
-
         RegisterConsoleTarget(config);
 
         factory.Configuration = config;

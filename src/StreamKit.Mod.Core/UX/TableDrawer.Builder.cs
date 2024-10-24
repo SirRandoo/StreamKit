@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SirRandoo.UX;
+using StreamKit.UX;
 using UnityEngine;
 
 namespace StreamKit.Mod.Core.UX;
@@ -64,7 +65,6 @@ public abstract partial class TableDrawer<T>
         public Action<SortOrder, IReadOnlyList<TableEntry>>? SortAction { get; set; }
         public string? Header { get; set; }
         public float RelativeWidth { get; set; }
-        public TextAnchor TextAnchor { get; set; }
     }
 
     private sealed class TableColumn(string? header, float relativeWidth, Texture2D? icon = null, Action<SortOrder, IReadOnlyList<TableEntry>>? sortAction = null)

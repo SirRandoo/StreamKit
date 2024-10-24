@@ -23,13 +23,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using JetBrains.Annotations;
-using SirRandoo.UX;
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Extensions;
-using SirRandoo.UX.Helpers;
+using StreamKit.UX;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
-using IIdentifiable = StreamKit.Common.Data.Abstractions.IIdentifiable;
+using IIdentifiable = StreamKit.Shared.Interfaces.IIdentifiable;
 
 namespace StreamKit.Mod.Core.UX;
 
@@ -112,7 +111,7 @@ public abstract partial class TableDrawer<T> where T : IIdentifiable
         GUI.EndGroup();
 
         GUI.BeginGroup(contentRegion);
-        DrawContent(RectExtensions.AtZero(ref contentRegion));
+        DrawContent(contentRegion.AtZero());
         GUI.EndGroup();
 
         GUI.EndGroup();
@@ -127,7 +126,7 @@ public abstract partial class TableDrawer<T> where T : IIdentifiable
             var offset = 0f;
             TableColumn column = _columns[i];
             Rect headerRegion = _readOnlyColumnRegions[i];
-            Rect headerDisplayRegion = RectExtensions.ContractedBy(ref headerRegion, 4f);
+            Rect headerDisplayRegion = headerRegion.ContractedBy(4f);
 
             Widgets.DrawLightHighlight(headerRegion);
             Widgets.DrawLightHighlight(headerRegion);
@@ -143,7 +142,7 @@ public abstract partial class TableDrawer<T> where T : IIdentifiable
             if (column.Icon != null)
             {
                 offset = region.height;
-                Rect iconRegion = LayoutHelper.IconRect(headerDisplayRegion.x, headerDisplayRegion.y, region.height, region.height);
+                Rect iconRegion = RectExtensions.IconRect(headerDisplayRegion.x, headerDisplayRegion.y, region.height, region.height);
 
                 GUI.DrawTexture(iconRegion, column.Icon);
             }
@@ -162,7 +161,7 @@ public abstract partial class TableDrawer<T> where T : IIdentifiable
 
             Texture2D sortIcon = column.SortOrder is SortOrder.Descending ? Icons.SortUp.Value : Icons.SortDown.Value;
 
-            Rect sortRegion = LayoutHelper.IconRect(
+            Rect sortRegion = RectExtensions.IconRect(
                 headerDisplayRegion.x + headerDisplayRegion.width - headerDisplayRegion.height,
                 headerDisplayRegion.y,
                 headerDisplayRegion.height,

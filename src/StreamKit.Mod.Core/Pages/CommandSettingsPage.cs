@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Helpers;
 using StreamKit.Mod.Core.Settings;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 
@@ -59,7 +59,7 @@ public class CommandSettingsPage : SettingsPage
     private void DrawCommandEmojisSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.CommandEmojis);
         listing.DrawDescription(KitTranslations.CommandEmojisDescription);

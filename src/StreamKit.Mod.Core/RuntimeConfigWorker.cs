@@ -35,7 +35,7 @@ namespace StreamKit.Mod.Core;
 [StaticConstructorOnStartup]
 internal static class RuntimeConfigWorker
 {
-    private static readonly Logger Logger = KitLogManager.GetLogger("StreamKit.Workers.RuntimeConfig");
+    private static readonly Logger Logger = KitLogManager.GetLogger(typeof(RuntimeConfigWorker));
 
     static RuntimeConfigWorker()
     {

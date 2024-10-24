@@ -22,9 +22,9 @@
 
 using System;
 using System.Collections.Generic;
-using SirRandoo.UX.Dialogs;
-using SirRandoo.UX.Drawers;
-using StreamKit.Common.Data.Abstractions;
+using StreamKit.Shared.Interfaces;
+using StreamKit.UX.Dialogs;
+using StreamKit.UX.Drawers;
 using UnityEngine;
 using Verse;
 
@@ -48,7 +48,7 @@ public static class DropdownDrawer
     /// </param>
     public static void Draw<T>(Rect region, T current, IReadOnlyList<IIdentifiable> allOptions, Action<IIdentifiable> setterFunc) where T : IIdentifiable
     {
-        if (SirRandoo.UX.Drawers.DropdownDrawer.DrawButton(region, current.Name))
+        if (StreamKit.UX.Drawers.DropdownDrawer.DrawButton(region, current.Name))
         {
             Find.WindowStack.Add(new IdentifiableDropdownDialog(UI.GUIToScreenRect(region), current, allOptions, setterFunc));
         }

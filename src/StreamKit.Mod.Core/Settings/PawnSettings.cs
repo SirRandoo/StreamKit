@@ -20,8 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using StreamKit.Common.Data.Abstractions;
+using System.Text.Json.Serialization;
 using StreamKit.Mod.Api;
+using StreamKit.Shared;
 
 namespace StreamKit.Mod.Core.Settings;
 
@@ -78,5 +79,6 @@ public class PawnSettings : IComponentSettings
     public bool EmergencyWorkCrisis { get; set; } = true;
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public int Version { get; set; } = LatestVersion;
 }

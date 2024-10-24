@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 using JetBrains.Annotations;
-using StreamKit.Common.Data.Abstractions;
+using StreamKit.Shared;
 using Verse;
 
 namespace StreamKit.Mod.Core.Extensions;

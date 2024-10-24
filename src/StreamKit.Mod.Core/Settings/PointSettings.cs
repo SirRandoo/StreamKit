@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using StreamKit.Mod.Api;
 
 namespace StreamKit.Mod.Core.Settings;
@@ -124,5 +125,6 @@ public class PointSettings : IComponentSettings
     public List<DailyRewardSettings> RewardSettings { get; set; } = [];
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public int Version { get; set; } = LatestVersion;
 }

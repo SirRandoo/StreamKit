@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
-using SirRandoo.UX.Drawers;
-using StreamKit.Common.Data.Abstractions;
+using StreamKit.Shared.Interfaces;
+using StreamKit.UX.Drawers;
 using UnityEngine;
 using Verse;
 
@@ -58,7 +58,10 @@ public class TransactionTableDrawer : TableDrawer<ITransaction>
 
         LabelDrawer.DrawLabel(amountRegion, priceString, TextAnchor.MiddleRight);
 
+        // FIXME: This formats a new string every draw frame for static information.
         TooltipHandler.TipRegion(rowRegion, string.Format(KitTranslations.TransactionIdTableTooltip, data.Id));
+
+        // FIXME: This formats a new string every draw frame for static information.
         TooltipHandler.TipRegion(rowRegion, string.Format(KitTranslations.TransactionPurchasedOnTableTooltip, data.OccurredAt.ToString("F")));
 
         if (data.Refunded)

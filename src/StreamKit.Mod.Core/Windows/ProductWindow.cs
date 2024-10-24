@@ -21,8 +21,9 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
-using StreamKit.Common.Data.Abstractions;
+using JetBrains.Annotations;
 using StreamKit.Mod.Core.UX;
+using StreamKit.Shared.Interfaces;
 using UnityEngine;
 using Verse;
 
@@ -30,8 +31,8 @@ namespace StreamKit.Mod.Core.Windows;
 
 public abstract class ProductWindow(IReadOnlyList<IProduct> products) : Window
 {
+    private readonly TableDrawer<IProduct> _productDrawer = null!;
     private readonly IReadOnlyList<IProduct> _products = products;
-    private readonly TableDrawer<IProduct> _productDrawer;
 
     /// <inheritdoc />
     public override void DoWindowContents(Rect inRect)

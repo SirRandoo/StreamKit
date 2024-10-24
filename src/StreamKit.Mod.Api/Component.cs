@@ -40,5 +40,5 @@ public abstract class Component(string id, string name) : IComponent
     public IComponentSettings? Settings { get; set; }
 
     /// <inheritdoc />
-    public abstract ISettingsProvider SettingsProvider { get; }
+    public abstract ISettingsProvider<IComponentSettings> SettingsProvider { get; }
 }

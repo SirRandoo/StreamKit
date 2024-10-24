@@ -21,7 +21,7 @@
 // SOFTWARE.
 
 using System.Collections.Generic;
-using SirRandoo.UX.Dialogs;
+using StreamKit.UX.Dialogs;
 using UnityEngine;
 using Verse;
 

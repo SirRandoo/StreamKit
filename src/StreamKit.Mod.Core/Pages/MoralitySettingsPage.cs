@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Helpers;
 using StreamKit.Mod.Core.Settings;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 
@@ -71,7 +71,7 @@ public class MoralitySettingsPage : SettingsPage
     private void DrawKarmaEnabledSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.KarmaSystem);
@@ -104,7 +104,7 @@ public class MoralitySettingsPage : SettingsPage
         float halvedWidth = fieldRegion.width * 0.5f;
         var minimumRegion = new Rect(fieldRegion.x, fieldRegion.y, halvedWidth - Text.SmallFontHeight * 0.5f, fieldRegion.height);
         var maximumRegion = new Rect(minimumRegion.x + minimumRegion.width + Text.SmallFontHeight, minimumRegion.y, minimumRegion.width, minimumRegion.height);
-        Rect rangeIconRegion = LayoutHelper.IconRect(maximumRegion.x - Text.SmallFontHeight, maximumRegion.y, Text.SmallFontHeight, Text.SmallFontHeight);
+        Rect rangeIconRegion = RectExtensions.IconRect(maximumRegion.x - Text.SmallFontHeight, maximumRegion.y, Text.SmallFontHeight, Text.SmallFontHeight);
 
         LabelDrawer.DrawLabel(rangeIconRegion, "~", DescriptionDrawer.DescriptionTextColor, TextAnchor.LowerCenter);
 
@@ -123,7 +123,7 @@ public class MoralitySettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.ReputationSystem);
         listing.DrawDescription(KitTranslations.ReputationSystemDescription);

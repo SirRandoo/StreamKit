@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 using System;
+using System.Text.Json.Serialization;
 using StreamKit.Mod.Api;
-using StreamKit.Mod.Api.Attributes;
 
 namespace StreamKit.Mod.Core.Settings;
 
@@ -71,5 +71,6 @@ public class StoreSettings : IComponentSettings
     public bool BuildingsPurchasable { get; set; }
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public int Version { get; set; } = LatestVersion;
 }

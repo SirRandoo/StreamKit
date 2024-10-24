@@ -21,13 +21,14 @@
 // SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using SirRandoo.UX;
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Extensions;
-using SirRandoo.UX.Helpers;
-using StreamKit.Mod.Api;
 using StreamKit.Mod.Core.Settings;
+using StreamKit.Shared;
+using StreamKit.Shared.Extensions;
+using StreamKit.UX;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 
@@ -35,9 +36,10 @@ namespace StreamKit.Mod.Core.Pages;
 
 public class PointSettingsPage : SettingsPage
 {
+    private readonly PointSettings _settings;
     private double _lastRewardIntervalParseResult;
     private Vector2 _pointDecayScrollPosition = Vector2.zero;
-    private PointDecayViewModel[] _pointDecayViewModels = [];
+    private List<PointDecayViewModel> _pointDecayViewModels;
 
     private string? _rewardAmountBuffer;
     private bool _rewardAmountBufferValid;
@@ -46,7 +48,6 @@ public class PointSettingsPage : SettingsPage
     private bool _rewardIntervalBufferValid;
     private UnitOfTime _rewardIntervalTimeUnit;
     private Vector2 _scrollPosition = Vector2.zero;
-    private readonly PointSettings _settings;
 
     private string? _startingBalanceBuffer;
     private bool _startingBalanceBufferValid;
@@ -55,11 +56,13 @@ public class PointSettingsPage : SettingsPage
     {
         _settings = settings;
 
+        _pointDecayViewModels = _settings.PointDecaySettings.Select(s => new PointDecayViewModel(s)).ToList();
+
         _startingBalanceBuffer = settings.StartingBalance.ToString("N0");
         _startingBalanceBufferValid = true;
 
-        _rewardIntervalTimeUnit = GetLongestTimePeriod(settings.RewardInterval);
-        _rewardIntervalBuffer = StringifyTimeSpan(settings.RewardInterval, _rewardIntervalTimeUnit);
+        _rewardIntervalTimeUnit = settings.RewardInterval.GetLongestTimePeriod();
+        _rewardIntervalBuffer = settings.RewardInterval.ToString(_rewardIntervalTimeUnit);
         _rewardIntervalBufferValid = true;
 
         _rewardAmountBuffer = settings.RewardAmount.ToString("N0");
@@ -75,18 +78,27 @@ public class PointSettingsPage : SettingsPage
         DrawStartingBalanceSetting(listing);
         DrawIsDistributingSetting(listing);
 
-        if (_settings.IsDistributing)
+        if (!_settings.IsDistributing)
         {
-            DrawRewardIntervalSetting(listing);
-            DrawRewardAmountSetting(listing);
-            DrawParticipationRequiredSetting(listing);
-            DrawHasPointDecaySetting(listing);
-            DrawPointDecaySetting(listing);
-            DrawHasPointTiersSetting(listing);
-            DrawPointTiersSettings(listing);
-            DrawPointRewardSetting(listing);
-            DrawPointRewardsSettings(listing);
+            listing.End();
+
+            return;
         }
+
+        DrawRewardIntervalSetting(listing);
+        DrawRewardAmountSetting(listing);
+        DrawParticipationRequiredSetting(listing);
+        DrawHasPointDecaySetting(listing);
+
+        if (_settings.HasPointDecay)
+        {
+            DrawPointDecaySetting(listing);
+        }
+
+        DrawHasPointTiersSetting(listing);
+        DrawPointTiersSettings(listing);
+        DrawPointRewardSetting(listing);
+        DrawPointRewardsSettings(listing);
 
         listing.End();
     }
@@ -95,10 +107,10 @@ public class PointSettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
-        LabelDrawer.DrawLabel(labelRegion, "Unlimited points".MarkNotTranslated());
-        listing.DrawDescription("Whether viewers will have an unlimited amount of points. This is generally not recommended.".MarkNotTranslated());
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.InfinitePoints);
+        listing.DrawDescription(KitTranslations.InfinitePointsDescription);
 
         bool state = _settings.InfinitePoints;
         CheckboxDrawer.DrawCheckbox(fieldRegion, ref state);
@@ -109,10 +121,10 @@ public class PointSettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
-        LabelDrawer.DrawLabel(labelRegion, "Distribute points".MarkNotTranslated());
-        listing.DrawDescription("Whether viewers periodically earn points for interacting with the mod.".MarkNotTranslated());
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.DistributePoints);
+        listing.DrawDescription(KitTranslations.DistributePointsDescription);
 
         bool state = _settings.IsDistributing;
         CheckboxDrawer.DrawCheckbox(fieldRegion, ref state);
@@ -123,8 +135,8 @@ public class PointSettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
 
-        LabelDrawer.DrawLabel(labelRegion, "Starting balance".MarkNotTranslated());
-        listing.DrawDescription("The amount of points viewers will start off with when they first interact with the mod, or their data is reset.".MarkNotTranslated());
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.StartingBalance);
+        listing.DrawDescription(KitTranslations.StartingBalanceDescription);
 
         if (FieldDrawer.DrawNumberField(fieldRegion, out int value, ref _startingBalanceBuffer, ref _startingBalanceBufferValid))
         {
@@ -136,12 +148,12 @@ public class PointSettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
 
-        LabelDrawer.DrawLabel(labelRegion, "Reward interval".MarkNotTranslated());
-        listing.DrawDescription("The amount of time that must pass by before viewers will receive points.".MarkNotTranslated());
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.PointRewardInterval);
+        listing.DrawDescription(KitTranslations.PointRewardIntervalDescription);
 
         float dropdownWidth = fieldRegion.width * 0.55f;
         var dropdownRegion = new Rect(fieldRegion.x + fieldRegion.width - dropdownWidth, fieldRegion.y, dropdownWidth, fieldRegion.height);
-        fieldRegion.SetWidth(fieldRegion.width - dropdownWidth - 4f);
+        fieldRegion.width = fieldRegion.width - dropdownWidth - 4f;
 
         if (FieldDrawer.DrawNumberField(fieldRegion, out double value, ref _rewardIntervalBuffer!, ref _rewardIntervalBufferValid))
         {
@@ -165,8 +177,8 @@ public class PointSettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
 
-        LabelDrawer.DrawLabel(labelRegion, "Reward amount".MarkNotTranslated());
-        listing.DrawDescription("The amount of points viewers will receive when points are distributed by the mod.".MarkNotTranslated());
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.PointRewardAmount);
+        listing.DrawDescription(KitTranslations.PointRewardAmountDescription);
 
         if (FieldDrawer.DrawNumberField(fieldRegion, out int value, ref _rewardAmountBuffer, ref _rewardAmountBufferValid))
         {
@@ -178,13 +190,10 @@ public class PointSettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
-        LabelDrawer.DrawLabel(labelRegion, "Require participation".MarkNotTranslated());
-
-        listing.DrawDescription(
-            "Whether viewers will have to interact with the mod, at least once, in order to receive points at the end of a distribution cycle.".MarkNotTranslated()
-        );
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.RequireParticipation);
+        listing.DrawDescription(KitTranslations.RequireParticipationDescription);
 
         bool state = _settings.ParticipationRequired;
         CheckboxDrawer.DrawCheckbox(fieldRegion, ref state);
@@ -195,10 +204,10 @@ public class PointSettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
-        LabelDrawer.DrawLabel(labelRegion, "Point decay".MarkNotTranslated());
-        listing.DrawDescription("Whether the balances of inactive viewers will slowly decay as they remain inactive.".MarkNotTranslated());
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.PointDecay);
+        listing.DrawDescription(KitTranslations.PointDecayDescription);
 
         bool state = _settings.HasPointDecay;
         CheckboxDrawer.DrawCheckbox(fieldRegion, ref state);
@@ -207,35 +216,35 @@ public class PointSettingsPage : SettingsPage
 
     private void DrawPointDecaySetting(Listing listing)
     {
-        Rect region = listing.GetRect(PanelLineSpan);
-        RectExtensions.ContractedBy(ref region, 10f);
+        Rect region = listing.GetRect(PanelLineSpan * Text.SmallFontHeight);
+        region = region.ContractedBy(10f);
 
         var scrollView = new Rect(0f, 0f, region.width - 16f, region.height);
         _pointDecayScrollPosition = GUI.BeginScrollView(region, _pointDecayScrollPosition, scrollView, false, true);
 
         var y = 0f;
 
-        for (var i = 0; i < _pointDecayViewModels.Length; i++)
+        for (var i = 0; i < _pointDecayViewModels.Count; i++)
         {
             PointDecayViewModel decaySettings = _pointDecayViewModels[i];
 
             var lineRegion = new Rect(0f, y, scrollView.width, UiConstants.LineHeight);
             y += UiConstants.LineHeight;
 
-            if (!lineRegion.IsVisible(GenUI.AtZero(region), _pointDecayScrollPosition))
+            if (!lineRegion.IsVisible(region.AtZero(), _pointDecayScrollPosition))
             {
                 continue;
             }
 
             DropdownDrawer.DrawButton(lineRegion, decaySettings.Name);
             var nameRegion = new Rect(lineRegion.x, lineRegion.y, decaySettings.NameWidth, lineRegion.height);
-            Rect renameRegion = LayoutHelper.IconRect(lineRegion.x + decaySettings.NameWidth + 5f, lineRegion.y, lineRegion.height, lineRegion.height, 6f);
+            Rect renameRegion = RectExtensions.IconRect(lineRegion.x + decaySettings.NameWidth + 5f, lineRegion.y, lineRegion.height, lineRegion.height, 6f);
 
             if (decaySettings.IsNameEditorOpen)
             {
                 float renameFieldWidth = lineRegion.width * 0.25f;
-                renameRegion.SetX(lineRegion.x + renameFieldWidth + 5f);
-                nameRegion.SetWidth(renameFieldWidth);
+                renameRegion.x = lineRegion.x + renameFieldWidth + 5f;
+                nameRegion.width = renameFieldWidth;
             }
 
             if (Widgets.ButtonImage(renameRegion, decaySettings.IsNameEditorOpen ? Icons.Check.Value : Icons.PenToSquare.Value))
@@ -263,7 +272,7 @@ public class PointSettingsPage : SettingsPage
             y += contentRegion.height;
 
             GUI.BeginGroup(contentRegion);
-            DrawPointDecayAccordion(RectExtensions.AtZero(ref contentRegion), decaySettings);
+            DrawPointDecayAccordion(contentRegion.AtZero(), decaySettings);
             GUI.EndGroup();
         }
 
@@ -288,10 +297,10 @@ public class PointSettingsPage : SettingsPage
 
         float dropdownWidth = fieldRegion.width * 0.55f;
         var dropdownRegion = new Rect(fieldRegion.x + fieldRegion.width - dropdownWidth, fieldRegion.y, dropdownWidth, fieldRegion.height);
-        fieldRegion.SetWidth(fieldRegion.width - dropdownWidth - 4f);
+        fieldRegion.width = fieldRegion.width - dropdownWidth - 4f;
 
-        LabelDrawer.DrawLabel(labelRegion, "Decay period".MarkNotTranslated());
-        listing.DrawDescription("Then period of time that must pass before a viewer's income will start to decay.".MarkNotTranslated());
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.PointDecayPeriod);
+        listing.DrawDescription(KitTranslations.PointDecayPeriodDescription);
 
         string? buffer = settings.PeriodBuffer;
         bool bufferValid = settings.PeriodBufferValid;
@@ -322,12 +331,8 @@ public class PointSettingsPage : SettingsPage
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
 
-        LabelDrawer.DrawLabel(labelRegion, "Decay percentage".MarkNotTranslated());
-
-        listing.DrawDescription(
-            "A percentage indicating the amount of points a viewer will lose when they aren't actively participating in chat. This setting does work in-tandem with fixed decay amounts."
-               .MarkNotTranslated()
-        );
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.DecayPercentage);
+        listing.DrawDescription(KitTranslations.DecayPercentageDescription);
 
         string? buffer = settings.DecayPercentBuffer;
         bool bufferValid = settings.DecayPercentBufferValid;
@@ -346,12 +351,8 @@ public class PointSettingsPage : SettingsPage
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
 
-        LabelDrawer.DrawLabel(labelRegion, "Fixed decay amount".MarkNotTranslated());
-
-        listing.DrawDescription(
-            "A fixed amount of points viewers will lose when they aren't actively participating in chat. This setting does work in-tandem with decay percentages."
-               .MarkNotTranslated()
-        );
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.FixedPointDecayAmount);
+        listing.DrawDescription(KitTranslations.FixedPointDecayAmountDescription);
 
         string? buffer = settings.FixedAmountBuffer;
         bool bufferValid = settings.FixedAmountBufferValid;
@@ -369,13 +370,10 @@ public class PointSettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
-        LabelDrawer.DrawLabel(labelRegion, "Point tiers".MarkNotTranslated());
-
-        listing.DrawDescription(
-            "Whether point distribution will be broken up into tiers viewers slowly progress through as they interact with the mod.".MarkNotTranslated()
-        );
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.PointTiers);
+        listing.DrawDescription(KitTranslations.PointTiersDescription);
 
         bool state = _settings.HasPointTiers;
         CheckboxDrawer.DrawCheckbox(fieldRegion, ref state);
@@ -390,10 +388,10 @@ public class PointSettingsPage : SettingsPage
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
-        LabelDrawer.DrawLabel(labelRegion, "Rewards".MarkNotTranslated());
-        listing.DrawDescription("Whether viewers will receive special rewards for interacting with the mod.".MarkNotTranslated());
+        LabelDrawer.DrawLabel(labelRegion, KitTranslations.PointRewards);
+        listing.DrawDescription(KitTranslations.PointRewardsDescription);
 
         bool state = _settings.HasRewards;
         CheckboxDrawer.DrawCheckbox(fieldRegion, ref state);
@@ -408,7 +406,7 @@ public class PointSettingsPage : SettingsPage
     {
         var settings = new PointSettings(); // TODO: Replace with actual settings instance.
 
-        return new PointSettingsPage(settings) { _pointDecayViewModels = settings.PointDecaySettings.Select(PointDecayViewModel.CreateInstance).ToArray() };
+        return new PointSettingsPage(settings) { _pointDecayViewModels = settings.PointDecaySettings.Select(PointDecayViewModel.CreateInstance).ToList() };
     }
 
     private sealed class PointDecayViewModel(PointDecaySettings model)
@@ -453,8 +451,8 @@ public class PointSettingsPage : SettingsPage
         {
             var instance = new PointDecayViewModel(settings);
 
-            instance.PeriodTimeUnit = GetLongestTimePeriod(settings.Period);
-            instance.PeriodBuffer = StringifyTimeSpan(settings.Period, instance.PeriodTimeUnit);
+            instance.PeriodTimeUnit = settings.Period.GetLongestTimePeriod();
+            instance.PeriodBuffer = settings.Period.ToString(instance.PeriodTimeUnit);
             instance.PeriodBufferValid = true;
 
             instance.DecayPercentBuffer = (settings.DecayPercent * 100f).ToString("N2");

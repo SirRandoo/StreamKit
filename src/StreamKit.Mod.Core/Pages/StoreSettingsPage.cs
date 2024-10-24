@@ -21,10 +21,9 @@
 // SOFTWARE.
 
 using System;
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Extensions;
-using SirRandoo.UX.Helpers;
 using StreamKit.Mod.Core.Settings;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 
@@ -91,7 +90,7 @@ public class StoreSettingsPage : SettingsPage
     private void DrawPurchaseConfirmationSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.PurchaseConfirmations);
         listing.DrawDescription(KitTranslations.PurchaseConfirmationsDescription);
@@ -104,7 +103,7 @@ public class StoreSettingsPage : SettingsPage
     private void DrawBuildingsPurchasableSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.PurchaseBuildings);
         listing.DrawDescription(KitTranslations.PurchaseBuildingsDescription);

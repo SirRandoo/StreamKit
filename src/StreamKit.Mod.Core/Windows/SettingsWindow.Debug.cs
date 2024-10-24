@@ -24,8 +24,8 @@
 
 using System;
 using RimWorld;
-using SirRandoo.UX;
-using SirRandoo.UX.Extensions;
+using StreamKit.UX;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 
@@ -35,10 +35,10 @@ internal sealed partial class SettingsWindow
 {
     private static readonly DebugWindow[] DebugWindows =
     [
-        new DebugWindow(KitTranslations.OpenLedgerWindowDebugAction, LedgerWindow.CreateDebugInstance),
-        new DebugWindow(KitTranslations.OpenTransactionHistoryWindowDebugAction, TransactionHistoryDialog.CreateDebugInstance),
-        new DebugWindow(KitTranslations.OpenRuntimeFlagsWindowDebugAction, RuntimeFlagWindow.CreateInstance),
-        new DebugWindow(KitTranslations.OpenPlatformsWindowDebugAction, PlatformsWindow.CreateDebugInstance)
+        new(KitTranslations.OpenLedgerWindowDebugAction, LedgerWindow.CreateDebugInstance),
+        new(KitTranslations.OpenTransactionHistoryWindowDebugAction, TransactionHistoryDialog.CreateDebugInstance),
+        new(KitTranslations.OpenRuntimeFlagsWindowDebugAction, RuntimeFlagWindow.CreateInstance),
+        new(KitTranslations.OpenPlatformsWindowDebugAction, PlatformsWindow.CreateDebugInstance)
     ];
 
     private static void DrawDebugWindowColumn(Rect region)
@@ -67,10 +67,10 @@ internal sealed partial class SettingsWindow
     {
         GUI.BeginGroup(region);
 
-        var windowColumn = new Rect(0f, 0f, (float)Math.Floor(region.width * 0.3f), region.height);
+        var windowColumn = new Rect(0f, 0f, Mathf.Floor(region.width * 0.3f), region.height);
 
         GUI.BeginGroup(windowColumn);
-        DrawDebugWindowColumn(RectExtensions.AtZero(ref windowColumn));
+        DrawDebugWindowColumn(windowColumn.AtZero());
         GUI.EndGroup();
 
         GUI.EndGroup();

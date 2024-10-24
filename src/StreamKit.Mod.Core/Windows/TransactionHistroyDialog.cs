@@ -23,12 +23,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using RimWorld;
-using SirRandoo.UX;
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Helpers;
-using StreamKit.Common.Data.Abstractions;
 using StreamKit.Mod.Api;
 using StreamKit.Mod.Core.UX;
+using StreamKit.Shared.Interfaces;
+using StreamKit.UX;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 
@@ -80,73 +80,8 @@ public class TransactionHistoryDialog : Window
 
         GUI.BeginGroup(contentRegion);
         _tableDrawer.Draw(contentRegion.AtZero());
-
-        // DrawTransactions(contentRegion.AtZero());
         GUI.EndGroup();
 
-        GUI.EndGroup();
-    }
-
-    private void DrawTransactions(Rect region)
-    {
-        float viewportHeight = _workingList.Count * UiConstants.LineHeight;
-        bool scrollbarVisible = viewportHeight > region.height;
-        var viewport = new Rect(0f, 0f, region.width - (scrollbarVisible ? 16f : 0f), viewportHeight);
-
-        GUI.BeginGroup(region);
-        _scrollPosition = GUI.BeginScrollView(region, _scrollPosition, viewport);
-
-        for (var index = 0; index < _workingList.Count; index++)
-        {
-            var lineRegion = new Rect(0f, index * UiConstants.LineHeight, viewport.width, UiConstants.LineHeight);
-
-            if (!lineRegion.IsVisible(region, _scrollPosition))
-            {
-                continue;
-            }
-
-            if (index % 2 == 1)
-            {
-                Widgets.DrawHighlight(lineRegion);
-            }
-
-            ITransaction transaction = _workingList[index];
-
-            var labelRegion = new Rect(5f, lineRegion.y, Mathf.FloorToInt(lineRegion.width * 0.4f) - 5f, lineRegion.height);
-            var typeRegion = new Rect(labelRegion.x + labelRegion.width, lineRegion.y, Mathf.FloorToInt(lineRegion.width * 0.25f), lineRegion.height);
-            var priceRegion = new Rect(typeRegion.x + typeRegion.width, lineRegion.y, lineRegion.width - labelRegion.width - typeRegion.width, lineRegion.height);
-
-            LabelDrawer.DrawLabel(labelRegion, transaction.Name);
-            LabelDrawer.DrawLabel(typeRegion, transaction.ProductId.MarkNotTranslated());
-
-            TooltipHandler.TipRegion(labelRegion, string.Format(KitTranslations.TransactionIdDialogText, transaction.Id));
-
-            string prefix = transaction.Refunded ? "+" : string.Empty;
-            var stringifiedPrice = transaction.Amount.ToString("N0");
-
-            LabelDrawer.DrawLabel(priceRegion, $"{prefix}{stringifiedPrice}");
-
-            TooltipHandler.TipRegion(
-                priceRegion,
-                string.Format(KitTranslations.TransactionDescriptionDialogText, _viewer.Name, transaction.ProductId, stringifiedPrice, transaction.OccurredAt.ToLocalTime().ToString("f"))
-            );
-
-            if (transaction.Refunded)
-            {
-                LabelDrawer.DrawLabel(priceRegion, $"+{stringifiedPrice}");
-
-                TooltipHandler.TipRegion(
-                    priceRegion,
-                    string.Format(KitTranslations.TransactionRefundedDialogText, transaction.Amount.ToString("N0"), _viewer.Name)
-                );
-            }
-            else
-            {
-                LabelDrawer.DrawLabel(priceRegion, stringifiedPrice);
-            }
-        }
-
-        GUI.EndScrollView();
         GUI.EndGroup();
     }
 
@@ -154,7 +89,7 @@ public class TransactionHistoryDialog : Window
     {
         var titleRegion = new Rect(0f, 0f, Mathf.FloorToInt(region.width * 0.5f), region.height);
         var searchRegion = new Rect(titleRegion.width + 5f, 0f, region.width - titleRegion.width - 5f, region.height);
-        Rect searchBtnRegion = LayoutHelper.IconRect(region.width - region.height, 0f, region.height, region.height);
+        Rect searchBtnRegion = RectExtensions.IconRect(region.width - region.height, 0f, region.height, region.height);
 
         // TODO: Include the platform icon with the header text.
         LabelDrawer.DrawLabel(titleRegion, string.Format(KitTranslations.TransactionPurchaseHistoryDialogText, _viewer.Name));

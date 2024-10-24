@@ -1,27 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
+    <PropertyGroup>
         <Title>StreamKit.Api</Title>
         <Description>The api for StreamKit, an interactivity mod for Unity games.</Description>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="Mono.Data.Sqlite">
-            <HintPath>..\Libs\Mono.Data.Sqlite.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Remora.Results" />
-        <PackageReference Include="Samboy063.Tomlet" />
+        <PackageReference Include="System.Net.Http" />
         <PackageReference Include="System.Text.Json" />
-        <PackageReference Include="NLog" ExcludeAssets="runtime" />
+        <PackageReference Include="NetEscapades.EnumGenerators" />
         <PackageReference Include="PolySharp" ExcludeAssets="runtime" />
         <PackageReference Include="Lib.Harmony" ExcludeAssets="runtime" />
-        <PackageReference Include="NetEscapades.EnumGenerators" Version="1.0.0-beta09" />
-        <PackageReference Include="ConcurrentHashSet" Version="1.3.0" PrivateAssets="all " />
-        <PackageReference Include="System.Collections.Immutable" Version="8.0.0" PrivateAssets="all" />
+        <PackageReference Include="ConcurrentHashSet" PrivateAssets="all " />
 
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Bogus" Version="35.6.0" />
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Bogus" Version="35.6.1" />
     </ItemGroup>
     <ItemGroup>
+        <ProjectReference Include="..\StreamKit.Shared\StreamKit.Shared.csproj" />
         <ProjectReference Include="..\StreamKit.Mod.Shared\StreamKit.Mod.Shared.csproj" ExcludeAssets="runtime" />
     </ItemGroup>
 </Project>

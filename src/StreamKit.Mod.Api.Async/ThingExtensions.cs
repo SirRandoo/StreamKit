@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 
@@ -35,6 +36,7 @@ namespace StreamKit.Mod.Api.Async;
 ///     with care as RimWorld was not designed with asynchronous code in
 ///     mind.
 /// </remarks>
+[PublicAPI]
 public static class ThingExtensions
 {
     /// <inheritdoc cref="ThingCompUtility.TryGetComp{T}(Thing)" />

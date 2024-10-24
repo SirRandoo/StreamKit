@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Text.Json.Serialization;
 using StreamKit.Mod.Api;
 using UnityEngine;
 
@@ -58,5 +59,6 @@ public class ClientSettings : IComponentSettings
     public Vector2 PollPosition { get; set; } = new(-1, -1);
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public int Version { get; set; } = LatestVersion;
 }

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Runtime properties -->
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
+    
+    <!-- NuGet properties -->
+    <PropertyGroup>
+        <Description>Houses the Twitch client for "StreamKit," a mod for the game "RimWorld."</Description>
+    </PropertyGroup>
+    
+    <!-- Project references -->
+    <ItemGroup>
+        <ProjectReference Include="..\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj" />
+    </ItemGroup>
+    
+    <!-- Package references -->
+    <ItemGroup>
+        <PackageReference Include="System.Net.Http" />
+        <PackageReference Include="System.Text.Json" />
+        <PackageReference Include="deniszykov.WebSocketListener" />
+    </ItemGroup>
+</Project>

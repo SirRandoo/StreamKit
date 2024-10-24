@@ -21,14 +21,14 @@
 // SOFTWARE.
 
 using System.Diagnostics.CodeAnalysis;
-using StreamKit.Common.Data.Abstractions;
+using StreamKit.Shared.Interfaces;
 
 namespace StreamKit.Mod.Api;
 
 /// <summary>
 ///     An interface for defining a settings provider for a given <see cref="IComponent" />.
 /// </summary>
-public interface ISettingsProvider : IIdentifiable
+public interface ISettingsProvider<T> : IIdentifiable where T : class, IComponentSettings
 {
     /// <summary>
     ///     Attempts to load the settings from the file path on disk.
@@ -40,12 +40,12 @@ public interface ISettingsProvider : IIdentifiable
     /// <returns>
     ///     Whether the settings could successfully be loaded and deserialized.
     /// </returns>
-    bool TryLoadSettings(string path, [NotNullWhen(true)] out IComponentSettings? settings);
+    bool TryLoadSettings(string path, [NotNullWhen(true)] out T? settings);
 
     /// <summary>
     ///     Returns the default settings for the associated component.
     /// </summary>
-    IComponentSettings GenerateDefaultSettings();
+    T GenerateDefaultSettings();
 
     /// <summary>
     ///     Tries to save the component's settings from the file path on disk.
@@ -59,5 +59,5 @@ public interface ISettingsProvider : IIdentifiable
     /// <returns>
     ///     Whether the settings could successfully be serialized and written to disk.
     /// </returns>
-    bool TrySaveSettings(string path, IComponentSettings settings);
+    bool TrySaveSettings(string path, T settings);
 }

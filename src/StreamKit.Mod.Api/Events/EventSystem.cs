@@ -27,13 +27,12 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using NLog;
 using StreamKit.Mod.Shared.Logging;
+using StreamKit.Shared.Registries;
 using Verse;
 
 namespace StreamKit.Mod.Api.Events;
 
-/// <summary>
-///     A micro-class for housing event dispatching logic for specific events.
-/// </summary>
+/// <summary>A micro-class for housing event dispatching logic for specific events.</summary>
 /// <typeparam name="TEvent">The type of the event that'll be dispatched.</typeparam>
 public static class PlatformEventDispatcher<TEvent> where TEvent : PlatformEvent
 {
@@ -63,17 +62,15 @@ public static class PlatformEventDispatcher<TEvent> where TEvent : PlatformEvent
             handlers.Add(instance!);
         }
 
-        Handlers = new FrozenRegistry<IChannelEventHandler<TEvent>>(handlers);
+        Handlers = FrozenRegistry<IChannelEventHandler<TEvent>>.CreateInstance(handlers);
     }
 
-    /// <summary>
-    ///     Dispatches a platform event to all registered event handlers.
-    /// </summary>
+    /// <summary>Dispatches a platform event to all registered event handlers.</summary>
     /// <param name="event">The event to dispatch.</param>
     [PublicAPI]
     public static async Task DispatchAsync(TEvent @event)
     {
-        IList<IChannelEventHandler<TEvent>> handlers = Handlers.AllRegistrants;
+        IReadOnlyList<IChannelEventHandler<TEvent>> handlers = Handlers.AllRegistrants;
 
         for (var i = 0; i < handlers.Count; i++)
         {

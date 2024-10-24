@@ -23,7 +23,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
-using Remora.Results;
 
 namespace StreamKit.Mod.Api;
 
@@ -42,7 +41,7 @@ public interface IDataSerializer
     ///     The data model deserialized from the stream, or the default value of the model if it couldn't
     ///     be deserialized.
     /// </returns>
-    Result<T> Deserialize<T>(Stream stream);
+    T? Deserialize<T>(Stream stream);
 
     /// <summary>
     ///     Serializes the data to a stream.
@@ -50,7 +49,7 @@ public interface IDataSerializer
     /// <typeparam name="T">The type of the object that's being saved to disk.</typeparam>
     /// <param name="data">The optional data model to serialize into the stream.</param>
     /// <param name="stream">The stream to serialize the data into.</param>
-    Result Serialize<T>(Stream stream, [DisallowNull] T data);
+    void Serialize<T>(Stream stream, [DisallowNull] T data);
 
     /// <summary>
     ///     Deserializes the data from the stream.
@@ -61,7 +60,7 @@ public interface IDataSerializer
     ///     The data model deserialized from the stream, or the default value of the model if it couldn't
     ///     be deserialized.
     /// </returns>
-    Task<Result<T>> DeserializeAsync<T>(Stream stream);
+    Task<T?> DeserializeAsync<T>(Stream stream);
 
     /// <summary>
     ///     Serializes the data to a stream.
@@ -69,5 +68,5 @@ public interface IDataSerializer
     /// <typeparam name="T">The type of the object that's being saved to disk.</typeparam>
     /// <param name="data">The data to serialize into the stream.</param>
     /// <param name="stream">The stream to serialize the data into.</param>
-    Task<Result> SerializeAsync<T>(Stream stream, [DisallowNull] T data);
+    Task SerializeAsync<T>(Stream stream, [DisallowNull] T data);
 }

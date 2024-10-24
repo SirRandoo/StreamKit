@@ -1,5 +1,5 @@
 using JetBrains.Annotations;
-using StreamKit.Common.Data.Abstractions;
+using StreamKit.Shared.Interfaces;
 
 namespace StreamKit.Mod.Api.Events;
 

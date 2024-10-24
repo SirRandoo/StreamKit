@@ -22,6 +22,7 @@
 
 using System;
 using StreamKit.Mod.Api;
+using StreamKit.Shared;
 using UnityEngine;
 using Verse;
 
@@ -71,45 +72,5 @@ public abstract class SettingsPage : IPage
             UnitOfTime.Seconds => TimeSpan.FromSeconds(value),
             var _ => throw new ArgumentOutOfRangeException(nameof(unit), unit, "The unit of time specified is an unsupported TimeSpan conversion")
         };
-    }
-
-    /// <summary>
-    ///     Returns a stringified <see cref="TimeSpan" />.
-    /// </summary>
-    /// <param name="span">The time span being turned into a string.</param>
-    /// <param name="unit">The unit of time to convert the time span into.</param>
-    /// <exception cref="ArgumentOutOfRangeException">The unit of time specified wasn't supported.</exception>
-    protected static string StringifyTimeSpan(TimeSpan span, UnitOfTime unit)
-    {
-        return unit switch
-        {
-            UnitOfTime.Seconds => span.TotalSeconds.ToString("N2"),
-            UnitOfTime.Minutes => span.TotalMinutes.ToString("N2"),
-            UnitOfTime.Hours => span.TotalHours.ToString("N2"),
-            UnitOfTime.Days => span.TotalDays.ToString("N2"),
-            var _ => throw new ArgumentOutOfRangeException(nameof(unit), unit, "The unit of time specified is an unsupported TimeSpan stringification")
-        };
-    }
-
-    /// <summary>
-    ///     Returns the largest <see cref="UnitOfTime" /> for a <see cref="TimeSpan" />.
-    ///
-    ///     The largest unit is calculated by checking if a <see cref="UnitOfTime" /> is non-zero, starting
-    ///     from the longest period of time to the shortest period of time.
-    /// </summary>
-    /// <param name="span">The span of time whose</param>
-    protected static UnitOfTime GetLongestTimePeriod(TimeSpan span)
-    {
-        if (span.TotalDays >= 1)
-        {
-            return UnitOfTime.Days;
-        }
-
-        if (span.TotalHours >= 1)
-        {
-            return UnitOfTime.Hours;
-        }
-
-        return span.TotalMinutes >= 1 ? UnitOfTime.Minutes : UnitOfTime.Seconds;
     }
 }

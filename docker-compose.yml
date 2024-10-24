@@ -1,6 +1,0 @@
-﻿services:
-  streamkit.webapp:
-    image: streamkit.webapp
-    build:
-      context: .
-      dockerfile: src/StreamKit.WebApp/Dockerfile

@@ -4,7 +4,6 @@
         <!--        <ResourceBundle Root="Common/Native" Versioned="false">-->
         <!--            <Resource Type="Dll" Name="git" Root="git"/>-->
         <!--            <Resource Type="Dll" Name="lua54" Root="lua54"/>-->
-        <!--            <Resource Type="Dll" Name="sqlite3" Root="Sqlite3.Interop"/>-->
         <!--        </ResourceBundle>-->
         <ResourceBundle Root="Common/Libraries">
             <Resource Type="NetStandardAssembly" Name="netstandard" Optional="false" />
@@ -13,27 +12,10 @@
             <Resource Type="NetStandardAssembly"
                     Name="Microsoft.Extensions.DependencyInjection.Abstractions"
                     Optional="false" />
-            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Logging" Optional="false" />
-            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Logging.Abstractions" Optional="false" />
-            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Options" Optional="false" />
-            <Resource Type="NetStandardAssembly" Name="Microsoft.Extensions.Primitives" Optional="false" />
             <Resource Type="NetStandardAssembly" Name="System.Diagnostics.DiagnosticSource" Optional="false" />
-            <Resource Type="NetStandardAssembly" Name="Mono.Data.Sqlite" Optional="false" />
-
-            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core" /> -->
-            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Enums" /> -->
-            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Interfaces" /> -->
-            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Core.Models" /> -->
-            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Helix" /> -->
-            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Api.Helix.Models" /> -->
-            <!--             <Resource Type="NetStandardAssembly" Name="TwitchLib.Communication" /> -->
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.EventSub.Core" />
-            <Resource Type="NetStandardAssembly" Name="TwitchLib.EventSub.Websockets" />
 
             <Resource Type="Assembly" Name="Bogus" Optional="true" />
             <Resource Type="Assembly" Name="Dapper" Optional="false" />
-            <Resource Type="Assembly" Name="Remora.Results" Optional="false" />
-            <Resource Type="Assembly" Name="Tomlet" Optional="false" />
             <Resource Type="Assembly" Name="ConcurrentCollections" Optional="false" />
             <Resource Type="Assembly" Name="System.ValueTuple" Optional="false" />
             <Resource Type="Assembly" Name="System.Numerics.Vectors" Optional="false" />
@@ -52,15 +34,11 @@
             <Resource Type="Assembly" Name="System.Text.Json" Optional="false" />
             <Resource Type="Assembly" Name="System.Collections.Immutable" Optional="false" />
 
-            <Resource Type="Assembly" Name="StreamKit.Common.Data.Abstractions" Optional="false" />
-            <Resource Type="Assembly" Name="StreamKit.Common.Communication" Optional="false" />
-            <Resource Type="Assembly" Name="StreamKit.Common.Data" Optional="false" />
-            <!--             <Resource Type="Assembly" Name="StreamKit.Mod.Integration.Twitch" /> -->
+            <Resource Type="Assembly" Name="StreamKit.Shared" Optional="false" />
         </ResourceBundle>
 
         <ResourceBundle Root="Releases/Core" Versioned="true">
-            <Resource Type="Assembly" Name="StreamKit.Mod.Api" Optional="false" />
-            <Resource Type="Assembly" Name="StreamKit.Mod.Core" Optional="false" />
+            <Resource Type="Assembly" Name="StreamKit.Mod" Optional="false" />
         </ResourceBundle>
     </Resources>
 </Corpus>

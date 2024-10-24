@@ -24,16 +24,16 @@ using System;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using HarmonyLib;
 using NLog;
-using Remora.Results;
 using StreamKit.Mod.Shared.Logging;
 
 namespace StreamKit.Mod.Api;
 
-public class SettingsProvider<T>(string id, string name) : ISettingsProvider where T : class, IComponentSettings
+public class SettingsProvider<T>(string id, string name) : ISettingsProvider<T> where T : class, IComponentSettings
 {
+    private readonly IDataSerializer _dataSerializer = JsonDataSerializer.Default;
     private readonly Logger _logger = KitLogManager.GetLogger($"StreamKit.Providers:Settings.{id}");
-    private readonly IDataSerializer _tomlSerializer = new TomlDataSerializer();
 
     /// <inheritdoc />
     public string Id
@@ -46,20 +46,22 @@ public class SettingsProvider<T>(string id, string name) : ISettingsProvider whe
     public string Name { get; set; } = name;
 
     /// <inheritdoc />
-    public bool TryLoadSettings(string path, [NotNullWhen(true)] out IComponentSettings? settings)
+    public bool TryLoadSettings(string path, [NotNullWhen(true)] out T? settings)
     {
         if (!File.Exists(path))
         {
-            settings = null;
+            _logger.Trace("File {Path} does not exist :: Failing early...", path);
+
+            settings = default;
 
             return false;
         }
 
         using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
-            Result<T> result = _tomlSerializer.Deserialize<T>(stream);
+            var result = _dataSerializer.Deserialize<T?>(stream);
 
-            if (!result.IsSuccess)
+            if (result == default)
             {
                 _logger.Warn("Could not load settings from path {Path} :: Continuing may result in your settings being lost", path);
 
@@ -68,30 +70,38 @@ public class SettingsProvider<T>(string id, string name) : ISettingsProvider whe
                 return false;
             }
 
-            settings = result.Entity;
+            _logger.Trace("Successfully loaded settings from path {Path}", path);
+            settings = result;
 
             return true;
         }
     }
 
     /// <inheritdoc />
-    public IComponentSettings GenerateDefaultSettings() => (T)Activator.CreateInstance(typeof(T), []);
+    public T GenerateDefaultSettings()
+    {
+        _logger.Debug("Generating default settings for type {QualifiedName} (constructor invocation)", typeof(T).FullDescription());
+
+        return (T)Activator.CreateInstance(typeof(T), []);
+    }
 
     /// <inheritdoc />
-    public bool TrySaveSettings(string path, IComponentSettings settings)
+    public bool TrySaveSettings(string path, T settings)
     {
-        using (FileStream stream = File.Open(path, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None))
+        using (FileStream stream = File.Open(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
         {
-            Result result = _tomlSerializer.Serialize(stream, settings);
-
-            if (result.IsSuccess)
+            try
             {
+                _dataSerializer.Serialize(stream, settings);
+
                 return true;
             }
+            catch (Exception e)
+            {
+                _logger.Error(e, "Could not save settings to file {Path}", path);
 
-            _logger.Warn("Could not write settings to path {Path} :: Any setting changes between last write to now will be lost.", path);
-
-            return false;
+                return false;
+            }
         }
     }
 }

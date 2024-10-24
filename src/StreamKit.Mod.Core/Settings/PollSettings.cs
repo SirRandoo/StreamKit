@@ -21,8 +21,8 @@
 // SOFTWARE.
 
 using System;
+using System.Text.Json.Serialization;
 using StreamKit.Mod.Api;
-using StreamKit.Mod.Api.Attributes;
 
 namespace StreamKit.Mod.Core.Settings;
 
@@ -87,5 +87,6 @@ public class PollSettings : IComponentSettings
     public bool OptionsInChat { get; set; } = true;
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public int Version { get; set; } = LatestVersion;
 }

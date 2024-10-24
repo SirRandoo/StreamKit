@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Runtime properties -->
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
+
+    <!-- NuGet properties -->
+    <PropertyGroup>
+        <Description>Houses UX code for "StreamKit," a mod for the game "RimWorld."</Description>
+    </PropertyGroup>
+
+    <!-- Package references -->
+    <ItemGroup>
+        <PackageReference Include="PolySharp" />
+        <PackageReference Include="Lib.Harmony" />
+        <PackageReference Include="Krafs.RimWorld.Ref" />
+        <PackageReference Include="NetEscapades.EnumGenerators" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\StreamKit.Shared\StreamKit.Shared.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Drawers\TableDrawer.Builder.cs">
+        <DependentUpon>TableDrawer.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+</Project>

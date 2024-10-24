@@ -14,7 +14,8 @@ from typing import Final
 HARMONY_MOD_ID: Final[str] = "brrainz.harmony"
 UX_MOD_ID: Final[str] = "com.sirrandoo.ux"
 
-PROVIDED_ASSEMBLIES: Final[set[str]] = {"SirRandoo.UX", "0Harmony", "NLog"}
+KNOWN_LIBRARIES: Final[set[str]] = {"SirRandoo.UX"}
+PROVIDED_ASSEMBLIES: Final[set[str]] = {"0Harmony", "NLog"}
 FILTERED_ASSEMBLIES: Final[set[str]] = {
     "NetEscapades.EnumGenerators.Attributes",
 }
@@ -111,6 +112,9 @@ def condense():
             for assembly in game_version.joinpath("Assemblies").iterdir():
                 stem: str = assembly.stem
 
+                if assembly.suffix == ".pdb":
+                    continue
+
                 if stem in PROVIDED_ASSEMBLIES:
                     assembly.unlink(missing_ok=True)
                     assembly.with_suffix(".pdb").unlink(missing_ok=True)
@@ -122,6 +126,45 @@ def condense():
                 if stem.casefold().startswith("StreamKit.Mod.Shared".casefold()):
                     assembly.unlink(missing_ok=True)
                     assembly.with_suffix(".pdb").unlink(missing_ok=True)
+
+                if stem in KNOWN_LIBRARIES:
+                    click.echo(
+                        f"  Located common library {assembly.name} in {assembly.parent}"
+                    )
+
+                    if common_libraries_path.joinpath(assembly.name).exists():
+                        click.echo("    Removing potentially stale binary...", nl=False)
+                        common_libraries_path.joinpath(assembly.name).unlink(
+                            missing_ok=True
+                        )
+                        click.echo("Done!")
+
+                    click.echo(
+                        f"    Moving to common directory {common_libraries_path} ...",
+                        nl=False,
+                    )
+                    shutil.move(assembly, common_libraries_path)
+                    click.echo("Done!")
+
+                    pdb_file = assembly.with_suffix(".pdb")
+
+                    if pdb_file.exists():
+                        if common_libraries_path.joinpath(pdb_file.name).exists():
+                            click.echo(
+                                "    Deleting potentially stale pdb file...", nl=False
+                            )
+                            common_libraries_path.joinpath(pdb_file.name).unlink(
+                                missing_ok=True
+                            )
+                            click.echo("Done!")
+
+                        click.echo(
+                            f"    Moving pdb file for {assembly.name} ...", nl=False
+                        )
+                        shutil.move(pdb_file, common_libraries_path)
+                        click.echo("Done!")
+
+                    continue
 
                 if stem in common_resources:
                     click.echo(
@@ -150,7 +193,7 @@ def condense():
                             shutil.move(pdb_file, common_libraries_path)
                             click.echo("Done!")
                         else:
-                            click.echo("    Deleted duplicate pdb file...")
+                            click.echo("    Deleted duplicate pdb file...", nl=False)
                             pdb_file.unlink()
                             click.echo("Done!")
 

@@ -25,7 +25,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
 using ConcurrentCollections;
-using Remora.Results;
+using JetBrains.Annotations;
+using NLog;
+using StreamKit.Mod.Shared.Logging;
 
 namespace StreamKit.Mod.Api;
 
@@ -42,9 +44,11 @@ namespace StreamKit.Mod.Api;
 ///     only apply to the current instance of the file worker, and do not lock the file for other file
 ///     workers, external programs, or the operating system.
 /// </remarks>
+[PublicAPI]
 public class PersistableFileWorker<T>(string persistableId, IDataSerializer dataSerializer)
 {
     private readonly ConcurrentHashSet<string> _blockedFiles = [];
+    private readonly Logger _logger = KitLogManager.GetLogger<PersistableFileWorker<T>>();
 
     /// <summary>A unique id used to identify the data operations being performed.</summary>
     public string PersistableId { get; init; } = persistableId;
@@ -60,7 +64,7 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     ///     When a file worker encounters a problem loading data from disk, the file worker will forbid
     ///     itself from writing data to the file on disk to prevent data loss.
     /// </remarks>
-    public bool IsSavingBlocked(string path) => _blockedFiles.Contains(path);
+    public bool IsSavingBlocked(string path) => _blockedFiles.Contains(Path.GetFullPath(path));
 
     /// <summary>
     ///     Blocks a given path from being written to on disk by the file worker.
@@ -71,38 +75,35 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     ///     When a file worker encounters a problems loading data from disk, the file worker will forbid
     ///     itself from writing data to a file on disk to prevent data loss.
     /// </remarks>
-    public bool BlockSaving(string path) => _blockedFiles.Add(path);
+    public bool BlockSaving(string path) => _blockedFiles.Add(Path.GetFullPath(path));
 
     /// <summary>
     ///     Loads and deserializes the contents of the file at the given path.
     /// </summary>
     /// <param name="path">The path to a file on disk to load data from.</param>
-    public Result<T> Load(string path)
+    public T? Load(string path)
     {
         if (!File.Exists(path))
         {
-            return new NotFoundError($"The file at {path} was not found.");
+            _logger.Warn("File not found: {Path}", path);
+
+            return default;
         }
 
         try
         {
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan))
             {
-                Result<T> content = DataSerializer.Deserialize<T>(stream);
-
-                if (!content.IsSuccess)
-                {
-                    BlockSaving(path);
-                }
-
-                return content;
+                return DataSerializer.Deserialize<T>(stream);
             }
         }
         catch (Exception e)
         {
+            _logger.Error(e, "Could not load file from disk @ {FilePath} ; further save attempts will be blocked", path);
+
             BlockSaving(path);
 
-            return new ExceptionError(e, $"Could not load file at {path}.");
+            return default;
         }
     }
 
@@ -110,32 +111,29 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     ///     Loads and deserializes the contents of the file at the given path.
     /// </summary>
     /// <param name="path">The path to a file on disk to load data from.</param>
-    public async Task<Result<T>> LoadAsync(string path)
+    public async Task<T?> LoadAsync(string path)
     {
         if (!File.Exists(path))
         {
-            return new NotFoundError($"The file at {path} was not found.");
+            _logger.Warn("File not found: {Path}", path);
+
+            return default;
         }
 
         try
         {
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan | FileOptions.Asynchronous))
             {
-                Result<T> content = await DataSerializer.DeserializeAsync<T>(stream);
-
-                if (!content.IsSuccess)
-                {
-                    BlockSaving(path);
-                }
-
-                return content;
+                return await DataSerializer.DeserializeAsync<T>(stream);
             }
         }
         catch (Exception e)
         {
+            _logger.Error(e, "Could not load file from disk @ {FilePath}", path);
+
             BlockSaving(path);
 
-            return new ExceptionError(e, $"Could not load file at {path}.");
+            return default;
         }
     }
 
@@ -144,37 +142,32 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     /// </summary>
     /// <param name="path">The path to a file on disk to save data to.</param>
     /// <param name="data">The data to save to disk.</param>
-    public Result Save(string path, [DisallowNull] T data)
+    public void Save(string path, [DisallowNull] T data)
     {
         if (IsSavingBlocked(path))
         {
-            return new InvalidOperationError();
+            _logger.Warn("Save attempts are blocked on the file {Path}", path);
+
+            return;
         }
 
-        Result<string> tempFileResult = GetTemporaryFile(path);
+        string? tempFileResult = GetTemporaryFile(path);
 
-        if (!tempFileResult.IsSuccess)
+        if (string.IsNullOrEmpty(tempFileResult))
         {
-            return Result.FromError(tempFileResult);
+            return;
         }
 
         try
         {
-            using (var stream = new FileStream(tempFileResult.Entity, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 4096, FileOptions.SequentialScan))
+            using (var stream = new FileStream(tempFileResult, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read, 4096, FileOptions.SequentialScan))
             {
-                Result result = DataSerializer.Serialize(stream, data);
-
-                if (!result.IsSuccess)
-                {
-                    BlockSaving(path);
-                }
-
-                return result;
+                DataSerializer.Serialize(stream, data);
             }
         }
         catch (Exception e)
         {
-            return new ExceptionError(e, $"Could not save file at {path}.");
+            _logger.Error(e, "Could not save file to disk @ {FilePath}", path);
         }
     }
 
@@ -183,24 +176,24 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
     /// </summary>
     /// <param name="path">The path to a file on disk to save data to.</param>
     /// <param name="data">The data to save to disk.</param>
-    public async Task<Result> SaveAsync(string path, [DisallowNull] T data)
+    public async Task SaveAsync(string path, [DisallowNull] T data)
     {
         if (IsSavingBlocked(path))
         {
-            return new InvalidOperationError();
+            _logger.Warn("Save attempts are blocked on the file {Path}", path);
         }
 
-        Result<string> tempFileResult = GetTemporaryFile(path);
+        string? tempFileResult = GetTemporaryFile(path);
 
-        if (!tempFileResult.IsSuccess)
+        if (string.IsNullOrEmpty(tempFileResult))
         {
-            return Result.FromError(tempFileResult);
+            return;
         }
 
         try
         {
             using (var stream = new FileStream(
-                tempFileResult.Entity,
+                tempFileResult,
                 FileMode.OpenOrCreate,
                 FileAccess.Write,
                 FileShare.Read,
@@ -208,29 +201,24 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
                 FileOptions.SequentialScan | FileOptions.Asynchronous
             ))
             {
-                Result result = await DataSerializer.SerializeAsync(stream, data);
-
-                if (!result.IsSuccess)
-                {
-                    BlockSaving(path);
-                }
-
-                return result;
+                await DataSerializer.SerializeAsync(stream, data);
             }
         }
         catch (Exception e)
         {
-            return new ExceptionError(e, $"Could not load file at {path}.");
+            _logger.Error(e, "Could not load file at path {Path}", path);
         }
     }
 
-    private static Result<string> GetTemporaryFile(string originalFilePath)
+    private string? GetTemporaryFile(string originalFilePath)
     {
         string? directory = Path.GetDirectoryName(originalFilePath);
 
         if (string.IsNullOrEmpty(directory))
         {
-            return new InvalidOperationError("The path specified does not reside in a directory.");
+            _logger.Warn("The path specified doesn't reside in a directory ({Path})", originalFilePath);
+
+            return null;
         }
 
         string tempFileName = Path.GetRandomFileName();
@@ -238,11 +226,11 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
         return Path.Combine(directory, tempFileName);
     }
 
-    private static Result ReplaceFile(string targetFile, string replacementFile)
+    private void ReplaceFile(string targetFile, string replacementFile)
     {
         if (!File.Exists(replacementFile))
         {
-            return new NotFoundError($"The file at {replacementFile} does not exist.");
+            _logger.Error("The file at {Path} does not exist", replacementFile);
         }
 
         string fileExtension = Path.GetExtension(targetFile);
@@ -251,12 +239,10 @@ public class PersistableFileWorker<T>(string persistableId, IDataSerializer data
         try
         {
             File.Replace(replacementFile, targetFile, backupFilePath);
-
-            return Result.Success;
         }
         catch (Exception e)
         {
-            return new ExceptionError(e, $"Could not replace file {targetFile} with {replacementFile}");
+            _logger.Error(e, "Could not replace file {Target} with {Replacement}", targetFile, replacementFile);
         }
     }
 }

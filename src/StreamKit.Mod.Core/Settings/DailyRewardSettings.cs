@@ -21,13 +21,29 @@
 // SOFTWARE.
 
 using System;
-using StreamKit.Common.Data.Abstractions;
+using System.Text.Json.Serialization;
 using StreamKit.Mod.Api;
 using StreamKit.Mod.Api.Attributes;
+using StreamKit.Shared;
+using StreamKit.Shared.Interfaces;
 
 namespace StreamKit.Mod.Core.Settings;
 
-public enum DailyRewardType { [Label("Mystery box")] MysteryBox, [Label("Points")] FixedPoints }
+/// <summary>
+///     Represents the different types of rewards viewers may receive on a daily basis.
+/// </summary>
+public enum DailyRewardType
+{
+    /// <summary>
+    ///     Represents a box that may contain anything from an internal loot table.
+    /// </summary>
+    MysteryBox,
+
+    /// <summary>
+    ///     Represents a fixed amount of points the viewer may receive.
+    /// </summary>
+    FixedPoints
+}
 
 public abstract class DailyRewardSettings : IComponentSettings
 {
@@ -42,7 +58,7 @@ public abstract class DailyRewardSettings : IComponentSettings
     /// </summary>
     /// <remarks>
     ///     Systems that use this property should consider this the "consideration likelihood," as opposed
-    ///     to the likelihood they're receive the award, since rewards may have requirements viewers must
+    ///     to the likelihood they'll receive the award, since rewards may have requirements viewers must
     ///     meet.
     /// </remarks>
     [Experimental]
@@ -96,6 +112,7 @@ public abstract class DailyRewardSettings : IComponentSettings
     public UserRoles RequiredRoles { get; set; }
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public abstract int Version { get; set; }
 }
 
@@ -110,6 +127,7 @@ public class MysteryBoxDailyRewardSetting : DailyRewardSettings
     public IntRange Range { get; set; }
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public override int Version { get; set; } = LatestVersion;
 }
 
@@ -124,5 +142,6 @@ public class FixedPointsDailyRewardSetting : DailyRewardSettings
     public int Points { get; set; }
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public override int Version { get; set; } = LatestVersion;
 }

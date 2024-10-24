@@ -23,11 +23,11 @@
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using SirRandoo.UX;
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Helpers;
 using StreamKit.Mod.Api;
 using StreamKit.Mod.Api.Attributes;
+using StreamKit.UX;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 using DescriptionAttribute = StreamKit.Mod.Api.Attributes.DescriptionAttribute;
@@ -82,7 +82,7 @@ internal class RuntimeFlagWindow : Window
             LabelDrawer.DrawLabel(labelRegion, flag.Flag);
 
             GUI.DrawTexture(
-                LayoutHelper.IconRect(checkboxRegion.x, checkboxRegion.y, checkboxRegion.width, checkboxRegion.height),
+                RectExtensions.IconRect(checkboxRegion.x, checkboxRegion.y, checkboxRegion.width, checkboxRegion.height),
                 flagState ? Widgets.CheckboxOnTex : Widgets.CheckboxOffTex
             );
 

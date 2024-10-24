@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Text.Json.Serialization;
 using StreamKit.Mod.Api;
-using StreamKit.Mod.Api.Attributes;
 
 namespace StreamKit.Mod.Core.Settings;
 
@@ -44,5 +44,6 @@ public class PointTierSettings : IComponentSettings
     public const int LatestVersion = 1;
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public int Version { get; set; } = LatestVersion;
 }

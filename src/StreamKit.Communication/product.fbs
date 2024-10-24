@@ -1,0 +1,40 @@
+﻿namespace StreamKit.Server.Data;
+
+attribute "fs_serializer";
+attribute "fs_valueStruct";
+
+enum Morality {
+  SuperBad, ReallyBad, VeryBad, Bad, Neutral, VeryGood, ReallyGood, SuperGood
+}
+
+/// A struct containing identifying information for products.
+/// This struct solely contains a "mod" and "def_name" field which are used to
+/// identify a product, and the mod it originated from. Together, these form a
+/// "composite" key that's used to identify which products a viewer wishes to
+/// purchase.
+struct ProductId (fs_valueStruct) {
+  /// The package id of the mod the product originated from.
+  mod:string;
+
+  /// The def name of the product that originated from the mod.
+  def_name:string;
+}
+
+/// A table representing a product within the mod.
+table Product (fs_serializer) {
+  /// The unique composite id of the product.
+  id:ProductId;
+
+  /// The human readable name of the product.
+  name:string;
+
+  /// Whether viewers can currently purchase the product.
+  purchasable:bool = true;
+
+  /// The amount of points a viewer must spend in order to purchase this
+  /// this product.
+  cost:int;
+
+  /// Indicates how purchasing the product would affect the purchaser's morals.
+  morality:Morality;
+}

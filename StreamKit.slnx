@@ -1,0 +1,24 @@
+﻿<Solution>
+  <Folder Name="/Mod/">
+    <Project Path="src\StreamKit.Mod.Api.Async\StreamKit.Mod.Api.Async.csproj" Type="Classic C#" />
+    <Project Path="src\StreamKit.Mod.Api\StreamKit.Mod.Api.csproj" Type="Classic C#" />
+    <Project Path="src\StreamKit.Mod.Bootstrap\StreamKit.Mod.Bootstrap.csproj" Type="Classic C#" />
+    <Project Path="src\StreamKit.Mod.Core\StreamKit.Mod.Core.csproj" Type="Classic C#" />
+    <Project Path="src\StreamKit.Mod.Shared\StreamKit.Mod.Shared.csproj" Type="Classic C#" />
+    <File Path="Corpus.xml" />
+  </Folder>
+  <Folder Name="/Plugins/">
+    <Project Path="src\StreamKit.Plugins.Twitch\StreamKit.Plugins.Twitch.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/Resources/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="src\StreamKit.Communication\StreamKit.Communication.csproj" Type="Classic C#" />
+  <Project Path="src\StreamKit.Mod.Orchestration\StreamKit.Mod.Orchestration.csproj" Type="Classic C#" />
+  <Project Path="src\StreamKit.Mod\StreamKit.Mod.csproj" Type="Classic C#" />
+  <Project Path="src\StreamKit.Shared\StreamKit.Shared.csproj" Type="Classic C#" />
+  <Project Path="src\StreamKit.UX\StreamKit.UX.csproj" Type="Classic C#" />
+  <Project Path="src\StreamKit.WebApp\StreamKit.WebApp.csproj" Type="Classic C#" />
+</Solution>

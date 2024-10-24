@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Text.Json.Serialization;
 using StreamKit.Mod.Api;
 
 namespace StreamKit.Mod.Core.Settings;
@@ -54,5 +55,6 @@ public class CommandSettings : IComponentSettings
     public bool UseEmojis { get; set; } = true;
 
     /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
     public int Version { get; set; } = LatestVersion;
 }

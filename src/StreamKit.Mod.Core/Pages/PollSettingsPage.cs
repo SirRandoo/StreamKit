@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Extensions;
-using SirRandoo.UX.Helpers;
-using StreamKit.Mod.Api;
 using StreamKit.Mod.Core.Settings;
+using StreamKit.Shared;
+using StreamKit.Shared.Extensions;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 
@@ -46,8 +46,8 @@ public class PollSettingsPage : SettingsPage
 
     public PollSettingsPage()
     {
-        _durationTimeUnit = GetLongestTimePeriod(_settings.Duration);
-        _durationBuffer = StringifyTimeSpan(_settings.Duration, _durationTimeUnit);
+        _durationTimeUnit = _settings.Duration.GetLongestTimePeriod();
+        _durationBuffer = _settings.Duration.ToString(_durationTimeUnit);
         _durationBufferValid = true;
 
         _maximumOptionsBuffer = _settings.MaximumOptions.ToString("N0");
@@ -89,7 +89,7 @@ public class PollSettingsPage : SettingsPage
 
         float dropdownWidth = fieldRegion.width * 0.55f;
         var dropdownRegion = new Rect(fieldRegion.x + fieldRegion.width - dropdownWidth, fieldRegion.y, dropdownWidth, fieldRegion.height);
-        fieldRegion.SetWidth(fieldRegion.width - dropdownWidth - 4f);
+        fieldRegion.width = fieldRegion.width - dropdownWidth - 4f;
 
         if (FieldDrawer.DrawNumberField(fieldRegion, out double value, ref _durationBuffer!, ref _durationBufferValid))
         {
@@ -125,7 +125,7 @@ public class PollSettingsPage : SettingsPage
     private void DrawPreferNativePollsSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
         IconDrawer.DrawExperimentalIconCutout(ref labelRegion);
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.NativePolls);
@@ -139,7 +139,7 @@ public class PollSettingsPage : SettingsPage
     private void DrawPollDialogSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.ShowPollDialog);
         listing.DrawDescription(KitTranslations.ShowPollDialogDescription);
@@ -152,7 +152,7 @@ public class PollSettingsPage : SettingsPage
     private void DrawLargeTextSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.LargePollText);
 
@@ -166,7 +166,7 @@ public class PollSettingsPage : SettingsPage
     private void DrawAnimateVotesSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.AnimatedPollVotes);
         listing.DrawDescription(KitTranslations.AnimatedPollVotesDescription);
@@ -179,7 +179,7 @@ public class PollSettingsPage : SettingsPage
     private void DrawRandomPollsSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.GenerateRandomPolls);
         listing.DrawDescription(KitTranslations.GenerateRandomPollsDescriptions);
@@ -192,7 +192,7 @@ public class PollSettingsPage : SettingsPage
     private void DrawOptionsInChatSetting(Listing listing)
     {
         (Rect labelRegion, Rect fieldRegion) = listing.Split();
-        LayoutHelper.TrimToIconRect(ref fieldRegion);
+        fieldRegion = fieldRegion.TrimToIconRect();
 
         LabelDrawer.DrawLabel(labelRegion, KitTranslations.PollOptionsInChat);
         listing.DrawDescription(KitTranslations.PollOptionsInChatDescription);

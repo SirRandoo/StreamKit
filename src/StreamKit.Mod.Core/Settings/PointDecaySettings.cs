@@ -21,9 +21,10 @@
 // SOFTWARE.
 
 using System;
-using StreamKit.Common.Data.Abstractions;
+using System.Text.Json.Serialization;
 using StreamKit.Mod.Api;
 using StreamKit.Mod.Api.Attributes;
+using StreamKit.Shared.Interfaces;
 
 namespace StreamKit.Mod.Core.Settings;
 
@@ -71,11 +72,12 @@ public class PointDecaySettings : IIdentifiable, IComponentSettings
     public int FixedAmount { get; set; }
 
     /// <inheritdoc />
-    public int Version { get; set; } = LatestVersion;
-
-    /// <inheritdoc />
     public string Id { get; set; } = Guid.NewGuid().ToString();
 
     /// <inheritdoc />
-    public string Name { get; set; } = "My new setting";
+    public string Name { get; set; } = "My new decay settings";
+
+    /// <inheritdoc />
+    [JsonPropertyName("_VERSION")]
+    public int Version { get; set; } = LatestVersion;
 }

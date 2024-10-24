@@ -26,18 +26,17 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using HarmonyLib;
 using RimWorld;
-using SirRandoo.UX;
-using SirRandoo.UX.Drawers;
-using SirRandoo.UX.Extensions;
-using SirRandoo.UX.Helpers;
-using StreamKit.Common.Data.Abstractions;
 using StreamKit.Mod.Api;
 using StreamKit.Mod.Core.Dialogs;
 using StreamKit.Mod.Shared.Logging;
+using StreamKit.Shared.Interfaces;
+using StreamKit.UX;
+using StreamKit.UX.Drawers;
+using StreamKit.UX.Extensions;
 using UnityEngine;
 using Verse;
 using DropdownDrawer = StreamKit.Mod.Core.UX.DropdownDrawer;
-using IIdentifiable = StreamKit.Common.Data.Abstractions.IIdentifiable;
+using IIdentifiable = StreamKit.Shared.Interfaces.IIdentifiable;
 using Logger = NLog.Logger;
 
 namespace StreamKit.Mod.Core.Windows;
@@ -89,7 +88,6 @@ public class LedgerWindow : Window
     {
         var ledgerListRegion = new Rect(0f, 0f, inRect.width * 0.4f, inRect.height);
         var headerRegion = new Rect(ledgerListRegion.width + 10f, 0f, inRect.width - ledgerListRegion.width - 10f, UiConstants.LineHeight);
-
         var contentRegion = new Rect(headerRegion.x, headerRegion.height + 10f, headerRegion.width, ledgerListRegion.height - headerRegion.height - 10f);
 
         GUI.BeginGroup(inRect);
@@ -166,13 +164,7 @@ public class LedgerWindow : Window
             // TODO: Draw viewer's platform icon when platforms are implemented.
             LabelDrawer.DrawLabel(lineRegion, viewer.Name);
 
-#if RW_14
-            Texture2D deleteBtnTexture = TexButton.DeleteX;
-#else
-            Texture2D deleteBtnTexture = TexButton.Delete;
-#endif
-
-            if (ButtonDrawer.DrawFieldButton(lineRegion, deleteBtnTexture, KitTranslations.DeleteViewerTooltip))
+            if (ButtonDrawer.DrawFieldButton(lineRegion, TexButton.Delete, KitTranslations.DeleteViewerTooltip))
             {
                 _ledger!.Data.Unregister(viewer);
 
@@ -218,14 +210,14 @@ public class LedgerWindow : Window
 
         DrawUsernameField(lineRegion);
 
-        lineRegion = LayoutHelper.Shift(lineRegion, Direction8Way.South);
+        lineRegion = RectExtensions.Shift(lineRegion, Direction8Way.South);
         DrawBalanceField(lineRegion);
 
-        lineRegion = LayoutHelper.Shift(lineRegion, Direction8Way.South);
+        lineRegion = RectExtensions.Shift(lineRegion, Direction8Way.South);
         DrawKarmaField(lineRegion);
 
 
-        lineRegion = LayoutHelper.Shift(lineRegion, Direction8Way.South);
+        lineRegion = RectExtensions.Shift(lineRegion, Direction8Way.South);
         (Rect _, Rect transactionsBtnRegion) = lineRegion.Split(RowSplitPercentage);
 
         if (Widgets.ButtonText(transactionsBtnRegion, KitTranslations.ViewTransactionsText, overrideTextAnchor: TextAnchor.MiddleCenter))
@@ -256,10 +248,8 @@ public class LedgerWindow : Window
         Text.Font = GameFont.Medium;
 
         if (Widgets.ButtonText(addBtnRegion, "+", overrideTextAnchor: TextAnchor.MiddleCenter))
-
-            // TODO: Revise the "maximum karma" formula when mod settings are implement.
         {
-            var dialog = new ShortEntryDialog(maximum: (short)(short.MaxValue - _viewer!.Karma));
+            var dialog = new ShortEntryDialog(maximum: (short)(ModKit.Instance.Settings.Morality.KarmaRange.Minimum - _viewer!.Karma));
             dialog.NumberEntered += (_, e) => _viewer.Karma += e;
 
             Find.WindowStack.Add(dialog);
@@ -268,10 +258,8 @@ public class LedgerWindow : Window
         TooltipHandler.TipRegion(addBtnRegion, KitTranslations.AddViewerKarmaTooltip);
 
         if (Widgets.ButtonText(rmvBtnRegion, "-", overrideTextAnchor: TextAnchor.MiddleCenter))
-
-            // TODO: Revise the "maximum karma" formula when mod settings are implement.
         {
-            var dialog = new ShortEntryDialog((short)(short.MinValue + _viewer!.Karma), 0);
+            var dialog = new ShortEntryDialog((short)(ModKit.Instance.Settings.Morality.KarmaRange.Maximum + _viewer!.Karma), 0);
             dialog.NumberEntered += (_, e) => _viewer.Karma -= e;
 
             Find.WindowStack.Add(dialog);
@@ -340,11 +328,11 @@ public class LedgerWindow : Window
     {
         if (string.IsNullOrEmpty(_searchWidget.filter.Text))
         {
-            _workingList = new ReadOnlyCollection<IUser>(ViewerList!.Data.AllRegistrants);
+            _workingList = ViewerList!.Data.AllRegistrants;
         }
 
         var copy = new List<IUser>();
-        IList<IUser> registrants = ViewerList!.Data.AllRegistrants;
+        IReadOnlyList<IUser> registrants = ViewerList!.Data.AllRegistrants;
 
 
         for (var index = 0; index < registrants.Count; index++)
@@ -407,7 +395,7 @@ public class LedgerWindow : Window
 
         if (ViewerList is not null)
         {
-            _workingList = new ReadOnlyCollection<IUser>(ViewerList.Data.AllRegistrants);
+            _workingList = ViewerList.Data.AllRegistrants;
 
             return;
         }

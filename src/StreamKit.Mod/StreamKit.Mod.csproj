@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Runtime properties -->
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
+
+    <!-- NuGet properties -->
+    <PropertyGroup>
+        <Description>Houses the Unity implementation for "StreamKit," a mod for the game "RimWorld."</Description>
+    </PropertyGroup>
+</Project>

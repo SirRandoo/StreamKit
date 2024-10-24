@@ -22,9 +22,8 @@
 
 using System;
 using JetBrains.Annotations;
-using SirRandoo.UX;
-using SirRandoo.UX.Drawers;
-using StreamKit.Mod.Api;
+using StreamKit.UX;
+using StreamKit.UX.Drawers;
 using UnityEngine;
 using Verse;
 
@@ -33,8 +32,6 @@ namespace StreamKit.Mod.Core.Dialogs;
 [PublicAPI]
 public abstract class NumberEntryDialog<T> : Window where T : struct, IComparable
 {
-    public event EventHandler<T> NumberEntered;
-
     private readonly T _maximum;
     private readonly T _minimum;
 
@@ -55,6 +52,8 @@ public abstract class NumberEntryDialog<T> : Window where T : struct, IComparabl
 
     /// <inheritdoc />
     public override Vector2 InitialSize => new(300, 140);
+
+    public event EventHandler<T> NumberEntered = null!;
 
     /// <inheritdoc />
     public override void DoWindowContents(Rect inRect)
@@ -183,18 +182,10 @@ public abstract class NumberEntryDialog<T> : Window where T : struct, IComparabl
     protected abstract string FormatNumber(T value);
     protected abstract bool TryParseNumber(string value, out T number);
 
-    private enum BufferValidityCode { None, TooHigh, TooLow, NaN }
-
     protected virtual void OnNumberEntered(T value)
     {
         NumberEntered?.Invoke(this, value);
     }
-}
 
-public sealed class NumberEnterEventArgs<T>(T value) : EventArgs
-{
-    /// <summary>
-    ///     The new value that was supplied by the user.
-    /// </summary>
-    public T Value { get; } = value;
+    private enum BufferValidityCode { None, TooHigh, TooLow, NaN }
 }
